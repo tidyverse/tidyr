@@ -96,11 +96,11 @@ to their common size.</p></dd>
 
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
 <dd><p><a href="https://lifecycle.r-lib.org/articles/stages.html#deprecated" class="external-link"><img src="figures/lifecycle-deprecated.svg" alt="[Deprecated]"></a>:
-previously you could write <code>df %&gt;% unnest(x, y, z)</code>.
-Convert to <code>df %&gt;% unnest(c(x, y, z))</code>. If you previously created a new
+previously you could write <code>df |&gt; unnest(x, y, z)</code>.
+Convert to <code>df |&gt; unnest(c(x, y, z))</code>. If you previously created a new
 variable in <code>unnest()</code> you'll now need to do it explicitly with <code>mutate()</code>.
-Convert <code>df %&gt;% unnest(y = fun(x, y, z))</code>
-to <code>df %&gt;% mutate(y = fun(x, y, z)) %&gt;% unnest(y)</code>.</p></dd>
+Convert <code>df |&gt; unnest(y = fun(x, y, z))</code>
+to <code>df |&gt; mutate(y = fun(x, y, z)) |&gt; unnest(y)</code>.</p></dd>
 
 
 <dt id="arg-keep-empty">keep_empty<a class="anchor" aria-label="anchor" href="#arg-keep-empty"></a></dt>
@@ -147,7 +147,7 @@ unnesting.</p></dd>
 
 <dt id="arg--id">.id<a class="anchor" aria-label="anchor" href="#arg--id"></a></dt>
 <dd><p><a href="https://lifecycle.r-lib.org/articles/stages.html#deprecated" class="external-link"><img src="figures/lifecycle-deprecated.svg" alt="[Deprecated]"></a>:
-convert <code>df %&gt;% unnest(x, .id = "id")</code> to <code>df %&gt;% mutate(id = names(x)) %&gt;% unnest(x))</code>.</p></dd>
+convert <code>df |&gt; unnest(x, .id = "id")</code> to <code>df |&gt; mutate(id = names(x)) |&gt; unnest(x))</code>.</p></dd>
 
 
 <dt id="arg--sep">.sep<a class="anchor" aria-label="anchor" href="#arg--sep"></a></dt>
@@ -189,7 +189,7 @@ behaviour using <code><a href="nest_legacy.html">nest_legacy()</a></code> and <c
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="co"># unnest() recycles input rows for each row of the list-column</span></span></span>
 <span class="r-in"><span><span class="co"># and adds a column for each column</span></span></span>
-<span class="r-in"><span><span class="va">df</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu">unnest</span><span class="op">(</span><span class="va">y</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">df</span> <span class="op">|&gt;</span> <span class="fu">unnest</span><span class="op">(</span><span class="va">y</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 4 × 4</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       x     a     b     c</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
@@ -200,7 +200,7 @@ behaviour using <code><a href="nest_legacy.html">nest_legacy()</a></code> and <c
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># input rows with 0 rows in the list-column will usually disappear,</span></span></span>
 <span class="r-in"><span><span class="co"># but you can keep them (generating NAs) with keep_empty = TRUE:</span></span></span>
-<span class="r-in"><span><span class="va">df</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu">unnest</span><span class="op">(</span><span class="va">y</span>, keep_empty <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">df</span> <span class="op">|&gt;</span> <span class="fu">unnest</span><span class="op">(</span><span class="va">y</span>, keep_empty <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 5 × 4</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       x     a     b     c</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
@@ -223,7 +223,7 @@ behaviour using <code><a href="nest_legacy.html">nest_legacy()</a></code> and <c
 <span class="r-in"><span>    <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span>c <span class="op">=</span> <span class="fl">3</span><span class="op">:</span><span class="fl">4</span>, d <span class="op">=</span> <span class="fl">5</span><span class="op">:</span><span class="fl">6</span><span class="op">)</span></span></span>
 <span class="r-in"><span>  <span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">df</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu">unnest</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">y</span>, <span class="va">z</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">df</span> <span class="op">|&gt;</span> <span class="fu">unnest</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">y</span>, <span class="va">z</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 3 × 5</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       x     a     b     c     d</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
@@ -233,8 +233,8 @@ behaviour using <code><a href="nest_legacy.html">nest_legacy()</a></code> and <c
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Compare with unnesting one column at a time, which generates</span></span></span>
 <span class="r-in"><span><span class="co"># the Cartesian product</span></span></span>
-<span class="r-in"><span><span class="va">df</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
-<span class="r-in"><span>  <span class="fu">unnest</span><span class="op">(</span><span class="va">y</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
+<span class="r-in"><span><span class="va">df</span> <span class="op">|&gt;</span></span></span>
+<span class="r-in"><span>  <span class="fu">unnest</span><span class="op">(</span><span class="va">y</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu">unnest</span><span class="op">(</span><span class="va">z</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 5 × 5</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       x     a     b     c     d</span>

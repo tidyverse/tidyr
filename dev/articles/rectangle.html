@@ -179,7 +179,7 @@ a column.</p>
 <code><a href="../reference/unnest_wider.html">unnest_wider()</a></code> takes every component and makes a new
 column:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">users</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="../reference/unnest_wider.html">unnest_wider</a></span><span class="op">(</span><span class="va">user</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">users</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/unnest_wider.html">unnest_wider</a></span><span class="op">(</span><span class="va">user</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 30</span></span></span>
 <span><span class="co">#&gt;   login          id avatar_url gravatar_id url   html_url followers_url</span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        </span></span>
@@ -201,7 +201,7 @@ them so we can instead use <code><a href="../reference/hoist.html">hoist()</a></
 allows us to pull out selected components using the same syntax as
 <code><a href="https://purrr.tidyverse.org/reference/pluck.html" class="external-link">purrr::pluck()</a></code>:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">users</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="../reference/hoist.html">hoist</a></span><span class="op">(</span><span class="va">user</span>,</span>
+<code class="sourceCode R"><span><span class="va">users</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/hoist.html">hoist</a></span><span class="op">(</span><span class="va">user</span>,</span>
 <span>  followers <span class="op">=</span> <span class="st">"followers"</span>,</span>
 <span>  login <span class="op">=</span> <span class="st">"login"</span>,</span>
 <span>  url <span class="op">=</span> <span class="st">"html_url"</span></span>
@@ -241,7 +241,7 @@ repositories that belong to that user. These are observations, so should
 become new rows, so we use <code><a href="../reference/unnest_longer.html">unnest_longer()</a></code> rather than
 <code><a href="../reference/unnest_wider.html">unnest_wider()</a></code>:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">repos</span> <span class="op">&lt;-</span> <span class="va">repos</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="../reference/unnest_longer.html">unnest_longer</a></span><span class="op">(</span><span class="va">repo</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">repos</span> <span class="op">&lt;-</span> <span class="va">repos</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/unnest_longer.html">unnest_longer</a></span><span class="op">(</span><span class="va">repo</span><span class="op">)</span></span>
 <span><span class="va">repos</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 176 × 1</span></span></span>
 <span><span class="co">#&gt;    repo             </span></span>
@@ -260,7 +260,7 @@ become new rows, so we use <code><a href="../reference/unnest_longer.html">unnes
 <p>Then we can use <code><a href="../reference/unnest_wider.html">unnest_wider()</a></code> or
 <code><a href="../reference/hoist.html">hoist()</a></code>:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">repos</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="../reference/hoist.html">hoist</a></span><span class="op">(</span><span class="va">repo</span>,</span>
+<code class="sourceCode R"><span><span class="va">repos</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/hoist.html">hoist</a></span><span class="op">(</span><span class="va">repo</span>,</span>
 <span>  login <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"owner"</span>, <span class="st">"login"</span><span class="op">)</span>,</span>
 <span>  name <span class="op">=</span> <span class="st">"name"</span>,</span>
 <span>  homepage <span class="op">=</span> <span class="st">"homepage"</span>,</span>
@@ -285,8 +285,8 @@ reach two levels deep inside of a list. An alternative approach would be
 to pull out just <code>owner</code> and then put each element of it in a
 column:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">repos</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="../reference/hoist.html">hoist</a></span><span class="op">(</span><span class="va">repo</span>, owner <span class="op">=</span> <span class="st">"owner"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<code class="sourceCode R"><span><span class="va">repos</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/hoist.html">hoist</a></span><span class="op">(</span><span class="va">repo</span>, owner <span class="op">=</span> <span class="st">"owner"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/unnest_wider.html">unnest_wider</a></span><span class="op">(</span><span class="va">owner</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 176 × 18</span></span></span>
 <span><span class="co">#&gt;    login         id avatar_url gravatar_id url   html_url followers_url</span></span>
@@ -334,7 +334,7 @@ component into a column:</p>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> <span style="color: #949494;">&lt;named list [18]&gt;</span></span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># ℹ 20 more rows</span></span></span>
 <span></span>
-<span><span class="va">chars2</span> <span class="op">&lt;-</span> <span class="va">chars</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="../reference/unnest_wider.html">unnest_wider</a></span><span class="op">(</span><span class="va">char</span><span class="op">)</span></span>
+<span><span class="va">chars2</span> <span class="op">&lt;-</span> <span class="va">chars</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/unnest_wider.html">unnest_wider</a></span><span class="op">(</span><span class="va">char</span><span class="op">)</span></span>
 <span><span class="va">chars2</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 30 × 18</span></span></span>
 <span><span class="co">#&gt;    url         id name  gender culture born  died  alive titles aliases</span></span>
@@ -357,7 +357,7 @@ component into a column:</p>
 component of <code>char</code> are themselves a list, giving us a
 collection of list-columns:</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">chars2</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select_all.html" class="external-link">select_if</a></span><span class="op">(</span><span class="va">is.list</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">chars2</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select_all.html" class="external-link">select_if</a></span><span class="op">(</span><span class="va">is.list</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 30 × 7</span></span></span>
 <span><span class="co">#&gt;    titles    aliases    allegiances books  povBooks  tvSeries  playedBy</span></span>
 <span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;list&gt;</span> <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>  </span></span>
@@ -376,9 +376,9 @@ collection of list-columns:</p>
 you want a row for every book and TV series that the character appears
 in:</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">chars2</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">name</span>, <span class="va">books</span>, <span class="va">tvSeries</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="../reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">books</span>, <span class="va">tvSeries</span><span class="op">)</span>, names_to <span class="op">=</span> <span class="st">"media"</span>, values_to <span class="op">=</span> <span class="st">"value"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<code class="sourceCode R"><span><span class="va">chars2</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">name</span>, <span class="va">books</span>, <span class="va">tvSeries</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">books</span>, <span class="va">tvSeries</span><span class="op">)</span>, names_to <span class="op">=</span> <span class="st">"media"</span>, values_to <span class="op">=</span> <span class="st">"value"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/unnest_longer.html">unnest_longer</a></span><span class="op">(</span><span class="va">value</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 179 × 3</span></span></span>
 <span><span class="co">#&gt;    name             media    value            </span></span>
@@ -397,8 +397,8 @@ in:</p>
 <p>Or maybe you want to build a table that lets you match title to
 name:</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">chars2</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">name</span>, title <span class="op">=</span> <span class="va">titles</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<code class="sourceCode R"><span><span class="va">chars2</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">name</span>, title <span class="op">=</span> <span class="va">titles</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/unnest_longer.html">unnest_longer</a></span><span class="op">(</span><span class="va">title</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 59 × 2</span></span></span>
 <span><span class="co">#&gt;    name              title                                             </span></span>
@@ -437,7 +437,7 @@ Google’s geocoding service, stored in the repurrrsive package</p>
 <p><code>json</code> is a list-column of named lists, so it makes sense
 to start with <code><a href="../reference/unnest_wider.html">unnest_wider()</a></code>:</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">repurrrsive</span><span class="fu">::</span><span class="va"><a href="https://jennybc.github.io/repurrrsive/reference/gmaps_cities.html" class="external-link">gmaps_cities</a></span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<code class="sourceCode R"><span><span class="fu">repurrrsive</span><span class="fu">::</span><span class="va"><a href="https://jennybc.github.io/repurrrsive/reference/gmaps_cities.html" class="external-link">gmaps_cities</a></span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/unnest_wider.html">unnest_wider</a></span><span class="op">(</span><span class="va">json</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 5 × 3</span></span></span>
 <span><span class="co">#&gt;   city       results    status</span></span>
@@ -452,8 +452,8 @@ cities have 1 element (representing a unique match from the geocoding
 API), but Washington and Arlington have two. We can pull these out into
 separate rows with <code><a href="../reference/unnest_longer.html">unnest_longer()</a></code>:</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">repurrrsive</span><span class="fu">::</span><span class="va"><a href="https://jennybc.github.io/repurrrsive/reference/gmaps_cities.html" class="external-link">gmaps_cities</a></span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="../reference/unnest_wider.html">unnest_wider</a></span><span class="op">(</span><span class="va">json</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<code class="sourceCode R"><span><span class="fu">repurrrsive</span><span class="fu">::</span><span class="va"><a href="https://jennybc.github.io/repurrrsive/reference/gmaps_cities.html" class="external-link">gmaps_cities</a></span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/unnest_wider.html">unnest_wider</a></span><span class="op">(</span><span class="va">json</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/unnest_longer.html">unnest_longer</a></span><span class="op">(</span><span class="va">results</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 7 × 3</span></span></span>
 <span><span class="co">#&gt;   city       results          status</span></span>
@@ -468,9 +468,9 @@ separate rows with <code><a href="../reference/unnest_longer.html">unnest_longer
 <p>Now these all have the same components, as revealed by
 <code><a href="../reference/unnest_wider.html">unnest_wider()</a></code>:</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">repurrrsive</span><span class="fu">::</span><span class="va"><a href="https://jennybc.github.io/repurrrsive/reference/gmaps_cities.html" class="external-link">gmaps_cities</a></span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="../reference/unnest_wider.html">unnest_wider</a></span><span class="op">(</span><span class="va">json</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="../reference/unnest_longer.html">unnest_longer</a></span><span class="op">(</span><span class="va">results</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<code class="sourceCode R"><span><span class="fu">repurrrsive</span><span class="fu">::</span><span class="va"><a href="https://jennybc.github.io/repurrrsive/reference/gmaps_cities.html" class="external-link">gmaps_cities</a></span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/unnest_wider.html">unnest_wider</a></span><span class="op">(</span><span class="va">json</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/unnest_longer.html">unnest_longer</a></span><span class="op">(</span><span class="va">results</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/unnest_wider.html">unnest_wider</a></span><span class="op">(</span><span class="va">results</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 7 × 7</span></span></span>
 <span><span class="co">#&gt;   city       address_components formatted_address geometry     place_id</span></span>
@@ -486,10 +486,10 @@ separate rows with <code><a href="../reference/unnest_longer.html">unnest_longer
 <p>We can find the latitude and longitude by unnesting
 <code>geometry</code>:</p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">repurrrsive</span><span class="fu">::</span><span class="va"><a href="https://jennybc.github.io/repurrrsive/reference/gmaps_cities.html" class="external-link">gmaps_cities</a></span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="../reference/unnest_wider.html">unnest_wider</a></span><span class="op">(</span><span class="va">json</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="../reference/unnest_longer.html">unnest_longer</a></span><span class="op">(</span><span class="va">results</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="../reference/unnest_wider.html">unnest_wider</a></span><span class="op">(</span><span class="va">results</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<code class="sourceCode R"><span><span class="fu">repurrrsive</span><span class="fu">::</span><span class="va"><a href="https://jennybc.github.io/repurrrsive/reference/gmaps_cities.html" class="external-link">gmaps_cities</a></span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/unnest_wider.html">unnest_wider</a></span><span class="op">(</span><span class="va">json</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/unnest_longer.html">unnest_longer</a></span><span class="op">(</span><span class="va">results</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/unnest_wider.html">unnest_wider</a></span><span class="op">(</span><span class="va">results</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/unnest_wider.html">unnest_wider</a></span><span class="op">(</span><span class="va">geometry</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 7 × 10</span></span></span>
 <span><span class="co">#&gt;   city   address_components formatted_address bounds       location    </span></span>
@@ -505,11 +505,11 @@ separate rows with <code><a href="../reference/unnest_longer.html">unnest_longer
 <span><span class="co">#&gt; <span style="color: #949494;">#   place_id &lt;chr&gt;, types &lt;list&gt;, status &lt;chr&gt;</span></span></span></code></pre></div>
 <p>And then location:</p>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">repurrrsive</span><span class="fu">::</span><span class="va"><a href="https://jennybc.github.io/repurrrsive/reference/gmaps_cities.html" class="external-link">gmaps_cities</a></span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="../reference/unnest_wider.html">unnest_wider</a></span><span class="op">(</span><span class="va">json</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="../reference/unnest_longer.html">unnest_longer</a></span><span class="op">(</span><span class="va">results</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="../reference/unnest_wider.html">unnest_wider</a></span><span class="op">(</span><span class="va">results</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="../reference/unnest_wider.html">unnest_wider</a></span><span class="op">(</span><span class="va">geometry</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<code class="sourceCode R"><span><span class="fu">repurrrsive</span><span class="fu">::</span><span class="va"><a href="https://jennybc.github.io/repurrrsive/reference/gmaps_cities.html" class="external-link">gmaps_cities</a></span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/unnest_wider.html">unnest_wider</a></span><span class="op">(</span><span class="va">json</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/unnest_longer.html">unnest_longer</a></span><span class="op">(</span><span class="va">results</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/unnest_wider.html">unnest_wider</a></span><span class="op">(</span><span class="va">results</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/unnest_wider.html">unnest_wider</a></span><span class="op">(</span><span class="va">geometry</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/unnest_wider.html">unnest_wider</a></span><span class="op">(</span><span class="va">location</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 7 × 11</span></span></span>
 <span><span class="co">#&gt;   city   address_components formatted_address bounds         lat    lng</span></span>
@@ -525,11 +525,11 @@ separate rows with <code><a href="../reference/unnest_longer.html">unnest_longer
 <span><span class="co">#&gt; <span style="color: #949494;">#   place_id &lt;chr&gt;, types &lt;list&gt;, status &lt;chr&gt;</span></span></span></code></pre></div>
 <p>We could also just look at the first address for each city:</p>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">repurrrsive</span><span class="fu">::</span><span class="va"><a href="https://jennybc.github.io/repurrrsive/reference/gmaps_cities.html" class="external-link">gmaps_cities</a></span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="../reference/unnest_wider.html">unnest_wider</a></span><span class="op">(</span><span class="va">json</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="../reference/hoist.html">hoist</a></span><span class="op">(</span><span class="va">results</span>, first_result <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="../reference/unnest_wider.html">unnest_wider</a></span><span class="op">(</span><span class="va">first_result</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="../reference/unnest_wider.html">unnest_wider</a></span><span class="op">(</span><span class="va">geometry</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<code class="sourceCode R"><span><span class="fu">repurrrsive</span><span class="fu">::</span><span class="va"><a href="https://jennybc.github.io/repurrrsive/reference/gmaps_cities.html" class="external-link">gmaps_cities</a></span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/unnest_wider.html">unnest_wider</a></span><span class="op">(</span><span class="va">json</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/hoist.html">hoist</a></span><span class="op">(</span><span class="va">results</span>, first_result <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/unnest_wider.html">unnest_wider</a></span><span class="op">(</span><span class="va">first_result</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/unnest_wider.html">unnest_wider</a></span><span class="op">(</span><span class="va">geometry</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/unnest_wider.html">unnest_wider</a></span><span class="op">(</span><span class="va">location</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 5 × 12</span></span></span>
 <span><span class="co">#&gt;   city   address_components formatted_address bounds         lat    lng</span></span>
@@ -544,7 +544,7 @@ separate rows with <code><a href="../reference/unnest_longer.html">unnest_longer
 <p>Or use <code><a href="../reference/hoist.html">hoist()</a></code> to dive deeply to get directly to
 <code>lat</code> and <code>lng</code>:</p>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">repurrrsive</span><span class="fu">::</span><span class="va"><a href="https://jennybc.github.io/repurrrsive/reference/gmaps_cities.html" class="external-link">gmaps_cities</a></span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<code class="sourceCode R"><span><span class="fu">repurrrsive</span><span class="fu">::</span><span class="va"><a href="https://jennybc.github.io/repurrrsive/reference/gmaps_cities.html" class="external-link">gmaps_cities</a></span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/hoist.html">hoist</a></span><span class="op">(</span><span class="va">json</span>,</span>
 <span>    lat <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"results"</span>, <span class="fl">1</span>, <span class="st">"geometry"</span>, <span class="st">"location"</span>, <span class="st">"lat"</span><span class="op">)</span>,</span>
 <span>    lng <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"results"</span>, <span class="fl">1</span>, <span class="st">"geometry"</span>, <span class="st">"location"</span>, <span class="st">"lng"</span><span class="op">)</span></span>
@@ -569,8 +569,8 @@ also parse the <code>date_added</code> column into a real date-time<a class="foo
 vignette and I don’t want to add a dependency to tidyr just to simplify
 one example.&lt;/p&gt;'><sup>1</sup></a>.</p>
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">discs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span>disc <span class="op">=</span> <span class="va">discog</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="../reference/unnest_wider.html">unnest_wider</a></span><span class="op">(</span><span class="va">disc</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<code class="sourceCode R"><span><span class="va">discs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span>disc <span class="op">=</span> <span class="va">discog</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/unnest_wider.html">unnest_wider</a></span><span class="op">(</span><span class="va">disc</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>date_added <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.POSIXlt.html" class="external-link">as.POSIXct</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/strptime.html" class="external-link">strptime</a></span><span class="op">(</span><span class="va">date_added</span>, <span class="st">"%Y-%m-%dT%H:%M:%S"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">discs</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 155 × 5</span></span></span>
@@ -591,7 +591,7 @@ one example.&lt;/p&gt;'><sup>1</sup></a>.</p>
 Sharla’s discography, not any information about the disc itself. To do
 that we need to widen the <code>basic_information</code> column:</p>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">discs</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="../reference/unnest_wider.html">unnest_wider</a></span><span class="op">(</span><span class="va">basic_information</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">discs</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/unnest_wider.html">unnest_wider</a></span><span class="op">(</span><span class="va">basic_information</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #BBBB00; font-weight: bold;">Error</span><span style="font-weight: bold;"> in `unnest_wider()`:</span></span></span>
 <span><span class="co">#&gt; <span style="color: #BBBB00;">!</span> Can't duplicate names between the affected columns and the</span></span>
 <span><span class="co">#&gt;   original data.</span></span>
@@ -603,7 +603,7 @@ that we need to widen the <code>basic_information</code> column:</p>
 inside <code>basic_information</code>. We can quickly see what’s going
 on by setting <code>names_repair = "unique"</code>:</p>
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">discs</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="../reference/unnest_wider.html">unnest_wider</a></span><span class="op">(</span><span class="va">basic_information</span>, names_repair <span class="op">=</span> <span class="st">"unique"</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">discs</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/unnest_wider.html">unnest_wider</a></span><span class="op">(</span><span class="va">basic_information</span>, names_repair <span class="op">=</span> <span class="st">"unique"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; New names:</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> `id` -&gt; `id...7`</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> `id` -&gt; `id...14`</span></span>
@@ -628,8 +628,8 @@ on by setting <code>names_repair = "unique"</code>:</p>
 <code>id</code> column that’s also stored at the top-level, so we can
 just drop that:</p>
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">discs</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="op">!</span><span class="va">id</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<code class="sourceCode R"><span><span class="va">discs</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="op">!</span><span class="va">id</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/unnest_wider.html">unnest_wider</a></span><span class="op">(</span><span class="va">basic_information</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 155 × 14</span></span></span>
 <span><span class="co">#&gt;    instance_id date_added          labels      year master_url  artists</span></span>
@@ -650,7 +650,7 @@ just drop that:</p>
 <span><span class="co">#&gt; <span style="color: #949494;">#   master_id &lt;int&gt;, rating &lt;int&gt;</span></span></span></code></pre></div>
 <p>Alternatively, we could use <code><a href="../reference/hoist.html">hoist()</a></code>:</p>
 <div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">discs</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<code class="sourceCode R"><span><span class="va">discs</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/hoist.html">hoist</a></span><span class="op">(</span><span class="va">basic_information</span>,</span>
 <span>    title <span class="op">=</span> <span class="st">"title"</span>,</span>
 <span>    year <span class="op">=</span> <span class="st">"year"</span>,</span>
@@ -677,10 +677,10 @@ indexing deeply into the nested list.</p>
 <p>A more systematic approach would be to create separate tables for
 artist and label:</p>
 <div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">discs</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="../reference/hoist.html">hoist</a></span><span class="op">(</span><span class="va">basic_information</span>, artist <span class="op">=</span> <span class="st">"artists"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span>disc_id <span class="op">=</span> <span class="va">id</span>, <span class="va">artist</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="../reference/unnest_longer.html">unnest_longer</a></span><span class="op">(</span><span class="va">artist</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<code class="sourceCode R"><span><span class="va">discs</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/hoist.html">hoist</a></span><span class="op">(</span><span class="va">basic_information</span>, artist <span class="op">=</span> <span class="st">"artists"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span>disc_id <span class="op">=</span> <span class="va">id</span>, <span class="va">artist</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/unnest_longer.html">unnest_longer</a></span><span class="op">(</span><span class="va">artist</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/unnest_wider.html">unnest_wider</a></span><span class="op">(</span><span class="va">artist</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 167 × 8</span></span></span>
 <span><span class="co">#&gt;     disc_id join  name           anv   tracks role  resource_url     id</span></span>
@@ -697,11 +697,11 @@ artist and label:</p>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> 11<span style="text-decoration: underline;">726</span>853 <span style="color: #949494;">""</span>    Small Man (2)  <span style="color: #949494;">""</span>    <span style="color: #949494;">""</span>     <span style="color: #949494;">""</span>    https://api… 6.37<span style="color: #949494;">e</span>6</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># ℹ 157 more rows</span></span></span>
 <span></span>
-<span><span class="va">discs</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="../reference/hoist.html">hoist</a></span><span class="op">(</span><span class="va">basic_information</span>, format <span class="op">=</span> <span class="st">"formats"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span>disc_id <span class="op">=</span> <span class="va">id</span>, <span class="va">format</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="../reference/unnest_longer.html">unnest_longer</a></span><span class="op">(</span><span class="va">format</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="../reference/unnest_wider.html">unnest_wider</a></span><span class="op">(</span><span class="va">format</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span><span class="va">discs</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/hoist.html">hoist</a></span><span class="op">(</span><span class="va">basic_information</span>, format <span class="op">=</span> <span class="st">"formats"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span>disc_id <span class="op">=</span> <span class="va">id</span>, <span class="va">format</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/unnest_longer.html">unnest_longer</a></span><span class="op">(</span><span class="va">format</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/unnest_wider.html">unnest_wider</a></span><span class="op">(</span><span class="va">format</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/unnest_longer.html">unnest_longer</a></span><span class="op">(</span><span class="va">descriptions</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 258 × 5</span></span></span>
 <span><span class="co">#&gt;     disc_id descriptions text  name     qty  </span></span>

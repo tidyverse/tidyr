@@ -137,7 +137,7 @@ boundaries. This can also be accomplished using the <code>.by</code> argument to
 <span class="r-in"><span>  <span class="st">"Q4"</span>,      <span class="cn">NA</span>,    <span class="fl">49094</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="co"># `fill()` defaults to replacing missing data from top to bottom</span></span></span>
-<span class="r-in"><span><span class="va">sales</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu">fill</span><span class="op">(</span><span class="va">year</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">sales</span> <span class="op">|&gt;</span> <span class="fu">fill</span><span class="op">(</span><span class="va">year</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 16 × 3</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    quarter  year sales</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
@@ -177,7 +177,7 @@ boundaries. This can also be accomplished using the <code>.by</code> argument to
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># For values that are missing above you can use `.direction = "up"`</span></span></span>
-<span class="r-in"><span><span class="va">tidy_pets</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
+<span class="r-in"><span><span class="va">tidy_pets</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu">fill</span><span class="op">(</span><span class="va">pet_type</span>, .direction <span class="op">=</span> <span class="st">"up"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 12 × 3</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     rank pet_type breed                </span>
@@ -216,7 +216,7 @@ boundaries. This can also be accomplished using the <code>.by</code> argument to
 <span class="r-in"><span><span class="co"># The values are inconsistently missing by position within the `group`.</span></span></span>
 <span class="r-in"><span><span class="co"># Use `.direction = "downup"` to fill missing values in both directions</span></span></span>
 <span class="r-in"><span><span class="co"># and `.by = group` to apply the fill per group.</span></span></span>
-<span class="r-in"><span><span class="va">squirrels</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
+<span class="r-in"><span><span class="va">squirrels</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu">fill</span><span class="op">(</span><span class="va">n_squirrels</span>, .direction <span class="op">=</span> <span class="st">"downup"</span>, .by <span class="op">=</span> <span class="va">group</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 12 × 4</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    group name     role        n_squirrels</span>
@@ -236,9 +236,9 @@ boundaries. This can also be accomplished using the <code>.by</code> argument to
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># If you want, you can also supply a data frame grouped with `group_by()`,</span></span></span>
 <span class="r-in"><span><span class="co"># but don't forget to `ungroup()`!</span></span></span>
-<span class="r-in"><span><span class="va">squirrels</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
-<span class="r-in"><span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">group</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
-<span class="r-in"><span>  <span class="fu">fill</span><span class="op">(</span><span class="va">n_squirrels</span>, .direction <span class="op">=</span> <span class="st">"downup"</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
+<span class="r-in"><span><span class="va">squirrels</span> <span class="op">|&gt;</span></span></span>
+<span class="r-in"><span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">group</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
+<span class="r-in"><span>  <span class="fu">fill</span><span class="op">(</span><span class="va">n_squirrels</span>, .direction <span class="op">=</span> <span class="st">"downup"</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">ungroup</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 12 × 4</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    group name     role        n_squirrels</span>

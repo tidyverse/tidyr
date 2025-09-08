@@ -239,7 +239,7 @@ under active development.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">18</span> Unaffilia…     217       299       374       365       341       528</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 4 more variables: `$75-100k` &lt;dbl&gt;, `$100-150k` &lt;dbl&gt;,</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   `&gt;150k` &lt;dbl&gt;, `Don't know/refused` &lt;dbl&gt;</span></span>
-<span class="r-in"><span><span class="va">relig_income</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
+<span class="r-in"><span><span class="va">relig_income</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu">pivot_longer</span><span class="op">(</span><span class="op">!</span><span class="va">religion</span>, names_to <span class="op">=</span> <span class="st">"income"</span>, values_to <span class="op">=</span> <span class="st">"count"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 180 × 3</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    religion income             count</span>
@@ -279,7 +279,7 @@ under active development.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   wk22 &lt;dbl&gt;, wk23 &lt;dbl&gt;, wk24 &lt;dbl&gt;, wk25 &lt;dbl&gt;, wk26 &lt;dbl&gt;,</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   wk27 &lt;dbl&gt;, wk28 &lt;dbl&gt;, wk29 &lt;dbl&gt;, wk30 &lt;dbl&gt;, wk31 &lt;dbl&gt;,</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   wk32 &lt;dbl&gt;, wk33 &lt;dbl&gt;, wk34 &lt;dbl&gt;, wk35 &lt;dbl&gt;, wk36 &lt;dbl&gt;, …</span></span>
-<span class="r-in"><span><span class="va">billboard</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
+<span class="r-in"><span><span class="va">billboard</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu">pivot_longer</span><span class="op">(</span></span></span>
 <span class="r-in"><span>    cols <span class="op">=</span> <span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html" class="external-link">starts_with</a></span><span class="op">(</span><span class="st">"wk"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>    names_to <span class="op">=</span> <span class="st">"week"</span>,</span></span>
@@ -303,7 +303,7 @@ under active development.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 5,297 more rows</span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Multiple variables stored in column names</span></span></span>
-<span class="r-in"><span><span class="va">who</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu">pivot_longer</span><span class="op">(</span></span></span>
+<span class="r-in"><span><span class="va">who</span> <span class="op">|&gt;</span> <span class="fu">pivot_longer</span><span class="op">(</span></span></span>
 <span class="r-in"><span>  cols <span class="op">=</span> <span class="va">new_sp_m014</span><span class="op">:</span><span class="va">newrel_f65</span>,</span></span>
 <span class="r-in"><span>  names_to <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"diagnosis"</span>, <span class="st">"gender"</span>, <span class="st">"age"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>  names_pattern <span class="op">=</span> <span class="st">"new_?(.*)_(.)(.*)"</span>,</span></span>
@@ -340,7 +340,7 @@ under active development.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 9  12 12 12  8 10.84 9.13  8.15  5.56</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 10  7  7  7  8  4.82 7.26  6.42  7.91</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 11  5  5  5  8  5.68 4.74  5.73  6.89</span>
-<span class="r-in"><span><span class="va">anscombe</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
+<span class="r-in"><span><span class="va">anscombe</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu">pivot_longer</span><span class="op">(</span></span></span>
 <span class="r-in"><span>    <span class="fu"><a href="https://tidyselect.r-lib.org/reference/everything.html" class="external-link">everything</a></span><span class="op">(</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>    cols_vary <span class="op">=</span> <span class="st">"slowest"</span>,</span></span>

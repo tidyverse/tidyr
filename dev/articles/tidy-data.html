@@ -209,8 +209,8 @@ how the functions work a little later)</p>
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyr.tidyverse.org">tidyr</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">classroom2</span> <span class="op">&lt;-</span> <span class="va">classroom</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="../reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span><span class="va">quiz1</span><span class="op">:</span><span class="va">test1</span>, names_to <span class="op">=</span> <span class="st">"assessment"</span>, values_to <span class="op">=</span> <span class="st">"grade"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<code class="sourceCode R"><span><span class="va">classroom2</span> <span class="op">&lt;-</span> <span class="va">classroom</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span><span class="va">quiz1</span><span class="op">:</span><span class="va">test1</span>, names_to <span class="op">=</span> <span class="st">"assessment"</span>, values_to <span class="op">=</span> <span class="st">"grade"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="va">name</span>, <span class="va">assessment</span><span class="op">)</span></span>
 <span><span class="va">classroom2</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 12 × 3</span></span></span>
@@ -394,7 +394,7 @@ which is the name of the variable defined by the values of the column
 headings. In this case, it’s <code>income</code>. The second argument is
 the name of the value column, <code>frequency</code>.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">relig_income</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<code class="sourceCode R"><span><span class="va">relig_income</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span><span class="op">-</span><span class="va">religion</span>, names_to <span class="op">=</span> <span class="st">"income"</span>, values_to <span class="op">=</span> <span class="st">"frequency"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 180 × 3</span></span></span>
 <span><span class="co">#&gt;    religion income             frequency</span></span>
@@ -452,7 +452,7 @@ to <code>wk76</code>, making a new column for their names,
 <code>week</code>, and a new value for their values,
 <code>rank</code>:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">billboard2</span> <span class="op">&lt;-</span> <span class="va">billboard</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<code class="sourceCode R"><span><span class="va">billboard2</span> <span class="op">&lt;-</span> <span class="va">billboard</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span></span>
 <span>    <span class="va">wk1</span><span class="op">:</span><span class="va">wk76</span>,</span>
 <span>    names_to <span class="op">=</span> <span class="st">"week"</span>,</span>
@@ -481,7 +481,7 @@ weeks that the song wasn’t in the charts, so can be safely dropped.</p>
 week variable to a number, and figuring out the date corresponding to
 each week on the charts:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">billboard3</span> <span class="op">&lt;-</span> <span class="va">billboard2</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<code class="sourceCode R"><span><span class="va">billboard3</span> <span class="op">&lt;-</span> <span class="va">billboard2</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span></span>
 <span>    week <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">as.integer</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">gsub</a></span><span class="op">(</span><span class="st">"wk"</span>, <span class="st">""</span>, <span class="va">week</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>    date <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="va">date.entered</span><span class="op">)</span> <span class="op">+</span> <span class="fl">7</span> <span class="op">*</span> <span class="op">(</span><span class="va">week</span> <span class="op">-</span> <span class="fl">1</span><span class="op">)</span>,</span>
@@ -505,7 +505,7 @@ each week on the charts:</p>
 <p>Finally, it’s always a good idea to sort the data. We could do it by
 artist, track and week:</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">billboard3</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="va">artist</span>, <span class="va">track</span>, <span class="va">week</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">billboard3</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="va">artist</span>, <span class="va">track</span>, <span class="va">week</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 5,307 × 5</span></span></span>
 <span><span class="co">#&gt;    artist  track                    week  rank date      </span></span>
 <span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>    </span></span>
@@ -522,7 +522,7 @@ artist, track and week:</p>
 <span><span class="co">#&gt; <span style="color: #949494;"># ℹ 5,297 more rows</span></span></span></code></pre></div>
 <p>Or by date and rank:</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">billboard3</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="va">date</span>, <span class="va">rank</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">billboard3</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="va">date</span>, <span class="va">rank</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 5,307 × 5</span></span></span>
 <span><span class="co">#&gt;    artist   track   week  rank date      </span></span>
 <span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>    </span></span>
@@ -573,7 +573,7 @@ The demographic groups are broken down by <code>sex</code> (m, f) and
 <p>First we use <code><a href="../reference/pivot_longer.html">pivot_longer()</a></code> to gather up the
 non-variable columns:</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">tb2</span> <span class="op">&lt;-</span> <span class="va">tb</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<code class="sourceCode R"><span><span class="va">tb2</span> <span class="op">&lt;-</span> <span class="va">tb</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span></span>
 <span>    <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">iso2</span>, <span class="va">year</span><span class="op">)</span>,</span>
 <span>    names_to <span class="op">=</span> <span class="st">"demo"</span>,</span>
@@ -604,7 +604,7 @@ expression to split on (the default is to split on non-alphanumeric
 columns), or a vector of character positions. In this case we want to
 split after the first character:</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">tb3</span> <span class="op">&lt;-</span> <span class="va">tb2</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<code class="sourceCode R"><span><span class="va">tb3</span> <span class="op">&lt;-</span> <span class="va">tb2</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/separate.html">separate</a></span><span class="op">(</span><span class="va">demo</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"sex"</span>, <span class="st">"age"</span><span class="op">)</span>, <span class="fl">1</span><span class="op">)</span></span>
 <span><span class="va">tb3</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 35,750 × 5</span></span></span>
@@ -633,7 +633,7 @@ supplying multiple column names to <code>names_to</code> and also
 supplying a grouped regular expression to
 <code>names_pattern</code>:</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">tb</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="../reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span></span>
+<code class="sourceCode R"><span><span class="va">tb</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span></span>
 <span>  <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">iso2</span>, <span class="va">year</span><span class="op">)</span>,</span>
 <span>  names_to <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"sex"</span>, <span class="st">"age"</span><span class="op">)</span>,</span>
 <span>  names_pattern <span class="op">=</span> <span class="st">"(.)(.+)"</span>,</span>
@@ -695,7 +695,7 @@ month.</p>
 <p>To tidy this dataset we first use pivot_longer to gather the day
 columns:</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">weather2</span> <span class="op">&lt;-</span> <span class="va">weather</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<code class="sourceCode R"><span><span class="va">weather2</span> <span class="op">&lt;-</span> <span class="va">weather</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span></span>
 <span>    <span class="va">d1</span><span class="op">:</span><span class="va">d31</span>,</span>
 <span>    names_to <span class="op">=</span> <span class="st">"day"</span>,</span>
@@ -723,8 +723,8 @@ are in each month and can easily reconstruct the explicit missing
 values.</p>
 <p>We’ll also do a little cleaning:</p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">weather3</span> <span class="op">&lt;-</span> <span class="va">weather2</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>day <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">as.integer</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">gsub</a></span><span class="op">(</span><span class="st">"d"</span>, <span class="st">""</span>, <span class="va">day</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<code class="sourceCode R"><span><span class="va">weather3</span> <span class="op">&lt;-</span> <span class="va">weather2</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>day <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">as.integer</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">gsub</a></span><span class="op">(</span><span class="st">"d"</span>, <span class="st">""</span>, <span class="va">day</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">id</span>, <span class="va">year</span>, <span class="va">month</span>, <span class="va">day</span>, <span class="va">element</span>, <span class="va">value</span><span class="op">)</span></span>
 <span><span class="va">weather3</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 66 × 6</span></span></span>
@@ -749,7 +749,7 @@ widening the data: <code><a href="../reference/pivot_wider.html">pivot_wider()</
 <code><a href="../reference/pivot_longer.html">pivot_longer()</a></code>, pivoting <code>element</code> and
 <code>value</code> back out across multiple columns:</p>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">weather3</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<code class="sourceCode R"><span><span class="va">weather3</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/pivot_wider.html">pivot_wider</a></span><span class="op">(</span>names_from <span class="op">=</span> <span class="va">element</span>, values_from <span class="op">=</span> <span class="va">value</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 33 × 6</span></span></span>
 <span><span class="co">#&gt;    id       year month   day  tmax  tmin</span></span>
@@ -787,8 +787,8 @@ ranking dataset which gives the <code>rank</code> of the
 <code>song</code> in each <code>week</code>. We first extract a
 <code>song</code> dataset:</p>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">song</span> <span class="op">&lt;-</span> <span class="va">billboard3</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/distinct.html" class="external-link">distinct</a></span><span class="op">(</span><span class="va">artist</span>, <span class="va">track</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<code class="sourceCode R"><span><span class="va">song</span> <span class="op">&lt;-</span> <span class="va">billboard3</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/distinct.html" class="external-link">distinct</a></span><span class="op">(</span><span class="va">artist</span>, <span class="va">track</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>song_id <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/row_number.html" class="external-link">row_number</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">song</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 317 × 3</span></span></span>
@@ -809,8 +809,8 @@ ranking dataset which gives the <code>rank</code> of the
 repeated song facts with a pointer to song details (a unique song
 id):</p>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">rank</span> <span class="op">&lt;-</span> <span class="va">billboard3</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html" class="external-link">left_join</a></span><span class="op">(</span><span class="va">song</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"artist"</span>, <span class="st">"track"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<code class="sourceCode R"><span><span class="va">rank</span> <span class="op">&lt;-</span> <span class="va">billboard3</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html" class="external-link">left_join</a></span><span class="op">(</span><span class="va">song</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"artist"</span>, <span class="st">"track"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">song_id</span>, <span class="va">date</span>, <span class="va">week</span>, <span class="va">rank</span><span class="op">)</span></span>
 <span><span class="va">rank</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 5,307 × 4</span></span></span>
@@ -866,7 +866,7 @@ frame.</p>
 <span><span class="va">paths</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">dir</a></span><span class="op">(</span><span class="st">"data"</span>, pattern <span class="op">=</span> <span class="st">"\\.csv$"</span>, full.names <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">paths</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/basename.html" class="external-link">basename</a></span><span class="op">(</span><span class="va">paths</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html" class="external-link">map</a></span><span class="op">(</span><span class="va">paths</span>, <span class="va">read_csv</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/list_c.html" class="external-link">list_rbind</a></span><span class="op">(</span>names_to <span class="op">=</span> <span class="st">"filename"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html" class="external-link">map</a></span><span class="op">(</span><span class="va">paths</span>, <span class="va">read_csv</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/list_c.html" class="external-link">list_rbind</a></span><span class="op">(</span>names_to <span class="op">=</span> <span class="st">"filename"</span><span class="op">)</span></span></code></pre></div>
 <p>Once you have a single table, you can perform additional tidying as
 needed. An example of this type of cleaning can be found at <a href="https://github.com/hadley/data-baby-names" class="external-link uri">https://github.com/hadley/data-baby-names</a> which takes
 129 yearly baby name tables provided by the US Social Security

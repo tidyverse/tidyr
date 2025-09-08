@@ -189,7 +189,7 @@ income:</p>
 </ul>
 <p>To tidy it we use <code><a href="../reference/pivot_longer.html">pivot_longer()</a></code>:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">relig_income</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<code class="sourceCode R"><span><span class="va">relig_income</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span></span>
 <span>    cols <span class="op">=</span> <span class="op">!</span><span class="va">religion</span>,</span>
 <span>    names_to <span class="op">=</span> <span class="st">"income"</span>,</span>
@@ -262,7 +262,7 @@ rows that correspond to missing values. Not every song stays in the
 charts for all 76 weeks, so the structure of the input data force the
 creation of unnecessary explicit <code>NA</code>s.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">billboard</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<code class="sourceCode R"><span><span class="va">billboard</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span></span>
 <span>    cols <span class="op">=</span> <span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html" class="external-link">starts_with</a></span><span class="op">(</span><span class="st">"wk"</span><span class="op">)</span>,</span>
 <span>    names_to <span class="op">=</span> <span class="st">"week"</span>,</span>
@@ -290,7 +290,7 @@ arguments: <code>names_prefix</code> strips off the <code>wk</code>
 prefix, and <code>names_transform</code> converts <code>week</code> into
 an integer:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">billboard</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<code class="sourceCode R"><span><span class="va">billboard</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span></span>
 <span>    cols <span class="op">=</span> <span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html" class="external-link">starts_with</a></span><span class="op">(</span><span class="st">"wk"</span><span class="op">)</span>,</span>
 <span>    names_to <span class="op">=</span> <span class="st">"week"</span>,</span>
@@ -303,7 +303,7 @@ an integer:</p>
 <code><a href="https://readr.tidyverse.org/reference/parse_number.html" class="external-link">readr::parse_number()</a></code> which automatically strips
 non-numeric components:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">billboard</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<code class="sourceCode R"><span><span class="va">billboard</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span></span>
 <span>    cols <span class="op">=</span> <span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html" class="external-link">starts_with</a></span><span class="op">(</span><span class="st">"wk"</span><span class="op">)</span>,</span>
 <span>    names_to <span class="op">=</span> <span class="st">"week"</span>,</span>
@@ -362,7 +362,7 @@ interface to <code>extract</code>: you give it a regular expression
 containing groups (defined by <code>()</code>) and it puts each group in
 a column.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">who</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<code class="sourceCode R"><span><span class="va">who</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span></span>
 <span>    cols <span class="op">=</span> <span class="va">new_sp_m014</span><span class="op">:</span><span class="va">newrel_f65</span>,</span>
 <span>    names_to <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"diagnosis"</span>, <span class="st">"gender"</span>, <span class="st">"age"</span><span class="op">)</span>,</span>
@@ -387,7 +387,7 @@ a column.</p>
 gender and age to factors. I think this is good practice when you have
 categorical variables with a known set of values.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">who</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<code class="sourceCode R"><span><span class="va">who</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span></span>
 <span>    cols <span class="op">=</span> <span class="va">new_sp_m014</span><span class="op">:</span><span class="va">newrel_f65</span>,</span>
 <span>    names_to <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"diagnosis"</span>, <span class="st">"gender"</span>, <span class="st">"age"</span><span class="op">)</span>,</span>
@@ -437,7 +437,7 @@ name <code>.value</code>: this tells <code><a href="../reference/pivot_longer.ht
 that part of the column name specifies the “value” being measured (which
 will become a variable in the output).</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">household</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<code class="sourceCode R"><span><span class="va">household</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span></span>
 <span>    cols <span class="op">=</span> <span class="op">!</span><span class="va">family</span>,</span>
 <span>    names_to <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">".value"</span>, <span class="st">"child"</span><span class="op">)</span>,</span>
@@ -482,7 +482,7 @@ summary statistics (mean, sd, correlation etc), but have quite different
 data. We want to produce a dataset with columns <code>set</code>,
 <code>x</code> and <code>y</code>.</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">anscombe</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<code class="sourceCode R"><span><span class="va">anscombe</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span></span>
 <span>    cols <span class="op">=</span> <span class="fu"><a href="https://tidyselect.r-lib.org/reference/everything.html" class="external-link">everything</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>    cols_vary <span class="op">=</span> <span class="st">"slowest"</span>,</span>
@@ -522,7 +522,7 @@ can tidy it using the same approach as for <code>anscombe</code>:</p>
 <span>  z2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="op">-</span><span class="fl">2</span>, <span class="fl">4</span><span class="op">)</span>,</span>
 <span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">pnl</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span><span class="va">pnl</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span></span>
 <span>    cols <span class="op">=</span> <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">a</span>, <span class="va">b</span><span class="op">)</span>,</span>
 <span>    names_to <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">".value"</span>, <span class="st">"time"</span><span class="op">)</span>,</span>
@@ -575,7 +575,7 @@ automatic monitoring stations:</p>
 <p>Many tools used to analyse this data need it in a form where each
 station is a column:</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">fish_encounters</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<code class="sourceCode R"><span><span class="va">fish_encounters</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/pivot_wider.html">pivot_wider</a></span><span class="op">(</span></span>
 <span>    names_from <span class="op">=</span> <span class="va">station</span>,</span>
 <span>    values_from <span class="op">=</span> <span class="va">seen</span></span>
@@ -603,7 +603,7 @@ the fish was not <code>seen</code>, so we can ask
 <code><a href="../reference/pivot_wider.html">pivot_wider()</a></code> to fill these missing values in with
 zeros:</p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">fish_encounters</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<code class="sourceCode R"><span><span class="va">fish_encounters</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/pivot_wider.html">pivot_wider</a></span><span class="op">(</span></span>
 <span>    names_from <span class="op">=</span> <span class="va">station</span>,</span>
 <span>    values_from <span class="op">=</span> <span class="va">seen</span>,</span>
@@ -632,8 +632,8 @@ zeros:</p>
 aggregation. For example, take the <code>warpbreaks</code> dataset built
 in to base R (converted to a tibble for the better print method):</p>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">warpbreaks</span> <span class="op">&lt;-</span> <span class="va">warpbreaks</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html" class="external-link">as_tibble</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<code class="sourceCode R"><span><span class="va">warpbreaks</span> <span class="op">&lt;-</span> <span class="va">warpbreaks</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html" class="external-link">as_tibble</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">wool</span>, <span class="va">tension</span>, <span class="va">breaks</span><span class="op">)</span></span>
 <span><span class="va">warpbreaks</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 54 × 3</span></span></span>
@@ -655,7 +655,7 @@ combination of <code>wool</code> (<code>A</code> and <code>B</code>) and
 <code>tension</code> (<code>L</code>, <code>M</code>,
 <code>H</code>):</p>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">warpbreaks</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<code class="sourceCode R"><span><span class="va">warpbreaks</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">count</a></span><span class="op">(</span><span class="va">wool</span>, <span class="va">tension</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 3</span></span></span>
 <span><span class="co">#&gt;   wool  tension     n</span></span>
@@ -669,7 +669,7 @@ combination of <code>wool</code> (<code>A</code> and <code>B</code>) and
 <p>What happens if we attempt to pivot the levels of <code>wool</code>
 into the columns?</p>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">warpbreaks</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<code class="sourceCode R"><span><span class="va">warpbreaks</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/pivot_wider.html">pivot_wider</a></span><span class="op">(</span></span>
 <span>    names_from <span class="op">=</span> <span class="va">wool</span>,</span>
 <span>    values_from <span class="op">=</span> <span class="va">breaks</span></span>
@@ -694,7 +694,7 @@ contain all the individual values. A more useful output would be summary
 statistics, e.g. <code>mean</code> breaks for each combination of wool
 and tension:</p>
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">warpbreaks</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<code class="sourceCode R"><span><span class="va">warpbreaks</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/pivot_wider.html">pivot_wider</a></span><span class="op">(</span></span>
 <span>    names_from <span class="op">=</span> <span class="va">wool</span>,</span>
 <span>    values_from <span class="op">=</span> <span class="va">breaks</span>,</span>
@@ -722,9 +722,9 @@ year. In tidy form it might look like this:</p>
 <span>    product <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"A"</span>, <span class="st">"B"</span><span class="op">)</span>,</span>
 <span>    country <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"AI"</span>, <span class="st">"EI"</span><span class="op">)</span>,</span>
 <span>    year <span class="op">=</span> <span class="fl">2000</span><span class="op">:</span><span class="fl">2014</span></span>
-<span>  <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="op">(</span><span class="va">product</span> <span class="op">==</span> <span class="st">"A"</span> <span class="op">&amp;</span> <span class="va">country</span> <span class="op">==</span> <span class="st">"AI"</span><span class="op">)</span> <span class="op">|</span> <span class="va">product</span> <span class="op">==</span> <span class="st">"B"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>production <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">.</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="op">(</span><span class="va">product</span> <span class="op">==</span> <span class="st">"A"</span> <span class="op">&amp;</span> <span class="va">country</span> <span class="op">==</span> <span class="st">"AI"</span><span class="op">)</span> <span class="op">|</span> <span class="va">product</span> <span class="op">==</span> <span class="st">"B"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>production <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html" class="external-link">n</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">production</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 45 × 4</span></span></span>
 <span><span class="co">#&gt;    product country  year production</span></span>
@@ -744,7 +744,7 @@ year. In tidy form it might look like this:</p>
 of <code>product</code> and <code>country</code>. The key is to specify
 multiple variables for <code>names_from</code>:</p>
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">production</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<code class="sourceCode R"><span><span class="va">production</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/pivot_wider.html">pivot_wider</a></span><span class="op">(</span></span>
 <span>    names_from <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">product</span>, <span class="va">country</span><span class="op">)</span>,</span>
 <span>    values_from <span class="op">=</span> <span class="va">production</span></span>
@@ -768,7 +768,7 @@ select multiple variables, you can control how the column names in the
 output constructed with <code>names_sep</code> and
 <code>names_prefix</code>, or the workhorse <code>names_glue</code>:</p>
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">production</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<code class="sourceCode R"><span><span class="va">production</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/pivot_wider.html">pivot_wider</a></span><span class="op">(</span></span>
 <span>    names_from <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">product</span>, <span class="va">country</span><span class="op">)</span>,</span>
 <span>    values_from <span class="op">=</span> <span class="va">production</span>,</span>
@@ -790,7 +790,7 @@ output constructed with <code>names_sep</code> and
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span>  <span style="text-decoration: underline;">2</span>009   -<span style="color: #BB0000;">0.052</span><span style="color: #BB0000; text-decoration: underline;">6</span>    0.244     0.578 </span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># ℹ 5 more rows</span></span></span>
 <span></span>
-<span><span class="va">production</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span><span class="va">production</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/pivot_wider.html">pivot_wider</a></span><span class="op">(</span></span>
 <span>    names_from <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">product</span>, <span class="va">country</span><span class="op">)</span>,</span>
 <span>    values_from <span class="op">=</span> <span class="va">production</span>,</span>
@@ -836,7 +836,7 @@ American Community Survey, retrieved with the <a href="https://walker-data.com/t
 <p>Here both <code>estimate</code> and <code>moe</code> are values
 columns, so we can supply them to <code>values_from</code>:</p>
 <div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">us_rent_income</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<code class="sourceCode R"><span><span class="va">us_rent_income</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/pivot_wider.html">pivot_wider</a></span><span class="op">(</span></span>
 <span>    names_from <span class="op">=</span> <span class="va">variable</span>,</span>
 <span>    values_from <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">estimate</span>, <span class="va">moe</span><span class="op">)</span></span>
@@ -884,7 +884,7 @@ values that are actually represented in the data, but you might want to
 include a column for each possible level in case the data changes in the
 future.</p>
 <div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">daily</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<code class="sourceCode R"><span><span class="va">daily</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/pivot_wider.html">pivot_wider</a></span><span class="op">(</span></span>
 <span>    names_from <span class="op">=</span> <span class="va">day</span>,</span>
 <span>    values_from <span class="op">=</span> <span class="va">value</span></span>
@@ -898,7 +898,7 @@ levels into explicit ones, forcing them to be represented in the result.
 It also sorts the column names using the level order, which produces
 more intuitive results in this case.</p>
 <div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">daily</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<code class="sourceCode R"><span><span class="va">daily</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/pivot_wider.html">pivot_wider</a></span><span class="op">(</span></span>
 <span>    names_from <span class="op">=</span> <span class="va">day</span>,</span>
 <span>    values_from <span class="op">=</span> <span class="va">value</span>,</span>
@@ -930,7 +930,7 @@ those explicit during the pivot.</p>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span>  <span style="text-decoration: underline;">2</span>020 A             40</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span>  <span style="text-decoration: underline;">2</span>020 B             60</span></span>
 <span></span>
-<span><span class="va">percentages</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span><span class="va">percentages</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/pivot_wider.html">pivot_wider</a></span><span class="op">(</span></span>
 <span>    names_from <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">year</span>, <span class="va">type</span><span class="op">)</span>,</span>
 <span>    values_from <span class="op">=</span> <span class="va">percentage</span>,</span>
@@ -961,7 +961,7 @@ with a <code>type</code> column, and pivot on that instead, keeping
 but we are missing some rows related to the unrepresented
 <code>day</code> factor levels.</p>
 <div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">daily</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<code class="sourceCode R"><span><span class="va">daily</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/pivot_wider.html">pivot_wider</a></span><span class="op">(</span></span>
 <span>    names_from <span class="op">=</span> <span class="va">type</span>,</span>
 <span>    values_from <span class="op">=</span> <span class="va">value</span>,</span>
@@ -978,7 +978,7 @@ but we are missing some rows related to the unrepresented
 <code>names_expand</code>, which will expand out (and sort) the implicit
 missing rows in the <code>id_cols</code>.</p>
 <div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">daily</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<code class="sourceCode R"><span><span class="va">daily</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/pivot_wider.html">pivot_wider</a></span><span class="op">(</span></span>
 <span>    names_from <span class="op">=</span> <span class="va">type</span>,</span>
 <span>    values_from <span class="op">=</span> <span class="va">value</span>,</span>
@@ -1025,7 +1025,7 @@ column to create one row summaries of each county’s system updates.</p>
 we completely lose all information about the <code>date</code>
 column.</p>
 <div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">updates</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<code class="sourceCode R"><span><span class="va">updates</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/pivot_wider.html">pivot_wider</a></span><span class="op">(</span></span>
 <span>    id_cols <span class="op">=</span> <span class="va">county</span>,</span>
 <span>    names_from <span class="op">=</span> <span class="va">system</span>,</span>
@@ -1041,7 +1041,7 @@ across all systems in a particular county. To accomplish that we can use
 the <code>unused_fn</code> argument, which allows us to summarize values
 from the columns not utilized in the pivoting process.</p>
 <div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">updates</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<code class="sourceCode R"><span><span class="va">updates</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/pivot_wider.html">pivot_wider</a></span><span class="op">(</span></span>
 <span>    id_cols <span class="op">=</span> <span class="va">county</span>,</span>
 <span>    names_from <span class="op">=</span> <span class="va">system</span>,</span>
@@ -1056,7 +1056,7 @@ from the columns not utilized in the pivoting process.</p>
 <p>You can also retain the data but delay the aggregation entirely by
 using <code><a href="https://rdrr.io/r/base/list.html" class="external-link">list()</a></code> as the summary function.</p>
 <div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">updates</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<code class="sourceCode R"><span><span class="va">updates</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/pivot_wider.html">pivot_wider</a></span><span class="op">(</span></span>
 <span>    id_cols <span class="op">=</span> <span class="va">county</span>,</span>
 <span>    names_from <span class="op">=</span> <span class="va">system</span>,</span>
@@ -1090,7 +1090,7 @@ observations belong together. We can fix this by noting that every
 contact starts with a name, so we can create a unique id by counting
 every time we see “name” as the <code>field</code>:</p>
 <div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">contacts</span> <span class="op">&lt;-</span> <span class="va">contacts</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<code class="sourceCode R"><span><span class="va">contacts</span> <span class="op">&lt;-</span> <span class="va">contacts</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span></span>
 <span>    person_id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/cumsum.html" class="external-link">cumsum</a></span><span class="op">(</span><span class="va">field</span> <span class="op">==</span> <span class="st">"name"</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
@@ -1107,7 +1107,7 @@ every time we see “name” as the <code>field</code>:</p>
 <p>Now that we have a unique identifier for each person, we can pivot
 <code>field</code> and <code>value</code> into the columns:</p>
 <div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">contacts</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<code class="sourceCode R"><span><span class="va">contacts</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/pivot_wider.html">pivot_wider</a></span><span class="op">(</span></span>
 <span>    names_from <span class="op">=</span> <span class="va">field</span>,</span>
 <span>    values_from <span class="op">=</span> <span class="va">value</span></span>
@@ -1157,7 +1157,7 @@ column. It’s not obvious exactly what steps are needed yet, but I’ll
 start with the most obvious problem: year is spread across multiple
 columns.</p>
 <div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">pop2</span> <span class="op">&lt;-</span> <span class="va">world_bank_pop</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<code class="sourceCode R"><span><span class="va">pop2</span> <span class="op">&lt;-</span> <span class="va">world_bank_pop</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span></span>
 <span>    cols <span class="op">=</span> <span class="va">`2000`</span><span class="op">:</span><span class="va">`2017`</span>,</span>
 <span>    names_to <span class="op">=</span> <span class="st">"year"</span>,</span>
@@ -1180,7 +1180,7 @@ columns.</p>
 <span><span class="co">#&gt; <span style="color: #949494;"># ℹ 19,142 more rows</span></span></span></code></pre></div>
 <p>Next we need to consider the <code>indicator</code> variable:</p>
 <div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">pop2</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<code class="sourceCode R"><span><span class="va">pop2</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">count</a></span><span class="op">(</span><span class="va">indicator</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 4 × 2</span></span></span>
 <span><span class="co">#&gt;   indicator       n</span></span>
@@ -1195,7 +1195,7 @@ are the same but only for urban areas. Let’s split this up into two
 variables: <code>area</code> (total or urban) and the actual variable
 (population or growth):</p>
 <div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">pop3</span> <span class="op">&lt;-</span> <span class="va">pop2</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<code class="sourceCode R"><span><span class="va">pop3</span> <span class="op">&lt;-</span> <span class="va">pop2</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/separate.html">separate</a></span><span class="op">(</span><span class="va">indicator</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="cn">NA</span>, <span class="st">"area"</span>, <span class="st">"variable"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">pop3</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 19,152 × 5</span></span></span>
@@ -1216,7 +1216,7 @@ variables: <code>area</code> (total or urban) and the actual variable
 <code>value</code> to make <code>TOTL</code> and <code>GROW</code>
 columns:</p>
 <div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">pop3</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<code class="sourceCode R"><span><span class="va">pop3</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/pivot_wider.html">pivot_wider</a></span><span class="op">(</span></span>
 <span>    names_from <span class="op">=</span> <span class="va">variable</span>,</span>
 <span>    values_from <span class="op">=</span> <span class="va">value</span></span>
@@ -1256,11 +1256,11 @@ transformation in two steps. First, you make the data longer,
 eliminating the explicit <code>NA</code>s, and adding a column to
 indicate that this choice was chosen:</p>
 <div class="sourceCode" id="cb48"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">multi2</span> <span class="op">&lt;-</span> <span class="va">multi</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<code class="sourceCode R"><span><span class="va">multi2</span> <span class="op">&lt;-</span> <span class="va">multi</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span></span>
 <span>    cols <span class="op">=</span> <span class="op">!</span><span class="va">id</span>,</span>
 <span>    values_drop_na <span class="op">=</span> <span class="cn">TRUE</span></span>
-<span>  <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>checked <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="va">multi2</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 8 × 4</span></span></span>
@@ -1277,7 +1277,7 @@ indicate that this choice was chosen:</p>
 <p>Then you make the data wider, filling in the missing observations
 with <code>FALSE</code>:</p>
 <div class="sourceCode" id="cb49"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">multi2</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<code class="sourceCode R"><span><span class="va">multi2</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/pivot_wider.html">pivot_wider</a></span><span class="op">(</span></span>
 <span>    id_cols <span class="op">=</span> <span class="va">id</span>,</span>
 <span>    names_from <span class="op">=</span> <span class="va">value</span>,</span>
@@ -1316,7 +1316,7 @@ in two steps: we first create a spec object (using
 <code><a href="../reference/pivot_longer_spec.html">build_longer_spec()</a></code>) then use that to describe the pivoting
 operation:</p>
 <div class="sourceCode" id="cb50"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">spec</span> <span class="op">&lt;-</span> <span class="va">relig_income</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<code class="sourceCode R"><span><span class="va">spec</span> <span class="op">&lt;-</span> <span class="va">relig_income</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/pivot_longer_spec.html">build_longer_spec</a></span><span class="op">(</span></span>
 <span>    cols <span class="op">=</span> <span class="op">!</span><span class="va">religion</span>,</span>
 <span>    names_to <span class="op">=</span> <span class="st">"income"</span>,</span>
@@ -1381,7 +1381,7 @@ character vector of the names of columns being pivoted.</p>
 <code><a href="../reference/pivot_wider.html">pivot_wider()</a></code>. The result is ok, but I think it could be
 improved:</p>
 <div class="sourceCode" id="cb52"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">us_rent_income</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<code class="sourceCode R"><span><span class="va">us_rent_income</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/pivot_wider.html">pivot_wider</a></span><span class="op">(</span></span>
 <span>    names_from <span class="op">=</span> <span class="va">variable</span>,</span>
 <span>    values_from <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">estimate</span>, <span class="va">moe</span><span class="op">)</span></span>
@@ -1405,7 +1405,7 @@ improved:</p>
 which we can achieve with a manual spec. The current spec looks like
 this:</p>
 <div class="sourceCode" id="cb53"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">spec1</span> <span class="op">&lt;-</span> <span class="va">us_rent_income</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<code class="sourceCode R"><span><span class="va">spec1</span> <span class="op">&lt;-</span> <span class="va">us_rent_income</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/pivot_wider_spec.html">build_wider_spec</a></span><span class="op">(</span></span>
 <span>    names_from <span class="op">=</span> <span class="va">variable</span>,</span>
 <span>    values_from <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">estimate</span>, <span class="va">moe</span><span class="op">)</span></span>
@@ -1421,7 +1421,7 @@ this:</p>
 <p>For this case, we mutate <code>spec</code> to carefully construct the
 column names:</p>
 <div class="sourceCode" id="cb54"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">spec2</span> <span class="op">&lt;-</span> <span class="va">spec1</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<code class="sourceCode R"><span><span class="va">spec2</span> <span class="op">&lt;-</span> <span class="va">spec1</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span></span>
 <span>    .name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">variable</span>, <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="va">.value</span> <span class="op">==</span> <span class="st">"moe"</span>, <span class="st">"_moe"</span>, <span class="st">""</span><span class="op">)</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
@@ -1436,7 +1436,7 @@ column names:</p>
 <p>Supplying this spec to <code><a href="../reference/pivot_wider.html">pivot_wider()</a></code> gives us the result
 we’re looking for:</p>
 <div class="sourceCode" id="cb55"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">us_rent_income</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<code class="sourceCode R"><span><span class="va">us_rent_income</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/pivot_wider_spec.html">pivot_wider_spec</a></span><span class="op">(</span><span class="va">spec2</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 52 × 6</span></span></span>
 <span><span class="co">#&gt;    GEOID NAME                 income  rent income_moe rent_moe</span></span>
@@ -1493,7 +1493,7 @@ tibble:</p>
 <span><span class="op">)</span></span></code></pre></div>
 <p>Which yields the following longer form:</p>
 <div class="sourceCode" id="cb58"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">construction</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="../reference/pivot_longer_spec.html">pivot_longer_spec</a></span><span class="op">(</span><span class="va">spec</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">construction</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/pivot_longer_spec.html">pivot_longer_spec</a></span><span class="op">(</span><span class="va">spec</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 63 × 5</span></span></span>
 <span><span class="co">#&gt;     Year Month    units region        n</span></span>
 <span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
@@ -1519,8 +1519,8 @@ naturally described in two independent tables.</p>
 spec for <code><a href="../reference/pivot_longer.html">pivot_longer()</a></code> and <code><a href="../reference/pivot_wider.html">pivot_wider()</a></code>.
 This makes it very clear that the two operations are symmetric:</p>
 <div class="sourceCode" id="cb59"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">construction</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="../reference/pivot_longer_spec.html">pivot_longer_spec</a></span><span class="op">(</span><span class="va">spec</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<code class="sourceCode R"><span><span class="va">construction</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/pivot_longer_spec.html">pivot_longer_spec</a></span><span class="op">(</span><span class="va">spec</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/pivot_wider_spec.html">pivot_wider_spec</a></span><span class="op">(</span><span class="va">spec</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 9 × 9</span></span></span>
 <span><span class="co">#&gt;    Year Month     `1 unit` `2 to 4 units` `5 units or more` Northeast</span></span>

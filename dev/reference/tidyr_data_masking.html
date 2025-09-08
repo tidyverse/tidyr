@@ -88,25 +88,25 @@ then read more about the underlying theory in
 <ul><li><p>To allow the user to supply the column name in a function argument,
 embrace the argument, e.g. <code>filter(df, {{ var }})</code>.</p>
 <p></p><div class="sourceCode R"><pre><code><span><span class="va">dist_summary</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">df</span>, <span class="va">var</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="va">df</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="va">df</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu">summarise</span><span class="op">(</span>n <span class="op">=</span> <span class="fu">n</span><span class="op">(</span><span class="op">)</span>, min <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">min</a></span><span class="op">(</span><span class="op">{</span><span class="op">{</span> <span class="va">var</span> <span class="op">}</span><span class="op">}</span><span class="op">)</span>, max <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="op">{</span><span class="op">{</span> <span class="va">var</span> <span class="op">}</span><span class="op">}</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
-<span><span class="va">mtcars</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu">dist_summary</span><span class="op">(</span><span class="va">mpg</span><span class="op">)</span></span>
-<span><span class="va">mtcars</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu">group_by</span><span class="op">(</span><span class="va">cyl</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu">dist_summary</span><span class="op">(</span><span class="va">mpg</span><span class="op">)</span></span></code></pre><p></p></div></li>
+<span><span class="va">mtcars</span> <span class="op">|&gt;</span> <span class="fu">dist_summary</span><span class="op">(</span><span class="va">mpg</span><span class="op">)</span></span>
+<span><span class="va">mtcars</span> <span class="op">|&gt;</span> <span class="fu">group_by</span><span class="op">(</span><span class="va">cyl</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu">dist_summary</span><span class="op">(</span><span class="va">mpg</span><span class="op">)</span></span></code></pre><p></p></div></li>
 <li><p>To work with a column name recorded as a string, use the <code>.data</code>
 pronoun, e.g. <code>summarise(df, mean = mean(.data[[var]]))</code>.</p>
 <p></p><div class="sourceCode R"><pre><code><span><span class="kw">for</span> <span class="op">(</span><span class="va">var</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="va">mtcars</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu">count</span><span class="op">(</span><span class="va">.data</span><span class="op">[[</span><span class="va">var</span><span class="op">]</span><span class="op">]</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="op">)</span></span>
+<span>  <span class="va">mtcars</span> <span class="op">|&gt;</span> <span class="fu">count</span><span class="op">(</span><span class="va">.data</span><span class="op">[[</span><span class="va">var</span><span class="op">]</span><span class="op">]</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
 <span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">var</span><span class="op">)</span> <span class="va">mtcars</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu">count</span><span class="op">(</span><span class="va">.data</span><span class="op">[[</span><span class="va">var</span><span class="op">]</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span></code></pre><p></p></div></li>
+<span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">var</span><span class="op">)</span> <span class="va">mtcars</span> <span class="op">|&gt;</span> <span class="fu">count</span><span class="op">(</span><span class="va">.data</span><span class="op">[[</span><span class="va">var</span><span class="op">]</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span></code></pre><p></p></div></li>
 <li><p>To suppress <code>R CMD check</code> <code>NOTE</code>s about unknown variables
 use <code>.data$var</code> instead of <code>var</code>:</p>
 <p></p><div class="sourceCode R"><pre><code><span><span class="co"># has NOTE</span></span>
-<span><span class="va">df</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu">mutate</span><span class="op">(</span>z <span class="op">=</span> <span class="va">x</span> <span class="op">+</span> <span class="va">y</span><span class="op">)</span></span>
+<span><span class="va">df</span> <span class="op">|&gt;</span> <span class="fu">mutate</span><span class="op">(</span>z <span class="op">=</span> <span class="va">x</span> <span class="op">+</span> <span class="va">y</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># no NOTE</span></span>
-<span><span class="va">df</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu">mutate</span><span class="op">(</span>z <span class="op">=</span> <span class="va">.data</span><span class="op">$</span><span class="va">x</span> <span class="op">+</span> <span class="va">.data</span><span class="op">$</span><span class="va">y</span><span class="op">)</span></span></code></pre><p></p></div>
+<span><span class="va">df</span> <span class="op">|&gt;</span> <span class="fu">mutate</span><span class="op">(</span>z <span class="op">=</span> <span class="va">.data</span><span class="op">$</span><span class="va">x</span> <span class="op">+</span> <span class="va">.data</span><span class="op">$</span><span class="va">y</span><span class="op">)</span></span></code></pre><p></p></div>
 <p>You'll also need to import <code>.data</code> from rlang with (e.g.)
 <code>@importFrom rlang .data</code>.</p></li>
 </ul></div>
@@ -115,20 +115,20 @@ use <code>.data$var</code> instead of <code>var</code>:</p>
     <p><code>...</code> automatically provides indirection, so you can use it as is
 (i.e. without embracing) inside a function:</p>
 <p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a>grouped_mean <span class="ot">&lt;-</span> <span class="cf">function</span>(df, var, ...) {</span>
-<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>  df <span class="sc">%&gt;%</span></span>
-<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a>    <span class="fu">group_by</span>(...) <span class="sc">%&gt;%</span></span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>  df <span class="sc">|&gt;</span></span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a>    <span class="fu">group_by</span>(...) <span class="sc">|&gt;</span></span>
 <span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a>    <span class="fu">summarise</span>(<span class="at">mean =</span> <span class="fu">mean</span>({{ var }}))</span>
 <span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a>}</span></code></pre><p></p></div>
 <p>You can also use <code>:=</code> instead of <code>=</code> to enable a glue-like syntax for
 creating variables from user supplied data:</p>
 <p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a>var_name <span class="ot">&lt;-</span> <span class="st">"l100km"</span></span>
-<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>mtcars <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="st">"{var_name}"</span> <span class="sc">:=</span> <span class="dv">235</span> <span class="sc">/</span> mpg)</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>mtcars <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="st">"{var_name}"</span> <span class="sc">:=</span> <span class="dv">235</span> <span class="sc">/</span> mpg)</span>
 <span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a></span>
 <span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a>summarise_mean <span class="ot">&lt;-</span> <span class="cf">function</span>(df, var) {</span>
-<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a>  df <span class="sc">%&gt;%</span></span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a>  df <span class="sc">|&gt;</span></span>
 <span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a>    <span class="fu">summarise</span>(<span class="st">"mean_of_{{var}}"</span> <span class="sc">:=</span> <span class="fu">mean</span>({{ var }}))</span>
 <span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a>}</span>
-<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a>mtcars <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(cyl) <span class="sc">%&gt;%</span> <span class="fu">summarise_mean</span>(mpg)</span></code></pre><p></p></div>
+<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a>mtcars <span class="sc">|&gt;</span> <span class="fu">group_by</span>(cyl) <span class="sc">|&gt;</span> <span class="fu">summarise_mean</span>(mpg)</span></code></pre><p></p></div>
 <p>Learn more in <a href="https://rlang.r-lib.org/reference/topic-data-mask-programming.html" class="external-link">https://rlang.r-lib.org/reference/topic-data-mask-programming.html</a>.</p>
     </div>
 

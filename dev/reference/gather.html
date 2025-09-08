@@ -3,14 +3,14 @@
 Development on gather() is complete, and for new code we recommend
 switching to pivot_longer(), which is easier to use, more featureful, and
 still under active development.
-df %&amp;gt;% gather("key", "value", x, y, z) is equivalent to
-df %&amp;gt;% pivot_longer(c(x, y, z), names_to = "key", values_to = "value")
+df |&amp;gt; gather("key", "value", x, y, z) is equivalent to
+df |&amp;gt; pivot_longer(c(x, y, z), names_to = "key", values_to = "value")
 See more details in vignette("pivot").'><meta property="og:description" content='
 Development on gather() is complete, and for new code we recommend
 switching to pivot_longer(), which is easier to use, more featureful, and
 still under active development.
-df %&amp;gt;% gather("key", "value", x, y, z) is equivalent to
-df %&amp;gt;% pivot_longer(c(x, y, z), names_to = "key", values_to = "value")
+df |&amp;gt; gather("key", "value", x, y, z) is equivalent to
+df |&amp;gt; pivot_longer(c(x, y, z), names_to = "key", values_to = "value")
 See more details in vignette("pivot").'><meta property="og:image" content="https://tidyr.tidyverse.org/logo.png"><meta name="robots" content="noindex"><script defer data-domain="tidyr.tidyverse.org,all.tidyverse.org" src="https://plausible.io/js/plausible.js"></script><script async src="https://widget.kapa.ai/kapa-widget.bundle.js" data-button-hide="true" data-modal-disclaimer="This is a custom LLM for answering questions about dplyr, tidyr, and ggplot2. Answers are based on the contents of the documentation. Rate the answers to let us know what you think!" data-modal-ask-ai-input-placeholder="Ask me a question about dplyr, tidyr, or ggplot2." data-modal-header-bg-color="#f9f9f9" data-modal-override-open-class="open-kapa-widget" data-project-color="#365a7a" data-project-name="tidyr" data-modal-title="tidyverse AI ✨" data-project-logo="https://avatars.githubusercontent.com/u/22032646?s=200&amp;u=235532df5cf8543246812f73db051b793f868807&amp;v=4" data-user-analytics-fingerprint-enabled="true" data-bot-protection-mechanism="hcaptcha" data-website-id="34242a59-6aeb-4105-9065-86e16bf56a0f"></script></head><body>
     <a href="#container" class="visually-hidden-focusable">Skip to content</a>
 
@@ -76,8 +76,8 @@ See more details in vignette("pivot").'><meta property="og:image" content="https
 <p>Development on <code>gather()</code> is complete, and for new code we recommend
 switching to <code><a href="pivot_longer.html">pivot_longer()</a></code>, which is easier to use, more featureful, and
 still under active development.
-<code>df %&gt;% gather("key", "value", x, y, z)</code> is equivalent to
-<code>df %&gt;% pivot_longer(c(x, y, z), names_to = "key", values_to = "value")</code></p>
+<code>df |&gt; gather("key", "value", x, y, z)</code> is equivalent to
+<code>df |&gt; pivot_longer(c(x, y, z), names_to = "key", values_to = "value")</code></p>
 <p>See more details in <code><a href="../articles/pivot.html">vignette("pivot")</a></code>.</p>
     </div>
 
@@ -185,7 +185,7 @@ For more details, see the <code><a href="https://tidyselect.r-lib.org/reference/
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> 2009-01-09 X     -<span style="color: #BB0000;">0.097</span><span style="color: #BB0000; text-decoration: underline;">4</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> 2009-01-10 X     -<span style="color: #BB0000;">0.936</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 20 more rows</span></span>
-<span class="r-in"><span><span class="va">stocks</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu">gather</span><span class="op">(</span><span class="st">"stock"</span>, <span class="st">"price"</span>, <span class="op">-</span><span class="va">time</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">stocks</span> <span class="op">|&gt;</span> <span class="fu">gather</span><span class="op">(</span><span class="st">"stock"</span>, <span class="st">"price"</span>, <span class="op">-</span><span class="va">time</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 30 × 3</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    time       stock   price</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>

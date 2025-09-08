@@ -100,8 +100,8 @@ tidyselect expression.</p>
 <p>If not supplied, then <code>...</code> is derived as all columns <em>not</em> selected by
 <code>.by</code>, and will use the column name from <code>.key</code>.</p>
 <p><a href="https://lifecycle.r-lib.org/articles/stages.html#deprecated" class="external-link"><img src="figures/lifecycle-deprecated.svg" alt="[Deprecated]"></a>:
-previously you could write <code>df %&gt;% nest(x, y, z)</code>.
-Convert to <code>df %&gt;% nest(data = c(x, y, z))</code>.</p></dd>
+previously you could write <code>df |&gt; nest(x, y, z)</code>.
+Convert to <code>df |&gt; nest(data = c(x, y, z))</code>.</p></dd>
 
 
 <dt id="arg--by">.by<a class="anchor" aria-label="anchor" href="#arg--by"></a></dt>
@@ -115,7 +115,7 @@ through <code>...</code>.</p>
 
 <dt id="arg--key">.key<a class="anchor" aria-label="anchor" href="#arg--key"></a></dt>
 <dd><p>The name of the resulting nested column. Only applicable when
-<code>...</code> isn't specified, i.e. in the case of <code>df %&gt;% nest(.by = x)</code>.</p>
+<code>...</code> isn't specified, i.e. in the case of <code>df |&gt; nest(.by = x)</code>.</p>
 <p>If <code>NULL</code>, then <code>"data"</code> will be used by default.</p></dd>
 
 
@@ -148,15 +148,15 @@ behaviour using <code><a href="nest_legacy.html">nest_legacy()</a></code> and <c
     <h2 id="grouped-data-frames">Grouped data frames<a class="anchor" aria-label="anchor" href="#grouped-data-frames"></a></h2>
 
 
-<p><code>df %&gt;% nest(data = c(x, y))</code> specifies the columns to be nested; i.e. the
-columns that will appear in the inner data frame. <code>df %&gt;% nest(.by = c(x, y))</code> specifies the columns to nest <em>by</em>; i.e. the columns that will remain in
+<p><code>df |&gt; nest(data = c(x, y))</code> specifies the columns to be nested; i.e. the
+columns that will appear in the inner data frame. <code>df |&gt; nest(.by = c(x, y))</code> specifies the columns to nest <em>by</em>; i.e. the columns that will remain in
 the outer data frame. An alternative way to achieve the latter is to <code>nest()</code>
 a grouped data frame created by <code><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">dplyr::group_by()</a></code>. The grouping variables
 remain in the outer data frame and the others are nested. The result
 preserves the grouping of the input.</p>
 <p>Variables supplied to <code>nest()</code> will override grouping variables so that
-<code>df %&gt;% group_by(x, y) %&gt;% nest(data = !z)</code> will be equivalent to
-<code>df %&gt;% nest(data = !z)</code>.</p>
+<code>df |&gt; group_by(x, y) |&gt; nest(data = !z)</code> will be equivalent to
+<code>df |&gt; nest(data = !z)</code>.</p>
 <p>You can't supply <code>.by</code> with a grouped data frame, as the groups already
 represent what you are nesting by.</p>
     </div>
@@ -168,7 +168,7 @@ represent what you are nesting by.</p>
 <span class="r-in"><span><span class="co"># Specify variables to nest using name-variable pairs.</span></span></span>
 <span class="r-in"><span><span class="co"># Note that we get one row of output for each unique combination of</span></span></span>
 <span class="r-in"><span><span class="co"># non-nested variables.</span></span></span>
-<span class="r-in"><span><span class="va">df</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu">nest</span><span class="op">(</span>data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">y</span>, <span class="va">z</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">df</span> <span class="op">|&gt;</span> <span class="fu">nest</span><span class="op">(</span>data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">y</span>, <span class="va">z</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 3 × 2</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       x data            </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>          </span>
@@ -177,7 +177,7 @@ represent what you are nesting by.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span>     3 <span style="color: #949494;">&lt;tibble [1 × 2]&gt;</span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Specify variables to nest by (rather than variables to nest) using `.by`</span></span></span>
-<span class="r-in"><span><span class="va">df</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu">nest</span><span class="op">(</span>.by <span class="op">=</span> <span class="va">x</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">df</span> <span class="op">|&gt;</span> <span class="fu">nest</span><span class="op">(</span>.by <span class="op">=</span> <span class="va">x</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 3 × 2</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       x data            </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>          </span>
@@ -187,7 +187,7 @@ represent what you are nesting by.</p>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># In this case, since `...` isn't used you can specify the resulting column</span></span></span>
 <span class="r-in"><span><span class="co"># name with `.key`</span></span></span>
-<span class="r-in"><span><span class="va">df</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu">nest</span><span class="op">(</span>.by <span class="op">=</span> <span class="va">x</span>, .key <span class="op">=</span> <span class="st">"cols"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">df</span> <span class="op">|&gt;</span> <span class="fu">nest</span><span class="op">(</span>.by <span class="op">=</span> <span class="va">x</span>, .key <span class="op">=</span> <span class="st">"cols"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 3 × 2</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       x cols            </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>          </span>
@@ -196,7 +196,7 @@ represent what you are nesting by.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span>     3 <span style="color: #949494;">&lt;tibble [1 × 2]&gt;</span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Use tidyselect syntax and helpers, just like in `dplyr::select()`</span></span></span>
-<span class="r-in"><span><span class="va">df</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu">nest</span><span class="op">(</span>data <span class="op">=</span> <span class="fu"><a href="https://tidyselect.r-lib.org/reference/all_of.html" class="external-link">any_of</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"y"</span>, <span class="st">"z"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">df</span> <span class="op">|&gt;</span> <span class="fu">nest</span><span class="op">(</span>data <span class="op">=</span> <span class="fu"><a href="https://tidyselect.r-lib.org/reference/all_of.html" class="external-link">any_of</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"y"</span>, <span class="st">"z"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 3 × 2</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       x data            </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>          </span>
@@ -207,7 +207,7 @@ represent what you are nesting by.</p>
 <span class="r-in"><span><span class="co"># `...` and `.by` can be used together to drop columns you no longer need,</span></span></span>
 <span class="r-in"><span><span class="co"># or to include the columns you are nesting by in the inner data frame too.</span></span></span>
 <span class="r-in"><span><span class="co"># This drops `z`:</span></span></span>
-<span class="r-in"><span><span class="va">df</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu">nest</span><span class="op">(</span>data <span class="op">=</span> <span class="va">y</span>, .by <span class="op">=</span> <span class="va">x</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">df</span> <span class="op">|&gt;</span> <span class="fu">nest</span><span class="op">(</span>data <span class="op">=</span> <span class="va">y</span>, .by <span class="op">=</span> <span class="va">x</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 3 × 2</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       x data            </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>          </span>
@@ -215,7 +215,7 @@ represent what you are nesting by.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span>     2 <span style="color: #949494;">&lt;tibble [2 × 1]&gt;</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span>     3 <span style="color: #949494;">&lt;tibble [1 × 1]&gt;</span></span>
 <span class="r-in"><span><span class="co"># This includes `x` in the inner data frame:</span></span></span>
-<span class="r-in"><span><span class="va">df</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu">nest</span><span class="op">(</span>data <span class="op">=</span> <span class="fu"><a href="https://tidyselect.r-lib.org/reference/everything.html" class="external-link">everything</a></span><span class="op">(</span><span class="op">)</span>, .by <span class="op">=</span> <span class="va">x</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">df</span> <span class="op">|&gt;</span> <span class="fu">nest</span><span class="op">(</span>data <span class="op">=</span> <span class="fu"><a href="https://tidyselect.r-lib.org/reference/everything.html" class="external-link">everything</a></span><span class="op">(</span><span class="op">)</span>, .by <span class="op">=</span> <span class="va">x</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 3 × 2</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       x data            </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>          </span>
@@ -224,7 +224,7 @@ represent what you are nesting by.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span>     3 <span style="color: #949494;">&lt;tibble [1 × 3]&gt;</span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Multiple nesting structures can be specified at once</span></span></span>
-<span class="r-in"><span><span class="va">iris</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
+<span class="r-in"><span><span class="va">iris</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu">nest</span><span class="op">(</span>petal <span class="op">=</span> <span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html" class="external-link">starts_with</a></span><span class="op">(</span><span class="st">"Petal"</span><span class="op">)</span>, sepal <span class="op">=</span> <span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html" class="external-link">starts_with</a></span><span class="op">(</span><span class="st">"Sepal"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 3 × 3</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Species    petal             sepal            </span>
@@ -232,7 +232,7 @@ represent what you are nesting by.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> setosa     <span style="color: #949494;">&lt;tibble [50 × 2]&gt;</span> <span style="color: #949494;">&lt;tibble [50 × 2]&gt;</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> versicolor <span style="color: #949494;">&lt;tibble [50 × 2]&gt;</span> <span style="color: #949494;">&lt;tibble [50 × 2]&gt;</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> virginica  <span style="color: #949494;">&lt;tibble [50 × 2]&gt;</span> <span style="color: #949494;">&lt;tibble [50 × 2]&gt;</span></span>
-<span class="r-in"><span><span class="va">iris</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
+<span class="r-in"><span><span class="va">iris</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu">nest</span><span class="op">(</span>width <span class="op">=</span> <span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html" class="external-link">contains</a></span><span class="op">(</span><span class="st">"Width"</span><span class="op">)</span>, length <span class="op">=</span> <span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html" class="external-link">contains</a></span><span class="op">(</span><span class="st">"Length"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 3 × 3</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Species    width             length           </span>
@@ -242,8 +242,8 @@ represent what you are nesting by.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> virginica  <span style="color: #949494;">&lt;tibble [50 × 2]&gt;</span> <span style="color: #949494;">&lt;tibble [50 × 2]&gt;</span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Nesting a grouped data frame nests all variables apart from the group vars</span></span></span>
-<span class="r-in"><span><span class="va">fish_encounters</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
-<span class="r-in"><span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">fish</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
+<span class="r-in"><span><span class="va">fish_encounters</span> <span class="op">|&gt;</span></span></span>
+<span class="r-in"><span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">fish</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu">nest</span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 19 × 2</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># Groups:   fish [19]</span></span>
@@ -270,7 +270,7 @@ represent what you are nesting by.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">19</span> 4865  <span style="color: #949494;">&lt;tibble [3 × 2]&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># That is similar to `nest(.by = )`, except here the result isn't grouped</span></span></span>
-<span class="r-in"><span><span class="va">fish_encounters</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
+<span class="r-in"><span><span class="va">fish_encounters</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu">nest</span><span class="op">(</span>.by <span class="op">=</span> <span class="va">fish</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 19 × 2</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    fish  data             </span>
@@ -296,8 +296,8 @@ represent what you are nesting by.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">19</span> 4865  <span style="color: #949494;">&lt;tibble [3 × 2]&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Nesting is often useful for creating per group models</span></span></span>
-<span class="r-in"><span><span class="va">mtcars</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
-<span class="r-in"><span>  <span class="fu">nest</span><span class="op">(</span>.by <span class="op">=</span> <span class="va">cyl</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
+<span class="r-in"><span><span class="va">mtcars</span> <span class="op">|&gt;</span></span></span>
+<span class="r-in"><span>  <span class="fu">nest</span><span class="op">(</span>.by <span class="op">=</span> <span class="va">cyl</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>models <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">data</span>, <span class="kw">function</span><span class="op">(</span><span class="va">df</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">wt</span>, data <span class="op">=</span> <span class="va">df</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 3 × 3</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     cyl data               models</span>
