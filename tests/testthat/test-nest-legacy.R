@@ -26,21 +26,21 @@ test_that("can control output column name", {
 
 test_that("nest doesn't include grouping vars in nested data", {
   df <- tibble(x = c(1, 1, 1), y = 1:3)
-  out <- df %>%
-    dplyr::group_by(x) %>%
+  out <- df |>
+    dplyr::group_by(x) |>
     nest_legacy()
   expect_equal(out$data[[1]], tibble(y = 1:3))
 })
 
 test_that("can restrict variables in grouped nest", {
-  df <- tibble(x = 1, y = 2, z = 3) %>% dplyr::group_by(x)
-  out <- df %>% nest_legacy(y)
+  df <- tibble(x = 1, y = 2, z = 3) |> dplyr::group_by(x)
+  out <- df |> nest_legacy(y)
   expect_equal(names(out$data[[1]]), "y")
 })
 
 test_that("puts data into the correct row", {
   df <- tibble(x = 1:3, y = c("B", "A", "A"))
-  out <- nest_legacy(df, x) %>% dplyr::filter(y == "B")
+  out <- nest_legacy(df, x) |> dplyr::filter(y == "B")
   expect_equal(out$data[[1]]$x, 1)
 })
 
@@ -81,13 +81,13 @@ test_that("nesting works for empty data frames", {
 })
 
 test_that("tibble conversion occurs in the `nest.data.frame()` method", {
-  tbl <- mtcars %>% nest_legacy(-am, -cyl)
+  tbl <- mtcars |> nest_legacy(-am, -cyl)
   expect_s3_class(tbl, "tbl_df")
   expect_s3_class(tbl$data[[1L]], "tbl_df")
 })
 
 test_that("nest_legacy() does not preserve grouping", {
-  df <- tibble(x = c(1, 1, 2), y = 1:3) %>% dplyr::group_by(x)
+  df <- tibble(x = c(1, 1, 2), y = 1:3) |> dplyr::group_by(x)
   out <- nest_legacy(df)
   expect_false(inherits(out, "grouped_df"))
 })
@@ -169,7 +169,7 @@ test_that("nested is split as a list (#84)", {
 
 test_that("unnest has mutate semantics", {
   df <- tibble(x = 1:3, y = list(1, 2:3, 4))
-  out <- df %>% unnest_legacy(z = map(y, `+`, 1))
+  out <- df |> unnest_legacy(z = map(y, `+`, 1))
 
   expect_equal(out$z, 2:5)
 })
@@ -182,7 +182,7 @@ test_that(".id creates vector of names for vector unnest", {
 })
 
 test_that(".id creates vector of names for grouped vector unnest", {
-  df <- tibble(x = 1:2, y = list(a = 1, b = 1:2)) %>%
+  df <- tibble(x = 1:2, y = list(a = 1, b = 1:2)) |>
     dplyr::group_by(x)
   out <- unnest_legacy(df, .id = "name")
 
@@ -209,7 +209,7 @@ test_that(".id creates vector of names for grouped data frame unnest", {
       a = tibble(y = 1),
       b = tibble(y = 1:2)
     )
-  ) %>%
+  ) |>
     dplyr::group_by(x)
   out <- unnest_legacy(df, .id = "name")
 
@@ -217,15 +217,15 @@ test_that(".id creates vector of names for grouped data frame unnest", {
 })
 
 test_that("can use non-syntactic names", {
-  out <- tibble("foo bar" = list(1:2, 3)) %>% unnest_legacy()
+  out <- tibble("foo bar" = list(1:2, 3)) |> unnest_legacy()
 
   expect_named(out, "foo bar")
 })
 
 test_that("sep combines column names", {
   ldf <- list(tibble(x = 1))
-  tibble(x = ldf, y = ldf) %>%
-    unnest_legacy(.sep = "_") %>%
+  tibble(x = ldf, y = ldf) |>
+    unnest_legacy(.sep = "_") |>
     expect_named(c("x_x", "y_x"))
 })
 
@@ -242,24 +242,24 @@ test_that("empty ... returns df if no list-cols", {
 
 test_that("can optional preserve list cols", {
   df <- tibble(x = list(3, 4), y = list("a", "b"))
-  rs <- df %>% unnest_legacy(x, .preserve = y)
+  rs <- df |> unnest_legacy(x, .preserve = y)
   expect_identical(rs, tibble(y = df$y, x = c(3, 4)))
 
   df <- tibble(x = list(c("d", "e")), y = list(1:2))
-  rs <- df %>% unnest_legacy(.preserve = y)
+  rs <- df |> unnest_legacy(.preserve = y)
   expect_identical(rs, tibble(y = rep(list(1:2), 2), x = c("d", "e")))
 })
 
 test_that("unnest drops list cols if expanding", {
   df <- tibble(x = 1:2, y = list(3, 4), z = list(5, 6:7))
-  out <- df %>% unnest_legacy(z)
+  out <- df |> unnest_legacy(z)
 
   expect_equal(names(out), c("x", "z"))
 })
 
 test_that("unnest keeps list cols if not expanding", {
   df <- tibble(x = 1:2, y = list(3, 4), z = list(5, 6:7))
-  out <- df %>% unnest_legacy(y)
+  out <- df |> unnest_legacy(y)
 
   expect_equal(names(out), c("x", "z", "y"))
 })
@@ -267,16 +267,16 @@ test_that("unnest keeps list cols if not expanding", {
 test_that("unnest respects .drop_lists", {
   df <- tibble(x = 1:2, y = list(3, 4), z = list(5, 6:7))
 
-  expect_equal(df %>% unnest_legacy(y, .drop = TRUE) %>% names(), c("x", "y"))
+  expect_equal(df |> unnest_legacy(y, .drop = TRUE) |> names(), c("x", "y"))
   expect_equal(
-    df %>% unnest_legacy(z, .drop = FALSE) %>% names(),
+    df |> unnest_legacy(z, .drop = FALSE) |> names(),
     c("x", "y", "z")
   )
 })
 
 test_that("grouping is preserved", {
-  df <- tibble(g = 1, x = list(1:3)) %>% dplyr::group_by(g)
-  rs <- df %>% unnest_legacy(x)
+  df <- tibble(g = 1, x = list(1:3)) |> dplyr::group_by(g)
+  rs <- df |> unnest_legacy(x)
 
   expect_equal(rs$x, 1:3)
   expect_equal(class(df), class(rs))
@@ -286,7 +286,7 @@ test_that("grouping is preserved", {
 test_that("unnesting zero row column preserves names", {
   df <- tibble(a = character(), b = character())
   expect_equal(
-    df %>% unnest_legacy(b),
+    df |> unnest_legacy(b),
     tibble(a = character(), b = character())
   )
 })

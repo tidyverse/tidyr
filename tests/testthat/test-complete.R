@@ -112,7 +112,7 @@ test_that("empty expansion returns original", {
 
 test_that("not drop unspecified levels in complete", {
   df <- tibble(x = 1:3, y = 1:3, z = c("a", "b", "c"))
-  df2 <- df %>% complete(z = c("a", "b"))
+  df2 <- df |> complete(z = c("a", "b"))
   expect <- df[c("z", "x", "y")]
   expect_equal(df2, expect)
 })

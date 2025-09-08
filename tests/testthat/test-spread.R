@@ -2,14 +2,14 @@ test_that("order doesn't matter", {
   df1 <- tibble(x = factor(c("a", "b")), y = 1:2)
   df2 <- tibble(x = factor(c("b", "a")), y = 2:1)
   one <- spread(df1, x, y)
-  two <- spread(df2, x, y) %>%
-    dplyr::select(a, b) %>%
+  two <- spread(df2, x, y) |>
+    dplyr::select(a, b) |>
     dplyr::arrange(a, b)
   expect_identical(one, two)
 
   df1 <- tibble(z = factor(c("b", "a")), x = factor(c("a", "b")), y = 1:2)
   df2 <- tibble(z = factor(c("a", "b")), x = factor(c("b", "a")), y = 2:1)
-  one <- spread(df1, x, y) %>% dplyr::arrange(z)
+  one <- spread(df1, x, y) |> dplyr::arrange(z)
   two <- spread(df2, x, y)
   expect_identical(one, two)
 })
@@ -32,7 +32,7 @@ test_that("factors are spread into columns (#35)", {
     z = factor(c("w", "x", "y", "z"))
   )
 
-  out <- data %>% spread(x, z)
+  out <- data |> spread(x, z)
   expect_equal(names(out), c("y", "a", "b"))
   expect_true(all(vapply(out, is.factor, logical(1))))
   expect_identical(levels(out$a), levels(data$z))
@@ -45,7 +45,7 @@ test_that("drop = FALSE keeps missing combinations (#25)", {
     y = factor("b", levels = c("a", "b")),
     z = 1
   )
-  out <- df %>% spread(x, z, drop = FALSE)
+  out <- df |> spread(x, z, drop = FALSE)
   expect_equal(nrow(out), 2)
   expect_equal(ncol(out), 3)
   expect_equal(out$a[2], 1)
@@ -57,7 +57,7 @@ test_that("drop = FALSE keeps missing combinations of 0-length factors (#56)", {
     y = factor(, levels = c("a", "b")),
     z = logical()
   )
-  out <- df %>% spread(x, z, drop = FALSE)
+  out <- df |> spread(x, z, drop = FALSE)
 
   expect_equal(nrow(out), 2)
   expect_equal(ncol(out), 3)
@@ -72,7 +72,7 @@ test_that("drop = FALSE spread all levels including NA (#254)", {
     y = factor(c("a", "b", "c", "d")),
     z = factor(c("a", "b", "a", "b"))
   )
-  out <- df %>% spread(x, y, drop = FALSE)
+  out <- df |> spread(x, y, drop = FALSE)
   expect_equal(nrow(out), 2)
   expect_equal(ncol(out), 6)
   expect_equal(out$d, factor(c(NA, NA), levels = l))
@@ -85,8 +85,8 @@ test_that("spread preserves class of tibbles", {
     y = factor(c("c", "d", "c", "d")),
     z = factor(c("w", "x", "y", "z"))
   )
-  dat %>%
-    spread(x, z) %>%
+  dat |>
+    spread(x, z) |>
     expect_s3_class("tbl_df")
 })
 
@@ -127,7 +127,7 @@ test_that("factors can be used with convert = TRUE to produce mixed types", {
     column = c("f", "f", "g", "g", "h", "h"),
     contents = c("aa", "bb", "1", "2", "TRUE", "FALSE")
   )
-  out <- df %>% spread(column, contents, convert = TRUE)
+  out <- df |> spread(column, contents, convert = TRUE)
   expect_type(out$f, "character")
   expect_type(out$g, "integer")
   expect_type(out$h, "logical")
@@ -150,12 +150,12 @@ test_that("vars that are all NA are logical if convert = TRUE (#118)", {
     column = c("f", "f", "g", "g"),
     contents = c("aa", "bb", NA, NA)
   )
-  out <- df %>% spread(column, contents, convert = TRUE)
+  out <- df |> spread(column, contents, convert = TRUE)
   expect_type(out$g, "logical")
 })
 
 test_that("complex values are preserved  (#134)", {
-  df <- expand.grid(id = 1:2, key = letters[1:2], stringsAsFactors = TRUE) %>%
+  df <- expand.grid(id = 1:2, key = letters[1:2], stringsAsFactors = TRUE) |>
     dplyr::mutate(value = 1:4 + 1i)
 
   out1 <- spread(df, key, value, convert = FALSE)
@@ -192,47 +192,47 @@ test_that("spread gives one column when no existing non-spread vars", {
     key = c("a", "b", "c"),
     value = c(1, 2, 3)
   )
-  expect_equal(df %>% spread(key, value), tibble(a = 1, b = 2, c = 3))
+  expect_equal(df |> spread(key, value), tibble(a = 1, b = 2, c = 3))
 })
 
 test_that("grouping vars are kept where possible", {
   # Can keep
   df <- tibble(x = 1:2, key = factor(c("a", "b")), value = 1:2)
-  out <- df %>%
-    dplyr::group_by(x) %>%
+  out <- df |>
+    dplyr::group_by(x) |>
     spread(key, value)
   expect_equal(dplyr::groups(out), list(quote(x)))
 
   # Can't keep
   df <- tibble(key = factor(c("a", "b")), value = 1:2)
-  out <- df %>%
-    dplyr::group_by(key) %>%
+  out <- df |>
+    dplyr::group_by(key) |>
     spread(key, value)
   expect_equal(out, tibble(a = 1L, b = 2L))
 })
 
 test_that("col names never contains NA", {
   df <- tibble(x = c(1, NA), y = 1:2)
-  df %>%
-    spread(x, y) %>%
+  df |>
+    spread(x, y) |>
     expect_named(c("1", "<NA>"))
-  df %>%
-    spread(x, y, sep = "_") %>%
+  df |>
+    spread(x, y, sep = "_") |>
     expect_named(c("x_1", "x_NA"))
 })
 
 test_that("never has row names (#305)", {
   df <- tibble(id = 1:2, x = letters[1:2], y = 1:2)
   expect_false(
-    df %>%
-      spread(x, y) %>%
+    df |>
+      spread(x, y) |>
       tibble::has_rownames()
   )
 })
 
 test_that("overwrites existing columns", {
   df <- tibble(x = 1:2, y = 2:1, key = c("x", "x"), value = 3:4)
-  rs <- df %>% spread(key, value)
+  rs <- df |> spread(key, value)
 
   expect_named(rs, c("y", "x"))
   expect_equal(rs$x, 3:4)

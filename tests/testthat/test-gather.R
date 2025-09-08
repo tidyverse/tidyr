@@ -50,9 +50,9 @@ test_that("key preserves column ordering when factor_key = TRUE", {
 
 test_that("preserve class of input", {
   dat <- data.frame(x = 1:2)
-  dat %>%
-    as_tibble() %>%
-    gather() %>%
+  dat |>
+    as_tibble() |>
+    gather() |>
     expect_s3_class("tbl_df")
 })
 
@@ -67,14 +67,14 @@ test_that("group_vars are kept where possible", {
   df <- tibble(x = 1, y = 1, z = 1)
 
   # Can't keep
-  out <- df %>%
-    dplyr::group_by(x) %>%
+  out <- df |>
+    dplyr::group_by(x) |>
     gather(key, val, x:z)
   expect_equal(out, tibble(key = c("x", "y", "z"), val = 1))
 
   # Can keep
-  out <- df %>%
-    dplyr::group_by(x) %>%
+  out <- df |>
+    dplyr::group_by(x) |>
     gather(key, val, y:z)
   expect_equal(dplyr::group_vars(out), "x")
 })

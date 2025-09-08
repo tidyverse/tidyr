@@ -73,8 +73,8 @@ library(dplyr)
 ```
 
 ```{r}
-classroom2 <- classroom %>%
-  pivot_longer(quiz1:test1, names_to = "assessment", values_to = "grade") %>%
+classroom2 <- classroom |>
+  pivot_longer(quiz1:test1, names_to = "assessment", values_to = "grade") |>
   arrange(name, assessment)
 classroom2
 ```
@@ -142,7 +142,7 @@ This dataset has three variables, `religion`, `income` and `frequency`. To tidy 
 When pivoting variables, we need to provide the name of the new key-value columns to create. After defining the columns to pivot (every column except for religion), you will need the name of the key column, which is the name of the variable defined by the values of the column headings. In this case, it's `income`. The second argument is the name of the value column, `frequency`.
 
 ```{r}
-relig_income %>%
+relig_income |>
   pivot_longer(-religion, names_to = "income", values_to = "frequency")
 ```
 
@@ -157,7 +157,7 @@ billboard
 To tidy this dataset, we first use `pivot_longer()` to make the dataset longer. We transform the columns from `wk1` to `wk76`, making a new column for their names, `week`, and a new value for their values, `rank`:
 
 ```{r}
-billboard2 <- billboard %>%
+billboard2 <- billboard |>
   pivot_longer(
     wk1:wk76,
     names_to = "week",
@@ -172,7 +172,7 @@ Here we use `values_drop_na = TRUE` to drop any missing values from the rank col
 In this case it's also nice to do a little cleaning, converting the week variable to a number, and figuring out the date corresponding to each week on the charts:
 
 ```{r}
-billboard3 <- billboard2 %>%
+billboard3 <- billboard2 |>
   mutate(
     week = as.integer(gsub("wk", "", week)),
     date = as.Date(date.entered) + 7 * (week - 1),
@@ -184,13 +184,13 @@ billboard3
 Finally, it's always a good idea to sort the data. We could do it by artist, track and week:
 
 ```{r}
-billboard3 %>% arrange(artist, track, week)
+billboard3 |> arrange(artist, track, week)
 ```
 
 Or by date and rank:
 
 ```{r}
-billboard3 %>% arrange(date, rank)
+billboard3 |> arrange(date, rank)
 ```
 
 ### Multiple variables stored in one column
@@ -207,7 +207,7 @@ tb
 First we use `pivot_longer()` to gather up the non-variable columns:
 
 ```{r}
-tb2 <- tb %>%
+tb2 <- tb |>
   pivot_longer(
     !c(iso2, year),
     names_to = "demo",
@@ -220,7 +220,7 @@ tb2
 Column headers in this format are often separated by a non-alphanumeric character (e.g. `.`, `-`, `_`, `:`), or have a fixed width format, like in this dataset. `separate()` makes it easy to split a compound variables into individual variables. You can either pass it a regular expression to split on (the default is to split on non-alphanumeric columns), or a vector of character positions. In this case we want to split after the first character:
 
 ```{r}
-tb3 <- tb2 %>%
+tb3 <- tb2 |>
   separate(demo, c("sex", "age"), 1)
 tb3
 ```
@@ -230,7 +230,7 @@ Storing the values in this form resolves a problem in the original data. We want
 In this case, we could also do the transformation in a single step by supplying multiple column names to `names_to` and also supplying a grouped regular expression to `names_pattern`:
 
 ```{r}
-tb %>% pivot_longer(
+tb |> pivot_longer(
   !c(iso2, year),
   names_to = c("sex", "age"),
   names_pattern = "(.)(.+)",
@@ -257,7 +257,7 @@ It has variables in individual columns (`id`, `year`, `month`), spread across co
 To tidy this dataset we first use pivot_longer to gather the day columns:
 
 ```{r}
-weather2 <- weather %>%
+weather2 <- weather |>
   pivot_longer(
     d1:d31,
     names_to = "day",
@@ -272,8 +272,8 @@ For presentation, I've dropped the missing values, making them implicit rather t
 We'll also do a little cleaning:
 
 ```{r}
-weather3 <- weather2 %>%
-  mutate(day = as.integer(gsub("d", "", day))) %>%
+weather3 <- weather2 |>
+  mutate(day = as.integer(gsub("d", "", day))) |>
   select(id, year, month, day, element, value)
 weather3
 ```
@@ -281,7 +281,7 @@ weather3
 This dataset is mostly tidy, but the `element` column is not a variable; it stores the names of variables. (Not shown in this example are the other meteorological variables `prcp` (precipitation) and `snow` (snowfall)). Fixing this requires widening the data: `pivot_wider()` is inverse of `pivot_longer()`, pivoting `element` and `value` back out across multiple columns:
 
 ```{r}
-weather3 %>%
+weather3 |>
   pivot_wider(names_from = element, values_from = value)
 ```
 
@@ -296,8 +296,8 @@ The billboard dataset actually contains observations on two types of observation
 This dataset needs to be broken down into two pieces: a song dataset which stores `artist` and `song name`, and a ranking dataset which gives the `rank` of the `song` in each `week`.  We first extract a `song` dataset:
 
 ```{r}
-song <- billboard3 %>%
-  distinct(artist, track) %>%
+song <- billboard3 |>
+  distinct(artist, track) |>
   mutate(song_id = row_number())
 song
 ```
@@ -305,8 +305,8 @@ song
 Then use that to make a `rank` dataset by replacing repeated song facts with a pointer to song details (a unique song id):
 
 ```{r}
-rank <- billboard3 %>%
-  left_join(song, c("artist", "track")) %>%
+rank <- billboard3 |>
+  left_join(song, c("artist", "track")) |>
   select(song_id, date, week, rank)
 rank
 ```
@@ -335,7 +335,7 @@ library(readr)
 paths <- dir("data", pattern = "\\.csv$", full.names = TRUE)
 names(paths) <- basename(paths)
 
-map(paths, read_csv) %>% list_rbind(names_to = "filename")
+map(paths, read_csv) |> list_rbind(names_to = "filename")
 ```
 
 Once you have a single table, you can perform additional tidying as needed. An example of this type of cleaning can be found at <https://github.com/hadley/data-baby-names> which takes 129 yearly baby name tables provided by the US Social Security Administration and combines them into a single file.

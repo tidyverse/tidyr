@@ -15,29 +15,29 @@ test_that("default pattern does not split decimals in nested strings", {
 })
 
 test_that("preserves grouping", {
-  df <- tibble(g = 1, x = "a:b") %>% dplyr::group_by(g)
-  rs <- df %>% separate_rows(x)
+  df <- tibble(g = 1, x = "a:b") |> dplyr::group_by(g)
+  rs <- df |> separate_rows(x)
 
   expect_equal(class(df), class(rs))
   expect_equal(dplyr::group_vars(df), dplyr::group_vars(rs))
 })
 
 test_that("drops grouping when needed", {
-  df <- tibble(x = 1, y = "a:b") %>% dplyr::group_by(x, y)
+  df <- tibble(x = 1, y = "a:b") |> dplyr::group_by(x, y)
 
-  out <- df %>% separate_rows(y)
+  out <- df |> separate_rows(y)
   expect_equal(out$y, c("a", "b"))
   expect_equal(dplyr::group_vars(out), "x")
 
-  out <- df %>%
-    dplyr::group_by(y) %>%
+  out <- df |>
+    dplyr::group_by(y) |>
     separate_rows(y)
   expect_equal(dplyr::group_vars(out), character())
 })
 
 test_that("drops grouping on zero row data frames when needed (#886)", {
-  df <- tibble(x = numeric(), y = character()) %>% dplyr::group_by(y)
-  out <- df %>% separate_rows(y)
+  df <- tibble(x = numeric(), y = character()) |> dplyr::group_by(y)
+  out <- df |> separate_rows(y)
   expect_equal(dplyr::group_vars(out), character())
 })
 

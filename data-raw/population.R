@@ -8,8 +8,8 @@ pop <- as_tibble(read_csv(
   )
 ))
 
-population <- pop %>%
-  select(country, year, population = e_pop_num) %>%
+population <- pop |>
+  select(country, year, population = e_pop_num) |>
   filter(year >= 1995)
 
 write_csv(population, "data-raw/population.csv")

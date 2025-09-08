@@ -1,10 +1,10 @@
 test_that("hoist extracts named elements", {
   df <- tibble(x = list(list(1, b = "b")))
 
-  out <- df %>% hoist(x, a = 1, b = "b")
+  out <- df |> hoist(x, a = 1, b = "b")
   expect_equal(out, tibble(a = 1, b = "b"))
 
-  out <- df %>% hoist(x, a = 1, b = "b", .simplify = FALSE)
+  out <- df |> hoist(x, a = 1, b = "b", .simplify = FALSE)
   expect_identical(out, tibble(a = list(1), b = list("b")))
 })
 
@@ -23,11 +23,11 @@ test_that("can check check/transform values", {
   )
 
   expect_error(
-    df %>% hoist(x, a = "a", .ptype = list(a = character())),
+    df |> hoist(x, a = "a", .ptype = list(a = character())),
     class = "vctrs_error_incompatible_type"
   )
 
-  out <- df %>% hoist(x, a = "a", .transform = list(a = as.character))
+  out <- df |> hoist(x, a = "a", .transform = list(a = as.character))
   expect_equal(out, tibble(a = c("1", "a")))
 })
 
@@ -65,7 +65,7 @@ test_that("doesn't simplify uneven lengths", {
     )
   )
 
-  out <- df %>% hoist(x, a = "a")
+  out <- df |> hoist(x, a = "a")
   expect_identical(out$a, list(1, 2:3))
 })
 
@@ -77,7 +77,7 @@ test_that("doesn't simplify lists of lists", {
     )
   )
 
-  out <- df %>% hoist(x, a = "a")
+  out <- df |> hoist(x, a = "a")
   expect_identical(out$a, list(list(1), list(2)))
 })
 
@@ -89,7 +89,7 @@ test_that("doesn't simplify non-vectors", {
     )
   )
 
-  out <- df %>% hoist(x, a = "a")
+  out <- df |> hoist(x, a = "a")
   expect_identical(out$a, list(quote(a), quote(b)))
 })
 
@@ -109,13 +109,13 @@ test_that("input validation catches problems", {
   df <- tibble(x = list(list(1, b = "b")), y = 1)
 
   expect_snapshot(error = TRUE, {
-    df %>% hoist(y)
+    df |> hoist(y)
   })
   expect_snapshot(error = TRUE, {
-    df %>% hoist(x, 1)
+    df |> hoist(x, 1)
   })
   expect_snapshot(error = TRUE, {
-    df %>% hoist(x, a = "a", a = "b")
+    df |> hoist(x, a = "a", a = "b")
   })
 })
 

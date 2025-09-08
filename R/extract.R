@@ -31,18 +31,18 @@
 #' @export
 #' @examples
 #' df <- tibble(x = c(NA, "a-b", "a-d", "b-c", "d-e"))
-#' df %>% extract(x, "A")
-#' df %>% extract(x, c("A", "B"), "([[:alnum:]]+)-([[:alnum:]]+)")
+#' df |> extract(x, "A")
+#' df |> extract(x, c("A", "B"), "([[:alnum:]]+)-([[:alnum:]]+)")
 #'
 #' # Now recommended
-#' df %>%
+#' df |>
 #'   separate_wider_regex(
 #'     x,
 #'     patterns = c(A = "[[:alnum:]]+", "-", B = "[[:alnum:]]+")
 #'   )
 #'
 #' # If no match, NA:
-#' df %>% extract(x, c("A", "B"), "([a-d]+)-([a-d]+)")
+#' df |> extract(x, c("A", "B"), "([a-d]+)-([a-d]+)")
 extract <- function(
   data,
   col,

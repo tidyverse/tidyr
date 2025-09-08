@@ -25,7 +25,7 @@
 # validates its inputs
 
     Code
-      df %>% extract()
+      extract(df)
     Condition
       Error in `extract()`:
       ! `col` is absent but must be supplied.
@@ -33,7 +33,7 @@
 ---
 
     Code
-      df %>% extract(x, regex = 1)
+      extract(df, x, regex = 1)
     Condition
       Error in `extract()`:
       ! `regex` must be a single string, not the number 1.
@@ -41,7 +41,7 @@
 ---
 
     Code
-      df %>% extract(x, into = 1:3)
+      extract(df, x, into = 1:3)
     Condition
       Error in `extract()`:
       ! `into` must be a character vector, not an integer vector.
@@ -49,7 +49,7 @@
 ---
 
     Code
-      df %>% extract(x, into = "x", convert = 1)
+      extract(df, x, into = "x", convert = 1)
     Condition
       Error in `extract()`:
       ! `convert` must be `TRUE` or `FALSE`, not the number 1.

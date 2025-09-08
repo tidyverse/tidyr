@@ -6,8 +6,8 @@
 #' Development on `spread()` is complete, and for new code we recommend
 #' switching to `pivot_wider()`, which is easier to use, more featureful, and
 #' still under active development.
-#' `df %>% spread(key, value)` is equivalent to
-#' `df %>% pivot_wider(names_from = key, values_from = value)`
+#' `df |> spread(key, value)` is equivalent to
+#' `df |> pivot_wider(names_from = key, values_from = value)`
 #'
 #' See more details in `vignette("pivot")`.
 #'
@@ -37,14 +37,14 @@
 #'   Y = rnorm(10, 0, 2),
 #'   Z = rnorm(10, 0, 4)
 #' )
-#' stocksm <- stocks %>% gather(stock, price, -time)
-#' stocksm %>% spread(stock, price)
-#' stocksm %>% spread(time, price)
+#' stocksm <- stocks |> gather(stock, price, -time)
+#' stocksm |> spread(stock, price)
+#' stocksm |> spread(time, price)
 #'
 #' # Spread and gather are complements
 #' df <- tibble(x = c("a", "b"), y = c(3, 4), z = c(5, 6))
-#' df %>%
-#'   spread(x, y) %>%
+#' df |>
+#'   spread(x, y) |>
 #'   gather("x", "y", a:b, na.rm = TRUE)
 #'
 #' # Use 'convert = TRUE' to produce variables of mixed type
@@ -53,8 +53,8 @@
 #'   var = rep(c("Sepal.Length", "Species", "Species_num"), 2),
 #'   value = c(5.1, "setosa", 1, 7.0, "versicolor", 2)
 #' )
-#' df %>% spread(var, value) %>% str()
-#' df %>% spread(var, value, convert = TRUE) %>% str()
+#' df |> spread(var, value) |> str()
+#' df |> spread(var, value, convert = TRUE) |> str()
 spread <- function(
   data,
   key,

@@ -67,7 +67,7 @@
 #' df
 #'
 #' # Extract only specified components
-#' df %>% hoist(metadata,
+#' df |> hoist(metadata,
 #'   "species",
 #'   first_film = list("films", 1L),
 #'   third_film = list("films", 3L)

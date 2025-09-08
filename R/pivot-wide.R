@@ -98,15 +98,15 @@
 #' # See vignette("pivot") for examples and explanation
 #'
 #' fish_encounters
-#' fish_encounters %>%
+#' fish_encounters |>
 #'   pivot_wider(names_from = station, values_from = seen)
 #' # Fill in missing values
-#' fish_encounters %>%
+#' fish_encounters |>
 #'   pivot_wider(names_from = station, values_from = seen, values_fill = 0)
 #'
 #' # Generate column names from multiple variables
 #' us_rent_income
-#' us_rent_income %>%
+#' us_rent_income |>
 #'   pivot_wider(
 #'     names_from = variable,
 #'     values_from = c(estimate, moe)
@@ -114,7 +114,7 @@
 #'
 #' # You can control whether `names_from` values vary fastest or slowest
 #' # relative to the `values_from` column names using `names_vary`.
-#' us_rent_income %>%
+#' us_rent_income |>
 #'   pivot_wider(
 #'     names_from = variable,
 #'     values_from = c(estimate, moe),
@@ -123,13 +123,13 @@
 #'
 #' # When there are multiple `names_from` or `values_from`, you can use
 #' # use `names_sep` or `names_glue` to control the output variable names
-#' us_rent_income %>%
+#' us_rent_income |>
 #'   pivot_wider(
 #'     names_from = variable,
 #'     names_sep = ".",
 #'     values_from = c(estimate, moe)
 #'   )
-#' us_rent_income %>%
+#' us_rent_income |>
 #'   pivot_wider(
 #'     names_from = variable,
 #'     names_glue = "{variable}_{.value}",
@@ -139,7 +139,7 @@
 #' # Can perform aggregation with `values_fn`
 #' warpbreaks <- as_tibble(warpbreaks[c("wool", "tension", "breaks")])
 #' warpbreaks
-#' warpbreaks %>%
+#' warpbreaks |>
 #'   pivot_wider(
 #'     names_from = wool,
 #'     values_from = breaks,
@@ -149,7 +149,7 @@
 #' # Can pass an anonymous function to `values_fn` when you
 #' # need to supply additional arguments
 #' warpbreaks$breaks[1] <- NA
-#' warpbreaks %>%
+#' warpbreaks |>
 #'   pivot_wider(
 #'     names_from = wool,
 #'     values_from = breaks,
@@ -269,15 +269,15 @@ pivot_wider.data.frame <- function(
 #' # See vignette("pivot") for examples and explanation
 #'
 #' us_rent_income
-#' spec1 <- us_rent_income %>%
+#' spec1 <- us_rent_income |>
 #'   build_wider_spec(names_from = variable, values_from = c(estimate, moe))
 #' spec1
 #'
-#' us_rent_income %>%
+#' us_rent_income |>
 #'   pivot_wider_spec(spec1)
 #'
 #' # Is equivalent to
-#' us_rent_income %>%
+#' us_rent_income |>
 #'   pivot_wider(names_from = variable, values_from = c(estimate, moe))
 #'
 #' # `pivot_wider_spec()` provides more control over column names and output format
@@ -289,7 +289,7 @@ pivot_wider.data.frame <- function(
 #'   variable = c("income", "rent", "income", "rent")
 #' )
 #'
-#' us_rent_income %>%
+#' us_rent_income |>
 #'   pivot_wider_spec(spec2)
 pivot_wider_spec <- function(
   data,

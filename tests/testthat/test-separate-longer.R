@@ -8,10 +8,10 @@ test_that("separate_longer_delim() creates rows", {
 test_that("separate_longer_delim() validates its inputs", {
   df <- tibble(x = "x")
   expect_snapshot(error = TRUE, {
-    df %>% separate_longer_delim()
+    df |> separate_longer_delim()
   })
   expect_snapshot(error = TRUE, {
-    df %>% separate_longer_delim(x, sep = 1)
+    df |> separate_longer_delim(x, sep = 1)
   })
 })
 
@@ -42,12 +42,12 @@ test_that("works with zero-row data frame", {
 test_that("separate_longer_position() validates its inputs", {
   df <- tibble(x = "x")
   expect_snapshot(error = TRUE, {
-    df %>% separate_longer_position()
+    df |> separate_longer_position()
   })
   expect_snapshot(error = TRUE, {
-    df %>% separate_longer_position(y, width = 1)
+    df |> separate_longer_position(y, width = 1)
   })
   expect_snapshot(error = TRUE, {
-    df %>% separate_longer_position(x, width = 1.5)
+    df |> separate_longer_position(x, width = 1.5)
   })
 })

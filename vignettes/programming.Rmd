@@ -26,7 +26,7 @@ Most tidyr verbs use **tidy evaluation** to make interactive data exploration fa
 ```{r}
 library(tidyr)
 
-iris %>%
+iris |>
   nest(data = !Species)
 ```
 

@@ -21,8 +21,8 @@ test_that("expands constants and expressions", {
 })
 
 test_that("works with groups", {
-  df <- tibble(g = 1, x = 1, w = 1) %>% dplyr::group_by(g)
-  expect_equal(uncount(df, w), df %>% dplyr::select(-w))
+  df <- tibble(g = 1, x = 1, w = 1) |> dplyr::group_by(g)
+  expect_equal(uncount(df, w), df |> dplyr::select(-w))
 })
 
 test_that("must evaluate to integer", {

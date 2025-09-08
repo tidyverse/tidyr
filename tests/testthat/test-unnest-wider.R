@@ -3,7 +3,7 @@ test_that("number of rows is preserved", {
     x = 1:3,
     y = list(NULL, c(a = 1), c(a = 1, b = 2))
   )
-  out <- df %>% unnest_wider(y)
+  out <- df |> unnest_wider(y)
   expect_equal(nrow(out), 3)
 })
 
@@ -15,13 +15,13 @@ test_that("simplifies length-1 lists", {
       list(a = 3)
     )
   )
-  out <- df %>% unnest_wider(y)
+  out <- df |> unnest_wider(y)
   expect_equal(out$a, c(1, 3))
   expect_equal(out$b, c(2, NA))
   expect_equal(out$c, list(c(1, 2), NULL))
 
   # Works when casting too
-  out <- df %>% unnest_wider(y, ptype = list(a = integer(), b = integer()))
+  out <- df |> unnest_wider(y, ptype = list(a = integer(), b = integer()))
   expect_equal(out$a, c(1L, 3L))
   expect_equal(out$b, c(2L, NA))
   expect_equal(out$c, list(c(1, 2), NULL))
@@ -29,7 +29,7 @@ test_that("simplifies length-1 lists", {
 
 test_that("treats data frames like lists where we have type info about each element", {
   df <- tibble(x = 1:2, y = list(tibble(a = 1:2)))
-  out <- df %>% unnest_wider(y)
+  out <- df |> unnest_wider(y)
 
   expect_named(out, c("x", "a"))
   expect_equal(nrow(out), 2)
@@ -38,7 +38,7 @@ test_that("treats data frames like lists where we have type info about each elem
   expect_identical(attr(out$a, "ptype"), integer())
 
   df <- tibble(x = 1:2, y = list(list(a = 1:2)))
-  out <- df %>% unnest_wider(y)
+  out <- df |> unnest_wider(y)
 
   expect_named(out, c("x", "a"))
   expect_equal(nrow(out), 2)

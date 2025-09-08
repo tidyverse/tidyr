@@ -53,7 +53,7 @@ Here we assume that you're already familiar with using tidyr in functions, as de
 If you know the column names, this code works in the same way regardless of whether its inside or outside of a package:
 
 ```{r}
-mini_iris %>% nest(
+mini_iris |> nest(
   petal = c(Petal.Length, Petal.Width),
   sepal = c(Sepal.Length, Sepal.Width)
 )
@@ -64,7 +64,7 @@ But `R CMD check` will warn about undefined global variables (`Petal.Length`, `P
 The easiest way to silence this note is to use `all_of()`. `all_of()` is a tidyselect helper (like `starts_with()`, `ends_with()`, etc.) that takes column names stored as strings:
 
 ```{r}
-mini_iris %>% nest(
+mini_iris |> nest(
   petal = all_of(c("Petal.Length", "Petal.Width")),
   sepal = all_of(c("Sepal.Length", "Sepal.Width"))
 )
@@ -186,7 +186,7 @@ Why it changed:
     multiple nested list-columns at once ("multi-nest").
 
     ```{r}
-    mini_iris %>%
+    mini_iris |>
       nest(petal = matches("Petal"), sepal = matches("Sepal"))
     ```
 
@@ -194,19 +194,19 @@ Before and after examples:
 
 ```{r eval = FALSE}
 # v0.8.3
-mini_iris %>%
+mini_iris |>
   nest(Sepal.Length, Sepal.Width, Petal.Length, Petal.Width, .key = "my_data")
 
 # v1.0.0
-mini_iris %>%
+mini_iris |>
   nest(my_data = c(Sepal.Length, Sepal.Width, Petal.Length, Petal.Width))
 
 # v1.0.0 avoiding R CMD check NOTE
-mini_iris %>%
+mini_iris |>
   nest(my_data = any_of(c("Sepal.Length", "Sepal.Width", "Petal.Length", "Petal.Width")))
 
 # or equivalently:
-mini_iris %>%
+mini_iris |>
   nest(my_data = !any_of("Species"))
 ```
 
@@ -238,10 +238,10 @@ What changed:
 
     ```{r, eval = FALSE}
     # v0.8.3
-    df %>% unnest(x, .id = "id")
+    df |> unnest(x, .id = "id")
 
     # v1.0.0
-    df %>% mutate(id = names(x)) %>% unnest(x))
+    df |> mutate(id = names(x)) |> unnest(x))
     ```
 
 Why it changed:
@@ -258,14 +258,14 @@ Why it changed:
 Before and after:
 
 ```{r, eval = FALSE}
-nested <- mini_iris %>%
+nested <- mini_iris |>
   nest(my_data = c(Sepal.Length, Sepal.Width, Petal.Length, Petal.Width))
 
 # v0.8.3 automatically unnests list-cols
-nested %>% unnest()
+nested |> unnest()
 
 # v1.0.0 must be told which columns to unnest
-nested %>% unnest(any_of("my_data"))
+nested |> unnest(any_of("my_data"))
 ```
 
 If you need a quick and dirty fix without having to think, just call `unnest_legacy()` instead of `unnest()`. It's the same as `unnest()` in v0.8.3:
@@ -304,8 +304,8 @@ If the fact that `nest()` now preserves groups is problematic downstream, you ha
 Imagine we used `group_by()` then `nest()` on `mini_iris`, then we computed on the list-column *outside the data frame*.
 
 ```{r}
-(df <- mini_iris %>%
-   group_by(Species) %>%
+(df <- mini_iris |>
+   group_by(Species) |>
    nest())
 (external_variable <- map_int(df$data, nrow))
 ```
@@ -313,21 +313,21 @@ Imagine we used `group_by()` then `nest()` on `mini_iris`, then we computed on t
 And now we try to add that back to the data *post hoc*:
 
 ```{r error = TRUE}
-df %>%
+df |>
   mutate(n_rows = external_variable)
 ```
 
 This fails because `df` is grouped and `mutate()` is group-aware, so it's hard to add a completely external variable. Other than pragmatically `ungroup()`ing, what can we do? One option is to work inside the data frame, i.e. bring the `map()` inside the `mutate()`, and design the problem away:
 
 ```{r}
-df %>%
+df |>
   mutate(n_rows = map_int(data, nrow))
 ```
 
 If, somehow, the grouping seems appropriate AND working inside the data frame is not an option, `tibble::add_column()` is group-unaware. It lets you add external data to a grouped data frame.
 
 ```{r}
-df %>%
+df |>
   tibble::add_column(n_rows = external_variable)
 ```
 
@@ -349,19 +349,19 @@ Before and after:
 
 ```{r eval = FALSE}
 # v0.8.3
-mini_iris %>%
+mini_iris |>
   nest_(
     key_col = "my_data",
     nest_cols = c("Sepal.Length", "Sepal.Width", "Petal.Length", "Petal.Width")
   )
 
-nested %>% unnest_(~ my_data)
+nested |> unnest_(~ my_data)
 
 # v1.0.0
-mini_iris %>%
+mini_iris |>
   nest(my_data = any_of(c("Sepal.Length", "Sepal.Width", "Petal.Length", "Petal.Width")))
 
-nested %>% unnest(any_of("my_data"))
+nested |> unnest(any_of("my_data"))
 ```
 
 [ggplot2-packages]: https://ggplot2.tidyverse.org/dev/articles/ggplot2-in-packages.html

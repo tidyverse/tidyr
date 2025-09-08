@@ -10,37 +10,37 @@ population <- as_tibble(
 )
 
 table1 <-
-  who %>%
+  who |>
   filter(
     country %in% c("Afghanistan", "Brazil", "China"),
     year >= 1999,
     year <= 2000
-  ) %>%
-  gather("code", "value", 5:60) %>%
-  summarise(cases = sum(value, na.rm = TRUE), .by = c(country, year)) %>%
+  ) |>
+  gather("code", "value", 5:60) |>
+  summarise(cases = sum(value, na.rm = TRUE), .by = c(country, year)) |>
   left_join(population, by = c("country", "year"))
 
 table2 <-
-  table1 %>%
-  gather("type", "count", 3:4) %>%
+  table1 |>
+  gather("type", "count", 3:4) |>
   arrange(country, year)
 
 table3 <-
-  table1 %>%
+  table1 |>
   unite("rate", cases, population, sep = "/")
 
 table4a <-
-  table1 %>%
-  select(country, year, cases) %>%
+  table1 |>
+  select(country, year, cases) |>
   spread(year, cases)
 
 table4b <-
-  table1 %>%
-  select(country, year, population) %>%
+  table1 |>
+  select(country, year, population) |>
   spread(year, population)
 
 table5 <-
-  table3 %>%
+  table3 |>
   separate(year, into = c("century", "year"), sep = 2)
 
 write_csv(table1, "data-raw/table1.csv")

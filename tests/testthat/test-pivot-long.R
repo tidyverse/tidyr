@@ -197,8 +197,8 @@ test_that("error when overwriting existing column", {
 
 test_that("grouping is preserved", {
   df <- tibble(g = 1, x1 = 1, x2 = 2)
-  out <- df %>%
-    dplyr::group_by(g) %>%
+  out <- df |>
+    dplyr::group_by(g) |>
     pivot_longer(x1:x2, names_to = "x", values_to = "v")
   expect_equal(dplyr::group_vars(out), "g")
 })

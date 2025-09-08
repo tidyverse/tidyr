@@ -13,11 +13,11 @@
 #'   missing values. If empty, all columns are used.
 #' @examples
 #' df <- tibble(x = c(1, 2, NA), y = c("a", NA, "b"))
-#' df %>% drop_na()
-#' df %>% drop_na(x)
+#' df |> drop_na()
+#' df |> drop_na(x)
 #'
 #' vars <- "y"
-#' df %>% drop_na(x, any_of(vars))
+#' df |> drop_na(x, any_of(vars))
 #' @export
 drop_na <- function(data, ...) {
   check_dots_unnamed()

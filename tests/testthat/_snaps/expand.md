@@ -9,7 +9,7 @@
 # expand() respects `.name_repair`
 
     Code
-      out <- df %>% expand(x = x, x = x, .name_repair = "unique")
+      out <- expand(df, x = x, x = x, .name_repair = "unique")
     Message
       New names:
       * `x` -> `x...1`

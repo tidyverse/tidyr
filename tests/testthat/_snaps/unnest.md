@@ -69,7 +69,7 @@
     Condition
       Warning:
       `unnest()` has a new interface. See `?unnest` for details.
-      i Try `df %>% unnest(c(x, y))`, with `mutate()` if needed.
+      i Try `df |> unnest(c(x, y))`, with `mutate()` if needed.
     Output
       # A tibble: 2 x 2
             x y    
@@ -95,7 +95,7 @@
 # sep combines column names
 
     Code
-      out <- df %>% unnest(c(x, y), .sep = "_")
+      out <- unnest(df, c(x, y), .sep = "_")
     Condition
       Warning:
       The `.sep` argument of `unnest()` is deprecated as of tidyr 1.0.0.
@@ -104,16 +104,16 @@
 # unnest has mutate semantics
 
     Code
-      out <- df %>% unnest(z = map(y, `+`, 1))
+      out <- unnest(df, z = map(y, `+`, 1))
     Condition
       Warning:
       `unnest()` has a new interface. See `?unnest` for details.
-      i Try `df %>% unnest(c(z))`, with `mutate()` if needed.
+      i Try `df |> unnest(c(z))`, with `mutate()` if needed.
 
 # .drop and .preserve are deprecated
 
     Code
-      df %>% unnest(x, .preserve = y)
+      unnest(df, x, .preserve = y)
     Condition
       Warning:
       The `.preserve` argument of `unnest()` is deprecated as of tidyr 1.0.0.
@@ -128,7 +128,7 @@
 ---
 
     Code
-      df %>% unnest(x, .drop = FALSE)
+      unnest(df, x, .drop = FALSE)
     Condition
       Warning:
       The `.drop` argument of `unnest()` is deprecated as of tidyr 1.0.0.
