@@ -132,13 +132,13 @@ under active development.
 
 # Simplest case where column names are character data
 relig_income
-relig_income \%>\%
+relig_income |>
   pivot_longer(!religion, names_to = "income", values_to = "count")
 
 # Slightly more complex case where columns have common prefix,
 # and missing missings are structural so should be dropped.
 billboard
-billboard \%>\%
+billboard |>
   pivot_longer(
     cols = starts_with("wk"),
     names_to = "week",
@@ -148,7 +148,7 @@ billboard \%>\%
   )
 
 # Multiple variables stored in column names
-who \%>\% pivot_longer(
+who |> pivot_longer(
   cols = new_sp_m014:newrel_f65,
   names_to = c("diagnosis", "gender", "age"),
   names_pattern = "new_?(.*)_(.)(.*)",
@@ -159,7 +159,7 @@ who \%>\% pivot_longer(
 # process, we'll use `cols_vary` to keep values from the original columns
 # close together in the output.
 anscombe
-anscombe \%>\%
+anscombe |>
   pivot_longer(
     everything(),
     cols_vary = "slowest",

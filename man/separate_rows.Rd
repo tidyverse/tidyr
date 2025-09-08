@@ -38,6 +38,6 @@ df <- tibble(
 separate_rows(df, y, z, convert = TRUE)
 
 # Now recommended
-df \%>\%
+df |>
   separate_longer_delim(c(y, z), delim = ",")
 }

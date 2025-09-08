@@ -29,17 +29,17 @@ Replace NAs with specified values
 \examples{
 # Replace NAs in a data frame
 df <- tibble(x = c(1, 2, NA), y = c("a", NA, "b"))
-df \%>\% replace_na(list(x = 0, y = "unknown"))
+df |> replace_na(list(x = 0, y = "unknown"))
 
 # Replace NAs in a vector
-df \%>\% dplyr::mutate(x = replace_na(x, 0))
+df |> dplyr::mutate(x = replace_na(x, 0))
 # OR
-df$x \%>\% replace_na(0)
-df$y \%>\% replace_na("unknown")
+df$x |> replace_na(0)
+df$y |> replace_na("unknown")
 
 # Replace NULLs in a list: NULLs are the list-col equivalent of NAs
 df_list <- tibble(z = list(1:5, NULL, 10:20))
-df_list \%>\% replace_na(list(z = list(5)))
+df_list |> replace_na(list(z = list(5)))
 }
 \seealso{
 \code{\link[dplyr:na_if]{dplyr::na_if()}} to replace specified values with \code{NA}s;

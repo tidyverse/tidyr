@@ -60,7 +60,7 @@ sales <- tibble::tribble(
   "Q4",      NA,    49094
 )
 # `fill()` defaults to replacing missing data from top to bottom
-sales \%>\% fill(year)
+sales |> fill(year)
 
 # direction = "up" ----------------------------------------------------------
 # Value (pet_type) is missing above
@@ -81,7 +81,7 @@ tidy_pets <- tibble::tribble(
 )
 
 # For values that are missing above you can use `.direction = "up"`
-tidy_pets \%>\%
+tidy_pets |>
   fill(pet_type, .direction = "up")
 
 # direction = "downup" ------------------------------------------------------
@@ -105,13 +105,13 @@ squirrels <- tibble::tribble(
 # The values are inconsistently missing by position within the `group`.
 # Use `.direction = "downup"` to fill missing values in both directions
 # and `.by = group` to apply the fill per group.
-squirrels \%>\%
+squirrels |>
   fill(n_squirrels, .direction = "downup", .by = group)
 
 # If you want, you can also supply a data frame grouped with `group_by()`,
 # but don't forget to `ungroup()`!
-squirrels \%>\%
-  dplyr::group_by(group) \%>\%
-  fill(n_squirrels, .direction = "downup") \%>\%
+squirrels |>
+  dplyr::group_by(group) |>
+  fill(n_squirrels, .direction = "downup") |>
   dplyr::ungroup()
 }

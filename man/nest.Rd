@@ -20,8 +20,8 @@ If not supplied, then \code{...} is derived as all columns \emph{not} selected b
 \code{.by}, and will use the column name from \code{.key}.
 
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}:
-previously you could write \code{df \%>\% nest(x, y, z)}.
-Convert to \code{df \%>\% nest(data = c(x, y, z))}.}
+previously you could write \code{df |> nest(x, y, z)}.
+Convert to \code{df |> nest(data = c(x, y, z))}.}
 
 \item{.by}{<\code{\link[=tidyr_tidy_select]{tidy-select}}> Columns to nest \emph{by}; these
 will remain in the outer data frame.
@@ -33,7 +33,7 @@ If not supplied, then \code{.by} is derived as all columns \emph{not} selected b
 \code{...}.}
 
 \item{.key}{The name of the resulting nested column. Only applicable when
-\code{...} isn't specified, i.e. in the case of \code{df \%>\% nest(.by = x)}.
+\code{...} isn't specified, i.e. in the case of \code{df |> nest(.by = x)}.
 
 If \code{NULL}, then \code{"data"} will be used by default.}
 
@@ -71,16 +71,16 @@ unnest <- unnest_legacy
 
 \section{Grouped data frames}{
 
-\code{df \%>\% nest(data = c(x, y))} specifies the columns to be nested; i.e. the
-columns that will appear in the inner data frame. \code{df \%>\% nest(.by = c(x, y))} specifies the columns to nest \emph{by}; i.e. the columns that will remain in
+\code{df |> nest(data = c(x, y))} specifies the columns to be nested; i.e. the
+columns that will appear in the inner data frame. \code{df |> nest(.by = c(x, y))} specifies the columns to nest \emph{by}; i.e. the columns that will remain in
 the outer data frame. An alternative way to achieve the latter is to \code{nest()}
 a grouped data frame created by \code{\link[dplyr:group_by]{dplyr::group_by()}}. The grouping variables
 remain in the outer data frame and the others are nested. The result
 preserves the grouping of the input.
 
 Variables supplied to \code{nest()} will override grouping variables so that
-\code{df \%>\% group_by(x, y) \%>\% nest(data = !z)} will be equivalent to
-\code{df \%>\% nest(data = !z)}.
+\code{df |> group_by(x, y) |> nest(data = !z)} will be equivalent to
+\code{df |> nest(data = !z)}.
 
 You can't supply \code{.by} with a grouped data frame, as the groups already
 represent what you are nesting by.
@@ -92,42 +92,42 @@ df <- tibble(x = c(1, 1, 1, 2, 2, 3), y = 1:6, z = 6:1)
 # Specify variables to nest using name-variable pairs.
 # Note that we get one row of output for each unique combination of
 # non-nested variables.
-df \%>\% nest(data = c(y, z))
+df |> nest(data = c(y, z))
 
 # Specify variables to nest by (rather than variables to nest) using `.by`
-df \%>\% nest(.by = x)
+df |> nest(.by = x)
 
 # In this case, since `...` isn't used you can specify the resulting column
 # name with `.key`
-df \%>\% nest(.by = x, .key = "cols")
+df |> nest(.by = x, .key = "cols")
 
 # Use tidyselect syntax and helpers, just like in `dplyr::select()`
-df \%>\% nest(data = any_of(c("y", "z")))
+df |> nest(data = any_of(c("y", "z")))
 
 # `...` and `.by` can be used together to drop columns you no longer need,
 # or to include the columns you are nesting by in the inner data frame too.
 # This drops `z`:
-df \%>\% nest(data = y, .by = x)
+df |> nest(data = y, .by = x)
 # This includes `x` in the inner data frame:
-df \%>\% nest(data = everything(), .by = x)
+df |> nest(data = everything(), .by = x)
 
 # Multiple nesting structures can be specified at once
-iris \%>\%
+iris |>
   nest(petal = starts_with("Petal"), sepal = starts_with("Sepal"))
-iris \%>\%
+iris |>
   nest(width = contains("Width"), length = contains("Length"))
 
 # Nesting a grouped data frame nests all variables apart from the group vars
-fish_encounters \%>\%
-  dplyr::group_by(fish) \%>\%
+fish_encounters |>
+  dplyr::group_by(fish) |>
   nest()
 
 # That is similar to `nest(.by = )`, except here the result isn't grouped
-fish_encounters \%>\%
+fish_encounters |>
   nest(.by = fish)
 
 # Nesting is often useful for creating per group models
-mtcars \%>\%
-  nest(.by = cyl) \%>\%
+mtcars |>
+  nest(.by = cyl) |>
   dplyr::mutate(models = lapply(data, function(df) lm(mpg ~ wt, data = df)))
 }
