@@ -16,16 +16,16 @@ test_that("automatically adds id col if named", {
   df <- tibble(x = 1:2, y = list(c(a = 1), c(b = 2)))
   out <- df |> unnest_longer(y)
 
-  expect_named(out, c("x", "y", "y_id"))
+  expect_named(out, c("x", "y_id", "y"))
 })
 
 test_that("can force integer indexes", {
   df <- tibble(x = 1:2, y = list(1, 2))
   out <- df |> unnest_longer(y, indices_include = TRUE)
-  expect_named(out, c("x", "y", "y_id"))
+  expect_named(out, c("x", "y_id", "y"))
 
   out <- df |> unnest_longer(y, indices_to = "y2")
-  expect_named(out, c("x", "y", "y2"))
+  expect_named(out, c("x", "y2", "y"))
 })
 
 test_that("can handle data frames consistently with vectors", {
@@ -58,7 +58,7 @@ test_that("list_of columns can be unnested", {
 
   # With id column
   df <- tibble(x = 1:2, y = list_of(c(a = 1L), c(b = 1:2)))
-  expect_named(unnest_longer(df, y), c("x", "y", "y_id"))
+  expect_named(unnest_longer(df, y), c("x", "y_id", "y"))
 })
 
 test_that("drops empty rows by default (#1363, #1339)", {
@@ -178,7 +178,7 @@ test_that("unnesting list of data frames utilizes `indices_include` (#1194)", {
 
   expect_identical(
     unnest_longer(df, x, indices_include = TRUE),
-    tibble(x = tibble(a = 1:4), x_id = c(1L, 2L, 1L, 2L))
+    tibble(x_id = c(1L, 2L, 1L, 2L), x = tibble(a = 1:4))
   )
 })
 
@@ -283,7 +283,7 @@ test_that("unnesting multiple columns uses independent indices", {
   out <- unnest_longer(df, c(a, b), keep_empty = TRUE)
 
   expect_identical(out$a_id, c("x", NA, NA))
-  expect_named(out, c("a", "a_id", "b"))
+  expect_named(out, c("a_id", "a", "b"))
 })
 
 test_that("unnesting multiple columns works with `indices_include = TRUE`", {
@@ -306,7 +306,7 @@ test_that("can use glue to name multiple `indices_to` cols", {
   df <- tibble(a = list(1, 2:3), b = list(1, 2:3))
   expect_named(
     unnest_longer(df, c(a, b), indices_to = "{col}_name"),
-    c("a", "a_name", "b", "b_name")
+    c("a_name", "a", "b_name", "b")
   )
 })
 
@@ -314,7 +314,7 @@ test_that("default `indices_to` is based on `values_to` (#1201)", {
   df <- tibble(a = list(c(x = 1), 2))
   expect_named(
     unnest_longer(df, a, values_to = "aa"),
-    c("aa", "aa_id")
+    c("aa_id", "aa")
   )
 })
 

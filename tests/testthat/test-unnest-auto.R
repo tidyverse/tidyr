@@ -15,7 +15,7 @@ test_that("common name becomes wider", {
 test_that("no common name falls back to longer with index", {
   df <- tibble(x = 1:2, y = list(c(a = 1), c(b = 2)))
   expect_message(out <- df |> unnest_auto(y), "unnest_longer")
-  expect_named(out, c("x", "y", "y_id"))
+  expect_named(out, c("x", "y_id", "y"))
 })
 
 test_that("mix of named and unnamed becomes longer", {
