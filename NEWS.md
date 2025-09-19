@@ -1,5 +1,7 @@
 # tidyr (development version)
 
+* Fixed an internal error in `pivot_wider()` (#1609, @krlmlr).
+
 * The base pipe is now used throughout the documentation (#1613).
 
 * R >=4.1.0 is now required, in line with the [tidyverse

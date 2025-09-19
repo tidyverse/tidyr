@@ -111,6 +111,47 @@
       x Problematic argument:
       * name_repair = "check_unique"
 
+# doesn't crash when `id_cols` selects column removed by `names_from` (#1609)
+
+    Code
+      pivot_wider(df, id_cols = x, values_from = y, names_from = x)
+    Condition
+      Error in `pivot_wider()`:
+      ! Can't select columns past the end.
+      i Locations 1, 100, 200, and 300 don't exist.
+      i There are only 0 columns.
+
+# doesn't crash when `id_cols` selects non-existent column (#1482)
+
+    Code
+      pivot_wider(df, id_cols = c("non", "existent"), names_from = name, values_from = value)
+    Condition
+      Error in `pivot_wider()`:
+      ! Can't select columns that don't exist.
+      x Column `non` doesn't exist.
+
+---
+
+    Code
+      pivot_wider(df2, id_cols = all_of(c("a", "b", "c")), names_from = y,
+      values_from = z)
+    Condition
+      Error in `pivot_wider()`:
+      i In argument: `all_of(c("a", "b", "c"))`.
+      Caused by error in `all_of()`:
+      ! Can't subset elements that don't exist.
+      x Elements `a`, `b`, and `c` don't exist.
+
+---
+
+    Code
+      pivot_wider(df2, id_cols = 1:2, names_from = y, values_from = z)
+    Condition
+      Error in `pivot_wider()`:
+      ! Can't select columns past the end.
+      i Locations 1 and 2 don't exist.
+      i There are only 0 columns.
+
 # `names_vary` is validated
 
     Code
