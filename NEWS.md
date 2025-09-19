@@ -25,7 +25,7 @@
 
 * tidyr now requires dplyr >=1.1.0 (#1568, @catalamarti).
 
-* `unnest_longer()` now outputs indices before values (#1486, @andrewshibata)
+* `unnest_longer()` now places `indices_to` columns before value columns (#1486, @andrewshibata).
 
 # tidyr 1.3.1
 
