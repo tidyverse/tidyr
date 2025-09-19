@@ -246,6 +246,60 @@ test_that("`pivot_wider_spec()` requires empty dots", {
   })
 })
 
+
+test_that("doesn't crash when `id_cols` selects column removed by `names_from` (#1609)", {
+  local_options(lifecycle_verbosity = "quiet")
+
+  # Note how we have an "external vector" here. Ideally tidyselect would error
+  # on this, but for legacy reasons we currently allow it with a warning, and it
+  # produces a weird (but correct) tidyselect error
+  x <- c(1, 100, 200, 300)
+
+  df <- tibble(
+    x = x,
+    y = c(1, 2, 3, 4)
+  )
+
+  # Should get tidyselect error, not internal error
+  expect_snapshot(error = TRUE, {
+    pivot_wider(
+      df,
+      id_cols = x,
+      values_from = y,
+      names_from = x
+    )
+  })
+})
+
+test_that("doesn't crash when `id_cols` selects non-existent column (#1482)", {
+  df <- tibble(name = c("x", "y"), value = c(1, 2))
+
+  # Should get tidyselect error, not internal error
+  expect_snapshot(error = TRUE, {
+    pivot_wider(
+      df,
+      id_cols = c("non", "existent"),
+      names_from = name,
+      values_from = value
+    )
+  })
+
+  df2 <- tibble(y = c("a", "a", "b", "c"), z = c(21, 22, 23, 24))
+
+  expect_snapshot(error = TRUE, {
+    pivot_wider(
+      df2,
+      id_cols = all_of(c("a", "b", "c")),
+      names_from = y,
+      values_from = z
+    )
+  })
+
+  expect_snapshot(error = TRUE, {
+    pivot_wider(df2, id_cols = 1:2, names_from = y, values_from = z)
+  })
+})
+
 # column names -------------------------------------------------------------
 
 test_that("names_glue affects output names", {
@@ -883,65 +937,5 @@ test_that("`id_cols` compat behavior doesn't trigger if named `...` are supplied
 
   expect_snapshot(error = TRUE, {
     pivot_wider(df, ids = id)
-  })
-})
-
-# Tests for issue #1609 / #1482 -----------------------------------------------
-
-test_that("doesn't crash when `id_cols` selects column removed by `names_from` (#1609)", {
-  # Original issue scenario
-  x <- c(1, 2, 12, 31, 123, 2341)
-  df <- data.frame(x = x)
-
-  # This should produce a proper tidyselect error, not an internal error
-  expect_snapshot(error = TRUE, {
-    df %>%
-      dplyr::mutate(y = stringr::str_split(x, "")) %>%
-      unnest(cols = y) %>%
-      pivot_wider(
-        id_cols = x,
-        values_from = y,
-        names_from = x
-      )
-  })
-})
-
-test_that("doesn't crash when `id_cols` selects non-existent column (#1482)", {
-  # Related issue scenario
-  df <- tibble(name = c("x", "y"), value = c(1, 2))
-
-  # Should get tidyselect error, not internal error
-  expect_snapshot(error = TRUE, {
-    pivot_wider(
-      df,
-      id_cols = c("non", "existent"),
-      names_from = name,
-      values_from = value
-    )
-  })
-
-  # Character vector case
-  expect_snapshot(error = TRUE, {
-    pivot_wider(
-      df,
-      id_cols = c("a", "b", "c"),
-      names_from = name,
-      values_from = value
-    )
-  })
-
-  df2 <- tibble(y = c("a", "a", "b", "c"), z = c(21, 22, 23, 24))
-
-  expect_snapshot(error = TRUE, {
-    pivot_wider(
-      df,
-      id_cols = all_of(c("a", "b", "c")),
-      names_from = y,
-      values_from = z
-    )
-  })
-
-  expect_snapshot(error = TRUE, {
-    pivot_wider(df, id_cols = 1:2, names_from = y, values_from = z)
   })
 })
