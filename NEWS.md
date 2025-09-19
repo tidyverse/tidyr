@@ -1,6 +1,6 @@
 # tidyr (development version)
 
-* Fix internal error (#1609, @krlmlr).
+* Fixed an internal error in `pivot_wider()` (#1609, @krlmlr).
 
 * The base pipe is now used throughout the documentation (#1613).
 
