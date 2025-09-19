@@ -892,7 +892,7 @@ test_that("doesn't crash when `id_cols` selects column removed by `names_from` (
   # Original issue scenario
   x <- c(1, 2, 12, 31, 123, 2341)
   df <- data.frame(x = x)
-  
+
   # This should produce a proper tidyselect error, not an internal error
   expect_snapshot(error = TRUE, {
     df %>%
@@ -909,16 +909,24 @@ test_that("doesn't crash when `id_cols` selects column removed by `names_from` (
 test_that("doesn't crash when `id_cols` selects non-existent column (#1482)", {
   # Related issue scenario
   df <- tibble(name = c("x", "y"), value = c(1, 2))
-  
+
   # Should get tidyselect error, not internal error
   expect_snapshot(error = TRUE, {
-    pivot_wider(df, id_cols = c("non", "existent"), names_from = name, values_from = value)
+    pivot_wider(
+      df,
+      id_cols = c("non", "existent"),
+      names_from = name,
+      values_from = value
+    )
   })
-  
+
   # Character vector case
   expect_snapshot(error = TRUE, {
-    pivot_wider(df, id_cols = c("a", "b", "c"), names_from = name, values_from = value)
-  })
-})
+    pivot_wider(
+      df,
+      id_cols = c("a", "b", "c"),
+      names_from = name,
+      values_from = value
+    )
   })
 })
