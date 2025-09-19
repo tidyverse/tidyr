@@ -346,9 +346,20 @@
       df %>% dplyr::mutate(y = stringr::str_split(x, "")) %>% unnest(cols = y) %>%
         pivot_wider(id_cols = x, values_from = y, names_from = x)
     Condition
+      Warning:
+      Using an external vector in selections was deprecated in tidyselect 1.1.0.
+      i Please use `all_of()` or `any_of()` instead.
+        # Was:
+        data %>% select(x)
+      
+        # Now:
+        data %>% select(all_of(x))
+      
+      See <https://tidyselect.r-lib.org/reference/faq-external-vector.html>.
       Error in `pivot_wider()`:
-      ! Can't select columns that don't exist.
-      x Column `x` doesn't exist.
+      ! Can't select columns past the end.
+      i Locations 1, 2, 12, ..., 123, and 2341 don't exist.
+      i There are only 0 columns.
 
 # doesn't crash when `id_cols` selects non-existent column (#1482)
 
@@ -357,7 +368,7 @@
     Condition
       Error in `pivot_wider()`:
       ! Can't select columns that don't exist.
-      x Columns `non` and `existent` don't exist.
+      x Column `non` doesn't exist.
 
 ---
 
@@ -366,5 +377,5 @@
     Condition
       Error in `pivot_wider()`:
       ! Can't select columns that don't exist.
-      x Columns `a`, `b`, and `c` don't exist.
+      x Column `a` doesn't exist.
 
