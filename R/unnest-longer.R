@@ -206,11 +206,10 @@ col_to_long <- function(
   }
 
   if (indices_include) {
-    names <- c(values_to, indices_to)
-    ptype <- new_long_indexed_frame(ptype, index_ptype, 0L, names)
+    ptype <- new_long_indexed_frame(ptype, index_ptype, 0L, indices_to, values_to)
     col <- pmap(
       list(col, indices, sizes),
-      function(elt, index, size) new_long_indexed_frame(elt, index, size, names)
+      function(elt, index, size) new_long_indexed_frame(elt, index, size, indices_to, values_to)
     )
   } else {
     name <- values_to
@@ -235,9 +234,9 @@ new_long_frame <- function(x, size, name) {
   names(out) <- name
   new_data_frame(out, n = size)
 }
-new_long_indexed_frame <- function(x, index, size, names) {
-  out <- list(x, index)
-  names(out) <- names
+new_long_indexed_frame <- function(x, index, size, indices_to, values_to) {
+  out <- list(index, x)
+  names(out) <- c(indices_to, values_to)
   new_data_frame(out, n = size)
 }
 
