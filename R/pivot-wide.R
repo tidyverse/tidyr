@@ -653,16 +653,17 @@ select_wider_id_cols <- function(
 rethrow_id_cols_oob <- function(cnd, names_from_cols, values_from_cols, call) {
   i <- cnd[["i"]]
 
-  check_string(i, .internal = TRUE)
-
-  if (i %in% names_from_cols) {
-    stop_id_cols_oob(i, "names_from", call = call)
-  } else if (i %in% values_from_cols) {
-    stop_id_cols_oob(i, "values_from", call = call)
-  } else {
-    # Zap this special handler, throw the normal condition
-    zap()
+  if (is_string(i)) {
+    # Try to throw our custom error
+    if (i %in% names_from_cols) {
+      stop_id_cols_oob(i, "names_from", call = call)
+    } else if (i %in% values_from_cols) {
+      stop_id_cols_oob(i, "values_from", call = call)
+    }
   }
+
+  # Otherwise fall through and throw standard tidyselect error
+  zap()
 }
 
 stop_id_cols_oob <- function(i, arg, call) {

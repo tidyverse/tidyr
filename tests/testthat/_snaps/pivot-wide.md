@@ -340,3 +340,31 @@
       x Problematic argument:
       * ids = id
 
+# doesn't crash when `id_cols` selects column removed by `names_from` (#1609)
+
+    Code
+      df %>% dplyr::mutate(y = stringr::str_split(x, "")) %>% unnest(cols = y) %>%
+        pivot_wider(id_cols = x, values_from = y, names_from = x)
+    Condition
+      Error in `pivot_wider()`:
+      ! Can't select columns that don't exist.
+      x Column `x` doesn't exist.
+
+# doesn't crash when `id_cols` selects non-existent column (#1482)
+
+    Code
+      pivot_wider(df, id_cols = c("non", "existent"), names_from = name, values_from = value)
+    Condition
+      Error in `pivot_wider()`:
+      ! Can't select columns that don't exist.
+      x Columns `non` and `existent` don't exist.
+
+---
+
+    Code
+      pivot_wider(df, id_cols = c("a", "b", "c"), names_from = name, values_from = value)
+    Condition
+      Error in `pivot_wider()`:
+      ! Can't select columns that don't exist.
+      x Columns `a`, `b`, and `c` don't exist.
+
