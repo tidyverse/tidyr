@@ -207,16 +207,22 @@ col_to_long <- function(
 
   if (indices_include) {
     ptype <- new_long_indexed_frame(
-      ptype,
-      index_ptype,
-      0L,
-      indices_to,
-      values_to
+      x = ptype,
+      index = index_ptype,
+      size = 0L,
+      indices_to = indices_to,
+      values_to = values_to
     )
     col <- pmap(
       list(col, indices, sizes),
       function(elt, index, size) {
-        new_long_indexed_frame(elt, index, size, indices_to, values_to)
+        new_long_indexed_frame(
+          x = elt,
+          index = index,
+          size = size,
+          indices_to = indices_to,
+          values_to = values_to
+        )
       }
     )
   } else {
