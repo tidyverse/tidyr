@@ -379,3 +379,22 @@
       ! Can't select columns that don't exist.
       x Column `a` doesn't exist.
 
+---
+
+    Code
+      pivot_wider(df, id_cols = all_of(c("a", "b", "c")), names_from = y,
+      values_from = z)
+    Condition
+      Error in `pivot_wider()`:
+      ! Can't select columns that don't exist.
+      x Column `y` doesn't exist.
+
+---
+
+    Code
+      pivot_wider(df, id_cols = 1:2, names_from = y, values_from = z)
+    Condition
+      Error in `pivot_wider()`:
+      ! Can't select columns that don't exist.
+      x Column `y` doesn't exist.
+

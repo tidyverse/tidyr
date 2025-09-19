@@ -929,4 +929,19 @@ test_that("doesn't crash when `id_cols` selects non-existent column (#1482)", {
       values_from = value
     )
   })
+
+  df2 <- tibble(y = c("a", "a", "b", "c"), z = c(21, 22, 23, 24))
+
+  expect_snapshot(error = TRUE, {
+    pivot_wider(
+      df,
+      id_cols = all_of(c("a", "b", "c")),
+      names_from = y,
+      values_from = z
+    )
+  })
+
+  expect_snapshot(error = TRUE, {
+    pivot_wider(df, id_cols = 1:2, names_from = y, values_from = z)
+  })
 })
