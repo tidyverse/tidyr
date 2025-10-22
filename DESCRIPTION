@@ -45,10 +45,10 @@ LinkingTo:
     cpp11 (>= 0.4.0)
 VignetteBuilder:
     knitr
+Config/build/compilation-database: true
 Config/Needs/website: tidyverse/tidytemplate
 Config/testthat/edition: 3
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.3
-Config/build/compilation-database: true
