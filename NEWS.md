@@ -1,5 +1,7 @@
 # tidyr (development version)
 
+* tidyr is now compliant with R's C API (#1618).
+
 * Fixed an internal error in `pivot_wider()` (#1609, @krlmlr).
 
 * The base pipe is now used throughout the documentation (#1613).
