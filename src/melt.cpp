@@ -134,12 +134,22 @@ cpp11::strings make_variable_column_character(cpp11::strings x, int nrow) {
 }
 
 // Concatenate vectors for the 'value' column
-#define DO_CONCATENATE(CTYPE)                                \
-  {                                                          \
-    memcpy((char*)DATAPTR(output) + i* nrow * sizeof(CTYPE), \
-           (char*)DATAPTR(tmp),                              \
-           nrow * sizeof(CTYPE));                            \
-    break;                                                   \
+#define DO_CONCATENATE(CTYPE, CONST_DEREF, DEREF)        \
+  {                                                      \
+    memcpy(                                              \
+      (char*)DEREF(output) + (i * nrow * sizeof(CTYPE)), \
+      (const char*)CONST_DEREF(tmp),                     \
+      nrow * sizeof(CTYPE)                               \
+    );                                                   \
+    break;                                               \
+  }
+
+#define DO_CONCATENATE_BARRIER(GET, SET)        \
+  {                                             \
+    for (int j = 0; j < nrow; ++j) {            \
+      SET(output, i * nrow + j, GET(tmp, j));   \
+    }                                           \
+    break;                                      \
   }
 
 SEXP concatenate(const cpp11::data_frame& x, cpp11::integers ind, bool factorsAsStrings) {
@@ -185,27 +195,19 @@ SEXP concatenate(const cpp11::data_frame& x, cpp11::integers ind, bool factorsAs
 
     switch (max_type) {
       case INTSXP:
-        DO_CONCATENATE(int);
+        DO_CONCATENATE(int, INTEGER_RO, INTEGER);
       case REALSXP:
-        DO_CONCATENATE(double);
+        DO_CONCATENATE(double, REAL_RO, REAL);
       case LGLSXP:
-        DO_CONCATENATE(int);
+        DO_CONCATENATE(int, LOGICAL_RO, LOGICAL);
       case CPLXSXP:
-        DO_CONCATENATE(Rcomplex);
-      case STRSXP: {
-        for (int j = 0; j < nrow; ++j) {
-          SET_STRING_ELT(output, i * nrow + j, STRING_ELT(tmp, j));
-        }
-        break;
-      }
-      case VECSXP: {
-        for (int j = 0; j < nrow; ++j) {
-          SET_VECTOR_ELT(output, i * nrow + j, VECTOR_ELT(tmp, j));
-        }
-        break;
-      }
+        DO_CONCATENATE(Rcomplex, COMPLEX_RO, COMPLEX);
+      case STRSXP:
+        DO_CONCATENATE_BARRIER(STRING_ELT, SET_STRING_ELT);
+      case VECSXP:
+        DO_CONCATENATE_BARRIER(VECTOR_ELT, SET_VECTOR_ELT);
     default:
-                   cpp11::stop("All columns be atomic vectors or lists (not %s)", Rf_type2char(max_type));
+        cpp11::stop("All columns be atomic vectors or lists (not %s)", Rf_type2char(max_type));
     }
   }
 
