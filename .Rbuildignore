@@ -23,3 +23,5 @@
 ^CRAN-SUBMISSION$
 ^\.vscode$
 ^[.]?air[.]toml$
+^compile_commands\.json$
+^\.cache$

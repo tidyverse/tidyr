@@ -9,3 +9,5 @@ revdep/checks.noindex
 revdep/library.noindex
 revdep/data.sqlite
 docs
+compile_commands.json
+.cache
