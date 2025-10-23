@@ -60,7 +60,8 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="tidyr-development-version">tidyr (development version)<a class="anchor" aria-label="anchor" href="#tidyr-development-version"></a></h2>
-<ul><li><p>Fixed an internal error in <code><a href="../reference/pivot_wider.html">pivot_wider()</a></code> (<a href="https://github.com/tidyverse/tidyr/issues/1609" class="external-link">#1609</a>, <a href="https://github.com/krlmlr" class="external-link">@krlmlr</a>).</p></li>
+<ul><li><p>tidyr is now compliant with R’s C API (<a href="https://github.com/tidyverse/tidyr/issues/1618" class="external-link">#1618</a>).</p></li>
+<li><p>Fixed an internal error in <code><a href="../reference/pivot_wider.html">pivot_wider()</a></code> (<a href="https://github.com/tidyverse/tidyr/issues/1609" class="external-link">#1609</a>, <a href="https://github.com/krlmlr" class="external-link">@krlmlr</a>).</p></li>
 <li><p>The base pipe is now used throughout the documentation (<a href="https://github.com/tidyverse/tidyr/issues/1613" class="external-link">#1613</a>).</p></li>
 <li><p>R &gt;=4.1.0 is now required, in line with the <a href="https://www.tidyverse.org/blog/2019/04/r-version-support/" class="external-link">tidyverse standard</a> of supporting the previous 5 minor releases of R (<a href="https://github.com/tidyverse/tidyr/issues/1613" class="external-link">#1613</a>).</p></li>
 <li><p><code><a href="../reference/fill.html">fill()</a></code> gains a <code>.by</code> argument as an alternative to <code><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">dplyr::group_by()</a></code> for applying the fill per group, similar to <code>nest(.by =)</code> and <code>dplyr::mutate(.by =)</code> (<a href="https://github.com/olivroy" class="external-link">@olivroy</a>, <a href="https://github.com/tidyverse/tidyr/issues/1439" class="external-link">#1439</a>).</p></li>
