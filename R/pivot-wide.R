@@ -196,20 +196,28 @@ pivot_wider.data.frame <- function(
   values_fn = NULL,
   unused_fn = NULL
 ) {
+  missing_name <- missing(names_from)
+  missing_value <- missing(values_from)
+
   names_from <- enquo(names_from)
   values_from <- enquo(values_from)
 
-  spec <- build_wider_spec(
-    data = data,
-    names_from = !!names_from,
-    values_from = !!values_from,
-    names_prefix = names_prefix,
-    names_sep = names_sep,
-    names_glue = names_glue,
-    names_sort = names_sort,
-    names_vary = names_vary,
-    names_expand = names_expand,
-    error_call = current_env()
+  spec <- try_fetch(
+      build_wider_spec(
+      data = data,
+      names_from = !!names_from,
+      values_from = !!values_from,
+      names_prefix = names_prefix,
+      names_sep = names_sep,
+      names_glue = names_glue,
+      names_sort = names_sort,
+      names_vary = names_vary,
+      names_expand = names_expand,
+      error_call = current_env()
+    ),
+    vctrs_error_subscript_oob = function(cnd) {
+      rethrow_missing_cols_oob(cnd, missing_name, missing_value, current_env())
+    }
   )
 
   id_cols <- compat_id_cols(
@@ -514,19 +522,31 @@ build_wider_spec <- function(
 ) {
   check_dots_empty0(...)
 
-  names_from <- tidyselect::eval_select(
-    enquo(names_from),
-    data,
-    allow_rename = FALSE,
-    allow_empty = FALSE,
-    error_call = error_call
+  missing_name <- missing(names_from)
+  missing_value <- missing(values_from)
+  vctrs_error_subscript_oob <- function(cnd) {
+    rethrow_missing_cols_oob(cnd, missing_name, missing_value, error_call)
+  }
+
+  names_from <- try_fetch(
+    tidyselect::eval_select(
+      enquo(names_from),
+      data,
+      allow_rename = FALSE,
+      allow_empty = FALSE,
+      error_call = error_call
+    ),
+    vctrs_error_subscript_oob = vctrs_error_subscript_oob
   )
-  values_from <- tidyselect::eval_select(
-    enquo(values_from),
-    data,
-    allow_rename = FALSE,
-    allow_empty = FALSE,
-    error_call = error_call
+  values_from <- try_fetch(
+    tidyselect::eval_select(
+      enquo(values_from),
+      data,
+      allow_rename = FALSE,
+      allow_empty = FALSE,
+      error_call = error_call
+    ),
+    vctrs_error_subscript_oob = vctrs_error_subscript_oob
   )
 
   check_string(names_prefix, call = error_call)
@@ -648,6 +668,28 @@ select_wider_id_cols <- function(
   )
 
   names(id_cols)
+}
+
+rethrow_missing_cols_oob <- function(cnd, missing_name, missing_value, call) {
+  i <- cnd[["i"]]
+
+  check_string(i, .internal = TRUE)
+
+  if (missing_name && i == "name") {
+    stop_inform_missing(i, "names_from", parent = cnd, call = call)
+  } else if (missing_value && i == "value") {
+    stop_inform_missing(i, "values_from", parent = cnd, call = call)
+  } else {
+    # Zap this special handler, throw the normal condition
+    zap()
+  }
+}
+
+stop_inform_missing <- function(i, arg, parent, call) {
+  cli::cli_abort(
+    c(`i` = "Column {.var {i}} is the default for the {.arg {arg}} argument."),
+    parent = parent, call = call
+  )
 }
 
 rethrow_id_cols_oob <- function(cnd, names_from_cols, values_from_cols, call) {
