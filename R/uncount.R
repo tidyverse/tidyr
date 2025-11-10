@@ -33,6 +33,7 @@ uncount.data.frame <- function(data, weights, ..., .remove = TRUE, .id = NULL) {
   check_name(.id, allow_null = TRUE)
 
   weights_quo <- enquo(weights)
+  weights_expr <- get_expr(weights_quo)
   w <- dplyr::pull(dplyr::mutate(data, `_weight` = !!weights_quo))
 
   out <- vec_rep_each(
@@ -44,8 +45,17 @@ uncount.data.frame <- function(data, weights, ..., .remove = TRUE, .id = NULL) {
 
   # NOTE it was decided to also remove grouping variables as there is no clear
   # best answer. See https://github.com/tidyverse/tidyr/pull/1070
-  if (.remove && quo_is_symbol(weights_quo)) {
-    out[[as_string(get_expr(weights_quo))]] <- NULL
+  if (.remove) {
+    if (quo_is_symbol(weights_quo)) {
+      out[[as_string(weights_expr)]] <- NULL
+    } else if (
+      # handles data masking
+      is.call(weights_expr) &&
+        identical(weights_expr[[1]], as.name("$")) &&
+        identical(weights_expr[[2]], as.name(".data"))
+    ) {
+      out[[as_string(weights_expr[[3]])]] <- NULL
+    }
   }
 
   if (!is.null(.id)) {

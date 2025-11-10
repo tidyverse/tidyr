@@ -48,3 +48,8 @@ test_that("validates inputs", {
     uncount(df, x, .id = "")
   })
 })
+
+test_that("works with data masking", {
+  df <- tibble(x = 1, w = 2)
+  expect_equal(uncount(df, .data$w), uncount(df, w))
+})
