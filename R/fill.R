@@ -12,10 +12,11 @@
 #' boundaries. This can also be accomplished using the `.by` argument to
 #' `fill()`, which creates a temporary grouping for just this operation.
 #'
-#' @inheritParams dplyr::mutate
-#'
 #' @param data A data frame.
 #' @param ... <[`tidy-select`][tidyr_tidy_select]> Columns to fill.
+#' @param .by <[`tidy-select`][tidyr_tidy_select]> Optionally, a selection of
+#'   columns to group by for just this operation, functioning as an alternative
+#'   to [dplyr::group_by()].
 #' @param .direction Direction in which to fill missing values. Currently
 #'   either "down" (the default), "up", "downup" (i.e. first down and then up)
 #'   or "updown" (first up and then down).

@@ -11,11 +11,9 @@ fill(data, ..., .by = NULL, .direction = c("down", "up", "downup", "updown"))
 
 \item{...}{<\code{\link[=tidyr_tidy_select]{tidy-select}}> Columns to fill.}
 
-\item{.by}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
-
-<\code{\link[dplyr:dplyr_tidy_select]{tidy-select}}> Optionally, a selection of columns to
-group by for just this operation, functioning as an alternative to \code{\link[dplyr:group_by]{group_by()}}. For
-details and examples, see \link[dplyr:dplyr_by]{?dplyr_by}.}
+\item{.by}{<\code{\link[=tidyr_tidy_select]{tidy-select}}> Optionally, a selection of
+columns to group by for just this operation, functioning as an alternative
+to \code{\link[dplyr:group_by]{dplyr::group_by()}}.}
 
 \item{.direction}{Direction in which to fill missing values. Currently
 either "down" (the default), "up", "downup" (i.e. first down and then up)
