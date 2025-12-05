@@ -17,10 +17,6 @@ particularly useful for rectangling:
   but only plucks out selected components, and can reach down multiple
   levels.
 
-(Alternative, for complex inputs where you need to rectangle a nested
-list according to a specification, see the
-[tibblify](https://github.com/mgirlich/tibblify) package.)
-
 A very large number of data rectangling problems can be solved by
 combining
 [`jsonlite::read_json()`](https://jeroen.r-universe.dev/jsonlite/reference/read_json.html)
