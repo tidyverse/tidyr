@@ -10,7 +10,7 @@ where:
 3.  Each value is a cell; each cell is a single value.
 
 Tidy data describes a standard way of storing data that is used wherever
-possible throughout the [tidyverse](https://www.tidyverse.org/). If you
+possible throughout the [tidyverse](https://tidyverse.org/). If you
 ensure that your data is tidy, you’ll spend less time fighting with the
 tools and more time working on your analysis. Learn more about tidy data
 in

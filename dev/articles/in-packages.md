@@ -330,8 +330,8 @@ What changed:
 
 - [`unnest()`](https://tidyr.tidyverse.org/dev/reference/unnest.md) uses
   the [emerging tidyverse
-  standard](https://www.tidyverse.org/blog/2019/01/tibble-2.0.1/#name-repair)
-  to disambiguate duplicated names. Use `names_repair = tidyr_legacy` to
+  standard](https://tidyverse.org/blog/2019/01/tibble-2.0.1/) to
+  disambiguate duplicated names. Use `names_repair = tidyr_legacy` to
   request the previous approach.
 
 - `.id` has been deprecated because it can be easily replaced by
