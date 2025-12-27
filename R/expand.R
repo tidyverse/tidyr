@@ -192,6 +192,10 @@ nesting <- function(..., .name_repair = "check_unique") {
 #'
 #' # And matrices
 #' expand_grid(x1 = matrix(1:4, nrow = 2), x2 = matrix(5:8, nrow = 2))
+#'
+#' # And named lists using the splice operator
+#' my_params <- list(a = 1:3, b = c("a", "b", "c", "d"))
+#' expand_grid(!!!my_params)
 expand_grid <- function(..., .name_repair = "check_unique", .vary = "slowest") {
   out <- grid_dots(...)
 
