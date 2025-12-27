@@ -1,5 +1,7 @@
 # tidyr (development version)
 
+* Docs for `expand_grid` now include an example using a named list and the splice operator, a common use case.
+
 * `fill()` gains a `.by` argument as an alternative to `dplyr::group_by()` for
   applying the fill per group, similar to `nest(.by =)` and
   `dplyr::mutate(.by =)` (@olivroy, #1439).
