@@ -29,7 +29,7 @@ use it with anti_join() to figure out which combinations are missing
 
     <a class="navbar-brand me-2" href="../index.html">tidyr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.3.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.3.2</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -77,7 +77,7 @@ use it with anti_join() to figure out which combinations are missing
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Expand data frame to include all possible combinations of values</h1>
-      <small class="dont-index">Source: <a href="https://github.com/tidyverse/tidyr/blob/pkgdown-v1.3.1/R/expand.R" class="external-link"><code>R/expand.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/tidyverse/tidyr/blob/main/R/expand.R" class="external-link"><code>R/expand.R</code></a></small>
       <div class="d-none name"><code>expand.Rd</code></div>
     </div>
 
@@ -130,17 +130,9 @@ that do not appear in the data: to do so use expressions like
 
 
 <dt id="arg--name-repair">.name_repair<a class="anchor" aria-label="anchor" href="#arg--name-repair"></a></dt>
-<dd><p>Treatment of problematic column names:</p><ul><li><p><code>"minimal"</code>: No name repair or checks, beyond basic existence,</p></li>
-<li><p><code>"unique"</code>: Make sure names are unique and not empty,</p></li>
-<li><p><code>"check_unique"</code>: (default value), no name repair, but check they are
-<code>unique</code>,</p></li>
-<li><p><code>"universal"</code>: Make the names <code>unique</code> and syntactic</p></li>
-<li><p>a function: apply custom name repair (e.g., <code>.name_repair = make.names</code>
-for names in the style of base R).</p></li>
-<li><p>A purrr-style anonymous function, see <code><a href="https://rlang.r-lib.org/reference/as_function.html" class="external-link">rlang::as_function()</a></code></p></li>
-</ul><p>This argument is passed on as <code>repair</code> to <code><a href="https://vctrs.r-lib.org/reference/vec_as_names.html" class="external-link">vctrs::vec_as_names()</a></code>.
-See there for more details on these terms and the strategies used
-to enforce them.</p></dd>
+<dd><p>One of <code>"check_unique"</code>, <code>"unique"</code>, <code>"universal"</code>,
+<code>"minimal"</code>, <code>"unique_quiet"</code>, or <code>"universal_quiet"</code>. See <code><a href="https://vctrs.r-lib.org/reference/vec_as_names.html" class="external-link">vec_as_names()</a></code>
+for the meaning of these options.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -170,13 +162,13 @@ to input vectors rather than a data frame.</p></div>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># All combinations, including factor levels that are not used</span></span></span>
-<span class="r-in"><span><span class="va">fruits</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu">expand</span><span class="op">(</span><span class="va">type</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">fruits</span> <span class="op">|&gt;</span> <span class="fu">expand</span><span class="op">(</span><span class="va">type</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 2 × 1</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   type  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> apple </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> orange</span>
-<span class="r-in"><span><span class="va">fruits</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu">expand</span><span class="op">(</span><span class="va">size</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">fruits</span> <span class="op">|&gt;</span> <span class="fu">expand</span><span class="op">(</span><span class="va">size</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 4 × 1</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   size </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span></span>
@@ -184,7 +176,7 @@ to input vectors rather than a data frame.</p></div>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> S    </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> M    </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> L    </span>
-<span class="r-in"><span><span class="va">fruits</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu">expand</span><span class="op">(</span><span class="va">type</span>, <span class="va">size</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">fruits</span> <span class="op">|&gt;</span> <span class="fu">expand</span><span class="op">(</span><span class="va">type</span>, <span class="va">size</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 8 × 2</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   type   size </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span></span>
@@ -196,7 +188,7 @@ to input vectors rather than a data frame.</p></div>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span> orange S    </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">7</span> orange M    </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">8</span> orange L    </span>
-<span class="r-in"><span><span class="va">fruits</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu">expand</span><span class="op">(</span><span class="va">type</span>, <span class="va">size</span>, <span class="va">year</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">fruits</span> <span class="op">|&gt;</span> <span class="fu">expand</span><span class="op">(</span><span class="va">type</span>, <span class="va">size</span>, <span class="va">year</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 24 × 3</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    type  size   year</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
@@ -213,20 +205,20 @@ to input vectors rather than a data frame.</p></div>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 14 more rows</span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Only combinations that already appear in the data</span></span></span>
-<span class="r-in"><span><span class="va">fruits</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu">expand</span><span class="op">(</span><span class="fu">nesting</span><span class="op">(</span><span class="va">type</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">fruits</span> <span class="op">|&gt;</span> <span class="fu">expand</span><span class="op">(</span><span class="fu">nesting</span><span class="op">(</span><span class="va">type</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 2 × 1</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   type  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> apple </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> orange</span>
-<span class="r-in"><span><span class="va">fruits</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu">expand</span><span class="op">(</span><span class="fu">nesting</span><span class="op">(</span><span class="va">size</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">fruits</span> <span class="op">|&gt;</span> <span class="fu">expand</span><span class="op">(</span><span class="fu">nesting</span><span class="op">(</span><span class="va">size</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 3 × 1</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   size </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> XS   </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> S    </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> M    </span>
-<span class="r-in"><span><span class="va">fruits</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu">expand</span><span class="op">(</span><span class="fu">nesting</span><span class="op">(</span><span class="va">type</span>, <span class="va">size</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">fruits</span> <span class="op">|&gt;</span> <span class="fu">expand</span><span class="op">(</span><span class="fu">nesting</span><span class="op">(</span><span class="va">type</span>, <span class="va">size</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 4 × 2</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   type   size </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span></span>
@@ -234,7 +226,7 @@ to input vectors rather than a data frame.</p></div>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> apple  M    </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> orange S    </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> orange M    </span>
-<span class="r-in"><span><span class="va">fruits</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu">expand</span><span class="op">(</span><span class="fu">nesting</span><span class="op">(</span><span class="va">type</span>, <span class="va">size</span>, <span class="va">year</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">fruits</span> <span class="op">|&gt;</span> <span class="fu">expand</span><span class="op">(</span><span class="fu">nesting</span><span class="op">(</span><span class="va">type</span>, <span class="va">size</span>, <span class="va">year</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 5 × 3</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   type   size   year</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
@@ -246,7 +238,7 @@ to input vectors rather than a data frame.</p></div>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Other uses ----------------------------------------------------------------</span></span></span>
 <span class="r-in"><span><span class="co"># Use with `full_seq()` to fill in values of continuous variables</span></span></span>
-<span class="r-in"><span><span class="va">fruits</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu">expand</span><span class="op">(</span><span class="va">type</span>, <span class="va">size</span>, <span class="fu"><a href="full_seq.html">full_seq</a></span><span class="op">(</span><span class="va">year</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">fruits</span> <span class="op">|&gt;</span> <span class="fu">expand</span><span class="op">(</span><span class="va">type</span>, <span class="va">size</span>, <span class="fu"><a href="full_seq.html">full_seq</a></span><span class="op">(</span><span class="va">year</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 24 × 3</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    type  size  `full_seq(year, 1)`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>               <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
@@ -261,7 +253,7 @@ to input vectors rather than a data frame.</p></div>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> apple M                    <span style="text-decoration: underline;">2</span>012</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> apple L                    <span style="text-decoration: underline;">2</span>010</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 14 more rows</span></span>
-<span class="r-in"><span><span class="va">fruits</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu">expand</span><span class="op">(</span><span class="va">type</span>, <span class="va">size</span>, <span class="fl">2010</span><span class="op">:</span><span class="fl">2013</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">fruits</span> <span class="op">|&gt;</span> <span class="fu">expand</span><span class="op">(</span><span class="va">type</span>, <span class="va">size</span>, <span class="fl">2010</span><span class="op">:</span><span class="fl">2013</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 32 × 3</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    type  size  `2010:2013`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
@@ -278,7 +270,7 @@ to input vectors rather than a data frame.</p></div>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 22 more rows</span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Use `anti_join()` to determine which observations are missing</span></span></span>
-<span class="r-in"><span><span class="va">all</span> <span class="op">&lt;-</span> <span class="va">fruits</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu">expand</span><span class="op">(</span><span class="va">type</span>, <span class="va">size</span>, <span class="va">year</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">all</span> <span class="op">&lt;-</span> <span class="va">fruits</span> <span class="op">|&gt;</span> <span class="fu">expand</span><span class="op">(</span><span class="va">type</span>, <span class="va">size</span>, <span class="va">year</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">all</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 24 × 3</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    type  size   year</span>
@@ -294,7 +286,7 @@ to input vectors rather than a data frame.</p></div>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> apple M      <span style="text-decoration: underline;">2</span>012</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> apple L      <span style="text-decoration: underline;">2</span>010</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 14 more rows</span></span>
-<span class="r-in"><span><span class="va">all</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter-joins.html" class="external-link">anti_join</a></span><span class="op">(</span><span class="va">fruits</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">all</span> <span class="op">|&gt;</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter-joins.html" class="external-link">anti_join</a></span><span class="op">(</span><span class="va">fruits</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Joining with `by = join_by(type, size, year)`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 19 × 3</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    type   size   year</span>
@@ -320,7 +312,7 @@ to input vectors rather than a data frame.</p></div>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">19</span> orange L      <span style="text-decoration: underline;">2</span>012</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Use with `right_join()` to fill in missing rows (like `complete()`)</span></span></span>
-<span class="r-in"><span><span class="va">fruits</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html" class="external-link">right_join</a></span><span class="op">(</span><span class="va">all</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">fruits</span> <span class="op">|&gt;</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html" class="external-link">right_join</a></span><span class="op">(</span><span class="va">all</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Joining with `by = join_by(type, year, size)`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 25 × 4</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    type    year size  weights</span>
@@ -338,8 +330,8 @@ to input vectors rather than a data frame.</p></div>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 15 more rows</span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Use with `group_by()` to expand within each group</span></span></span>
-<span class="r-in"><span><span class="va">fruits</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
-<span class="r-in"><span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">type</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
+<span class="r-in"><span><span class="va">fruits</span> <span class="op">|&gt;</span></span></span>
+<span class="r-in"><span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">type</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu">expand</span><span class="op">(</span><span class="va">year</span>, <span class="va">size</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 20 × 3</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># Groups:   type [2]</span></span>
@@ -378,7 +370,7 @@ to input vectors rather than a data frame.</p></div>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
   </div></footer></body></html>

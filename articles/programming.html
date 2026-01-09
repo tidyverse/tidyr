@@ -33,7 +33,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">tidyr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.3.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.3.2</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -96,7 +96,7 @@
       <img src="../logo.png" class="logo" alt=""><h1>Programming with tidyr</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/tidyverse/tidyr/blob/pkgdown-v1.3.1/vignettes/programming.Rmd" class="external-link"><code>vignettes/programming.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/tidyverse/tidyr/blob/main/vignettes/programming.Rmd" class="external-link"><code>vignettes/programming.Rmd</code></a></small>
       <div class="d-none name"><code>programming.Rmd</code></div>
     </div>
 
@@ -112,7 +112,7 @@ Here’s some typical tidyr code:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyr.tidyverse.org">tidyr</a></span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">iris</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span><span class="va">iris</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/nest.html">nest</a></span><span class="op">(</span>data <span class="op">=</span> <span class="op">!</span><span class="va">Species</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 3 × 2</span></span></span>
 <span><span class="co">#&gt;   Species    data             </span></span>
@@ -156,7 +156,7 @@ then show you a number of recipes to solve common problems.</p>
 a small dataset to use in examples.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/packageDescription.html" class="external-link">packageVersion</a></span><span class="op">(</span><span class="st">"tidyr"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] '1.3.1'</span></span>
+<span><span class="co">#&gt; [1] '1.3.2'</span></span>
 <span></span>
 <span><span class="va">mini_iris</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html" class="external-link">as_tibble</a></span><span class="op">(</span><span class="va">iris</span><span class="op">)</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">51</span>, <span class="fl">52</span>, <span class="fl">101</span>, <span class="fl">102</span><span class="op">)</span>, <span class="op">]</span></span>
 <span><span class="va">mini_iris</span></span>
@@ -268,7 +268,7 @@ columns, please just use a single argument and not <code>...</code>.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
   </div></footer>

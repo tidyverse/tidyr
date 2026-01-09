@@ -13,7 +13,7 @@ Learn more in vignette("pivot").'><meta property="og:image" content="https://tid
 
     <a class="navbar-brand me-2" href="../index.html">tidyr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.3.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.3.2</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -61,7 +61,7 @@ Learn more in vignette("pivot").'><meta property="og:image" content="https://tid
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Pivot data from long to wide</h1>
-      <small class="dont-index">Source: <a href="https://github.com/tidyverse/tidyr/blob/pkgdown-v1.3.1/R/pivot-wide.R" class="external-link"><code>R/pivot-wide.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/tidyverse/tidyr/blob/main/R/pivot-wide.R" class="external-link"><code>R/pivot-wide.R</code></a></small>
       <div class="d-none name"><code>pivot_wider.Rd</code></div>
     </div>
 
@@ -246,7 +246,7 @@ defines a pivoting specification.</p></div>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> 4842  BCW2        1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> 4842  MAE         1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 104 more rows</span></span>
-<span class="r-in"><span><span class="va">fish_encounters</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
+<span class="r-in"><span><span class="va">fish_encounters</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu">pivot_wider</span><span class="op">(</span>names_from <span class="op">=</span> <span class="va">station</span>, values_from <span class="op">=</span> <span class="va">seen</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 19 × 12</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    fish  Release I80_1 Lisbon  Rstr Base_TD   BCE   BCW  BCE2  BCW2</span>
@@ -272,7 +272,7 @@ defines a pivoting specification.</p></div>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">19</span> 4865        1     1      1    <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 2 more variables: MAE &lt;int&gt;, MAW &lt;int&gt;</span></span>
 <span class="r-in"><span><span class="co"># Fill in missing values</span></span></span>
-<span class="r-in"><span><span class="va">fish_encounters</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
+<span class="r-in"><span><span class="va">fish_encounters</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu">pivot_wider</span><span class="op">(</span>names_from <span class="op">=</span> <span class="va">station</span>, values_from <span class="op">=</span> <span class="va">seen</span>, values_fill <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 19 × 12</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    fish  Release I80_1 Lisbon  Rstr Base_TD   BCE   BCW  BCE2  BCW2</span>
@@ -314,7 +314,7 @@ defines a pivoting specification.</p></div>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> 06    California income      <span style="text-decoration: underline;">29</span>454   109</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> 06    California rent         <span style="text-decoration: underline;">1</span>358     3</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 94 more rows</span></span>
-<span class="r-in"><span><span class="va">us_rent_income</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
+<span class="r-in"><span><span class="va">us_rent_income</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu">pivot_wider</span><span class="op">(</span></span></span>
 <span class="r-in"><span>    names_from <span class="op">=</span> <span class="va">variable</span>,</span></span>
 <span class="r-in"><span>    values_from <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">estimate</span>, <span class="va">moe</span><span class="op">)</span></span></span>
@@ -336,7 +336,7 @@ defines a pivoting specification.</p></div>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># You can control whether `names_from` values vary fastest or slowest</span></span></span>
 <span class="r-in"><span><span class="co"># relative to the `values_from` column names using `names_vary`.</span></span></span>
-<span class="r-in"><span><span class="va">us_rent_income</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
+<span class="r-in"><span><span class="va">us_rent_income</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu">pivot_wider</span><span class="op">(</span></span></span>
 <span class="r-in"><span>    names_from <span class="op">=</span> <span class="va">variable</span>,</span></span>
 <span class="r-in"><span>    values_from <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">estimate</span>, <span class="va">moe</span><span class="op">)</span>,</span></span>
@@ -359,7 +359,7 @@ defines a pivoting specification.</p></div>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># When there are multiple `names_from` or `values_from`, you can use</span></span></span>
 <span class="r-in"><span><span class="co"># use `names_sep` or `names_glue` to control the output variable names</span></span></span>
-<span class="r-in"><span><span class="va">us_rent_income</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
+<span class="r-in"><span><span class="va">us_rent_income</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu">pivot_wider</span><span class="op">(</span></span></span>
 <span class="r-in"><span>    names_from <span class="op">=</span> <span class="va">variable</span>,</span></span>
 <span class="r-in"><span>    names_sep <span class="op">=</span> <span class="st">"."</span>,</span></span>
@@ -379,7 +379,7 @@ defines a pivoting specification.</p></div>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> 11    District of…           <span style="text-decoration: underline;">43</span>198          <span style="text-decoration: underline;">1</span>424        681       17</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> 12    Florida                <span style="text-decoration: underline;">25</span>952          <span style="text-decoration: underline;">1</span>077         70        3</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 42 more rows</span></span>
-<span class="r-in"><span><span class="va">us_rent_income</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
+<span class="r-in"><span><span class="va">us_rent_income</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu">pivot_wider</span><span class="op">(</span></span></span>
 <span class="r-in"><span>    names_from <span class="op">=</span> <span class="va">variable</span>,</span></span>
 <span class="r-in"><span>    names_glue <span class="op">=</span> <span class="st">"{variable}_{.value}"</span>,</span></span>
@@ -417,7 +417,7 @@ defines a pivoting specification.</p></div>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> A     L           67</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> A     M           18</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 44 more rows</span></span>
-<span class="r-in"><span><span class="va">warpbreaks</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
+<span class="r-in"><span><span class="va">warpbreaks</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu">pivot_wider</span><span class="op">(</span></span></span>
 <span class="r-in"><span>    names_from <span class="op">=</span> <span class="va">wool</span>,</span></span>
 <span class="r-in"><span>    values_from <span class="op">=</span> <span class="va">breaks</span>,</span></span>
@@ -433,7 +433,7 @@ defines a pivoting specification.</p></div>
 <span class="r-in"><span><span class="co"># Can pass an anonymous function to `values_fn` when you</span></span></span>
 <span class="r-in"><span><span class="co"># need to supply additional arguments</span></span></span>
 <span class="r-in"><span><span class="va">warpbreaks</span><span class="op">$</span><span class="va">breaks</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="cn">NA</span></span></span>
-<span class="r-in"><span><span class="va">warpbreaks</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
+<span class="r-in"><span><span class="va">warpbreaks</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu">pivot_wider</span><span class="op">(</span></span></span>
 <span class="r-in"><span>    names_from <span class="op">=</span> <span class="va">wool</span>,</span></span>
 <span class="r-in"><span>    values_from <span class="op">=</span> <span class="va">breaks</span>,</span></span>
@@ -458,7 +458,7 @@ defines a pivoting specification.</p></div>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
   </div></footer></body></html>
