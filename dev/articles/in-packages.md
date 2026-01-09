@@ -24,7 +24,7 @@ library(dplyr, warn.conflicts = FALSE)
 library(purrr)
 
 packageVersion("tidyr")
-#> [1] '1.3.1.9000'
+#> [1] '1.3.2.9000'
 
 mini_iris <- as_tibble(iris)[c(1, 2, 51, 52, 101, 102), ]
 mini_iris

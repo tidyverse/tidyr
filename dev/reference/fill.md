@@ -23,14 +23,10 @@ fill(data, ..., .by = NULL, .direction = c("down", "up", "downup", "updown"))
 
 - .by:
 
-  **\[experimental\]**
-
-  \<[`tidy-select`](https://dplyr.tidyverse.org/reference/dplyr_tidy_select.html)\>
+  \<[`tidy-select`](https://tidyr.tidyverse.org/dev/reference/tidyr_tidy_select.md)\>
   Optionally, a selection of columns to group by for just this
   operation, functioning as an alternative to
-  [`group_by()`](https://dplyr.tidyverse.org/reference/group_by.html).
-  For details and examples, see
-  [?dplyr_by](https://dplyr.tidyverse.org/reference/dplyr_by.html).
+  [`dplyr::group_by()`](https://dplyr.tidyverse.org/reference/group_by.html).
 
 - .direction:
 

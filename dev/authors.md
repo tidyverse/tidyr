@@ -18,13 +18,13 @@
 Source:
 [`DESCRIPTION`](https://github.com/tidyverse/tidyr/blob/main/DESCRIPTION)
 
-Wickham H, Vaughan D, Girlich M (2025). *tidyr: Tidy Messy Data*. R
-package version 1.3.1.9000, <https://tidyr.tidyverse.org>.
+Wickham H, Vaughan D, Girlich M (2026). *tidyr: Tidy Messy Data*. R
+package version 1.3.2.9000, <https://tidyr.tidyverse.org>.
 
     @Manual{,
       title = {tidyr: Tidy Messy Data},
       author = {Hadley Wickham and Davis Vaughan and Maximilian Girlich},
-      year = {2025},
-      note = {R package version 1.3.1.9000},
+      year = {2026},
+      note = {R package version 1.3.2.9000},
       url = {https://tidyr.tidyverse.org},
     }

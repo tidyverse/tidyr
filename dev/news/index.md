@@ -2,6 +2,10 @@
 
 ## tidyr (development version)
 
+## tidyr 1.3.2
+
+CRAN release: 2025-12-19
+
 - [`fill()`](https://tidyr.tidyverse.org/dev/reference/fill.md) gains a
   `.by` argument as an alternative to
   [`dplyr::group_by()`](https://dplyr.tidyverse.org/reference/group_by.html)
