@@ -1,7 +1,7 @@
 # Household data
 
 This dataset is based on an example in
-[`vignette("datatable-reshape", package = "data.table")`](https://rdatatable.gitlab.io/data.table/articles/datatable-reshape.html)
+[`vignette("datatable-reshape", package = "data.table")`](https://cran.rstudio.com/web/packages/data.table/vignettes/datatable-reshape.html)
 
 ## Usage
 

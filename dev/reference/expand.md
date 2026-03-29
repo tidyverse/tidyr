@@ -250,12 +250,12 @@ fruits |> dplyr::right_join(all)
 #> # A tibble: 25 × 4
 #>    type    year size  weights
 #>    <chr>  <dbl> <fct>   <dbl>
-#>  1 apple   2010 XS       1.18
-#>  2 orange  2010 S        3.75
-#>  3 apple   2012 M        4.76
-#>  4 orange  2010 S        3.72
-#>  5 orange  2011 S        3.45
-#>  6 orange  2012 M        5.63
+#>  1 apple   2010 XS       1.60
+#>  2 orange  2010 S        4.26
+#>  3 apple   2012 M        2.56
+#>  4 orange  2010 S        3.99
+#>  5 orange  2011 S        4.62
+#>  6 orange  2012 M        6.15
 #>  7 apple   2011 XS      NA   
 #>  8 apple   2012 XS      NA   
 #>  9 apple   2010 S       NA   

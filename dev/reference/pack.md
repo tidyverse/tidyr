@@ -158,30 +158,30 @@ df <- tibble(
 )
 df
 #> # A tibble: 3 × 3
-#>       x   y$a    $b z$X      $Y $Z   
-#>   <int> <int> <int> <chr> <dbl> <lgl>
-#> 1     1     1     3 a     0.404 TRUE 
-#> 2     2     2     2 b     0.218 FALSE
-#> 3     3     3     1 c     0.418 NA   
+#>       x   y$a    $b z$X       $Y $Z   
+#>   <int> <int> <int> <chr>  <dbl> <lgl>
+#> 1     1     1     3 a     0.0281 TRUE 
+#> 2     2     2     2 b     0.466  FALSE
+#> 3     3     3     1 c     0.390  NA   
 df |> unpack(y)
 #> # A tibble: 3 × 4
-#>       x     a     b z$X      $Y $Z   
-#>   <int> <int> <int> <chr> <dbl> <lgl>
-#> 1     1     1     3 a     0.404 TRUE 
-#> 2     2     2     2 b     0.218 FALSE
-#> 3     3     3     1 c     0.418 NA   
+#>       x     a     b z$X       $Y $Z   
+#>   <int> <int> <int> <chr>  <dbl> <lgl>
+#> 1     1     1     3 a     0.0281 TRUE 
+#> 2     2     2     2 b     0.466  FALSE
+#> 3     3     3     1 c     0.390  NA   
 df |> unpack(c(y, z))
 #> # A tibble: 3 × 6
-#>       x     a     b X         Y Z    
-#>   <int> <int> <int> <chr> <dbl> <lgl>
-#> 1     1     1     3 a     0.404 TRUE 
-#> 2     2     2     2 b     0.218 FALSE
-#> 3     3     3     1 c     0.418 NA   
+#>       x     a     b X          Y Z    
+#>   <int> <int> <int> <chr>  <dbl> <lgl>
+#> 1     1     1     3 a     0.0281 TRUE 
+#> 2     2     2     2 b     0.466  FALSE
+#> 3     3     3     1 c     0.390  NA   
 df |> unpack(c(y, z), names_sep = "_")
 #> # A tibble: 3 × 6
-#>       x   y_a   y_b z_X     z_Y z_Z  
-#>   <int> <int> <int> <chr> <dbl> <lgl>
-#> 1     1     1     3 a     0.404 TRUE 
-#> 2     2     2     2 b     0.218 FALSE
-#> 3     3     3     1 c     0.418 NA   
+#>       x   y_a   y_b z_X      z_Y z_Z  
+#>   <int> <int> <int> <chr>  <dbl> <lgl>
+#> 1     1     1     3 a     0.0281 TRUE 
+#> 2     2     2     2 b     0.466  FALSE
+#> 3     3     3     1 c     0.390  NA   
 ```
