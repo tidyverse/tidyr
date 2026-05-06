@@ -1,6 +1,7 @@
 # Nested data
 
 ``` r
+
 library(tidyr)
 library(dplyr)
 library(purrr)
@@ -12,6 +13,7 @@ A nested data frame is a data frame where one (or more) columns is a
 list of data frames. You can create simple nested data frames by hand:
 
 ``` r
+
 df1 <- tibble(
   g = c(1, 2, 3),
   data = list(
@@ -39,6 +41,7 @@ But more commonly you’ll create them with
 [`tidyr::nest()`](https://tidyr.tidyverse.org/dev/reference/nest.md):
 
 ``` r
+
 df2 <- tribble(
   ~g, ~x, ~y,
    1,  1,  2,
@@ -61,6 +64,7 @@ which variables should be nested inside; an alternative is to use
 to describe which variables should be kept outside.
 
 ``` r
+
 df2 |> group_by(g) |> nest()
 #> # A tibble: 3 × 2
 #> # Groups:   g [3]
@@ -84,6 +88,7 @@ row-binds the data frames together, repeating the outer columns the
 right number of times to line up.
 
 ``` r
+
 df1 |> unnest(data)
 #> # A tibble: 4 × 3
 #>       g     x     y
@@ -101,6 +106,7 @@ Nested data is a great fit for problems where you have one of
 fitting multiple models.
 
 ``` r
+
 mtcars_nested <- mtcars |>
   group_by(cyl) |>
   nest()
@@ -119,6 +125,7 @@ Once you have a list of data frames, it’s very natural to produce a list
 of models:
 
 ``` r
+
 mtcars_nested <- mtcars_nested |>
   mutate(model = map(data, function(df) lm(mpg ~ wt, data = df)))
 mtcars_nested
@@ -134,6 +141,7 @@ mtcars_nested
 And then you could even produce a list of predictions:
 
 ``` r
+
 mtcars_nested <- mtcars_nested |>
   mutate(pred = map(model, predict))
 mtcars_nested

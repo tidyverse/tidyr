@@ -8,6 +8,7 @@ non-standard evaluation used throughout the tidyverse. Here’s some
 typical tidyr code:
 
 ``` r
+
 library(tidyr)
 
 iris |>
@@ -63,6 +64,7 @@ Before we go on, we reveal the version of tidyr we’re using and make a
 small dataset to use in examples.
 
 ``` r
+
 packageVersion("tidyr")
 #> [1] '1.3.2.9000'
 
@@ -111,6 +113,7 @@ learn some new tools. There are three main cases where this comes up:
   you must **embrace** the argument by surrounding it in doubled braces.
 
   ``` r
+
   nest_egg <- function(df, cols) {
     nest(df, egg = {{ cols }})
   }
@@ -132,6 +135,7 @@ learn some new tools. There are three main cases where this comes up:
   that takes variable names as a character vector.
 
   ``` r
+
   nest_egg <- function(df, cols) {
     nest(df, egg = all_of(cols))
   }
@@ -149,6 +153,7 @@ learn some new tools. There are three main cases where this comes up:
 - In more complicated cases, you might want to use tidyselect directly:
 
   ``` r
+
   sel_vars <- function(df, cols) {
     tidyselect::eval_select(rlang::enquo(cols), df)
   }

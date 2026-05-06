@@ -19,6 +19,7 @@ Before we go on, we’ll attach the packages we use, expose the version of
 tidyr, and make a small dataset to use in examples.
 
 ``` r
+
 library(tidyr)
 library(dplyr, warn.conflicts = FALSE)
 library(purrr)
@@ -55,6 +56,7 @@ If you know the column names, this code works in the same way regardless
 of whether its inside or outside of a package:
 
 ``` r
+
 mini_iris |> nest(
   petal = c(Petal.Length, Petal.Width),
   sepal = c(Sepal.Length, Sepal.Width)
@@ -83,6 +85,7 @@ tidyselect helper (like
 etc.) that takes column names stored as strings:
 
 ``` r
+
 mini_iris |> nest(
   petal = all_of(c("Petal.Length", "Petal.Width")),
   sepal = all_of(c("Sepal.Length", "Sepal.Width"))
@@ -218,6 +221,7 @@ The basic approach looks like this. First you define a function that
 returns `TRUE` for new versions of tidyr:
 
 ``` r
+
 tidyr_new_interface <- function() {
   packageVersion("tidyr") > "0.8.99"
 }
@@ -273,6 +277,7 @@ Why it changed:
   create multiple nested list-columns at once (“multi-nest”).
 
   ``` r
+
   mini_iris |>
     nest(petal = matches("Petal"), sepal = matches("Sepal"))
   #> # A tibble: 3 × 3
@@ -286,6 +291,7 @@ Why it changed:
 Before and after examples:
 
 ``` r
+
 # v0.8.3
 mini_iris |>
   nest(Sepal.Length, Sepal.Width, Petal.Length, Petal.Width, .key = "my_data")
@@ -311,6 +317,7 @@ same as [`nest()`](https://tidyr.tidyverse.org/dev/reference/nest.md) in
 v0.8.3:
 
 ``` r
+
 if (tidyr_new_interface()) {
   out <- tidyr::nest_legacy(df, x, y, z)
 } else {
@@ -363,6 +370,7 @@ Why it changed:
 Before and after:
 
 ``` r
+
 nested <- mini_iris |>
   nest(my_data = c(Sepal.Length, Sepal.Width, Petal.Length, Petal.Width))
 
@@ -382,6 +390,7 @@ the same as
 v0.8.3:
 
 ``` r
+
 if (tidyr_new_interface()) {
   out <- tidyr::unnest_legacy(df)
 } else {
@@ -428,6 +437,7 @@ Imagine we used
 frame*.
 
 ``` r
+
 (df <- mini_iris |>
    group_by(Species) |>
    nest())
@@ -445,6 +455,7 @@ frame*.
 And now we try to add that back to the data *post hoc*:
 
 ``` r
+
 df |>
   mutate(n_rows = external_variable)
 #> Error in `mutate()`:
@@ -465,6 +476,7 @@ the [`map()`](https://purrr.tidyverse.org/reference/map.html) inside the
 design the problem away:
 
 ``` r
+
 df |>
   mutate(n_rows = map_int(data, nrow))
 #> # A tibble: 3 × 3
@@ -482,6 +494,7 @@ frame is not an option,
 is group-unaware. It lets you add external data to a grouped data frame.
 
 ``` r
+
 df |>
   tibble::add_column(n_rows = external_variable)
 #> # A tibble: 3 × 3
@@ -514,6 +527,7 @@ Why it changed:
 Before and after:
 
 ``` r
+
 # v0.8.3
 mini_iris |>
   nest_(

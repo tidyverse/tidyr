@@ -37,6 +37,7 @@ provides a number deeply nested lists originally mostly captured from
 web APIs.
 
 ``` r
+
 library(tidyr)
 library(dplyr)
 library(repurrrsive)
@@ -48,6 +49,7 @@ We’ll start with `gh_users`, a list which contains information about six
 GitHub users. To begin, we put the `gh_users` list into a data frame:
 
 ``` r
+
 users <- tibble(user = gh_users)
 ```
 
@@ -59,6 +61,7 @@ tracked together in a single object.
 Each `user` is a named list, where each element represents a column.
 
 ``` r
+
 names(users$user[[1]])
 #>  [1] "login"               "id"                  "avatar_url"         
 #>  [4] "gravatar_id"         "url"                 "html_url"           
@@ -77,6 +80,7 @@ There are two ways to turn the list components into columns.
 takes every component and makes a new column:
 
 ``` r
+
 users |> unnest_wider(user)
 #> # A tibble: 6 × 30
 #>   login          id avatar_url gravatar_id url   html_url followers_url
@@ -104,6 +108,7 @@ us to pull out selected components using the same syntax as
 [`purrr::pluck()`](https://purrr.tidyverse.org/reference/pluck.html):
 
 ``` r
+
 users |> hoist(user,
   followers = "followers",
   login = "login",
@@ -130,6 +135,7 @@ frame.
 We start off `gh_repos` similarly, by putting it in a tibble:
 
 ``` r
+
 repos <- tibble(repo = gh_repos)
 repos
 #> # A tibble: 6 × 1
@@ -151,6 +157,7 @@ rather than
 [`unnest_wider()`](https://tidyr.tidyverse.org/dev/reference/unnest_wider.md):
 
 ``` r
+
 repos <- repos |> unnest_longer(repo)
 repos
 #> # A tibble: 176 × 1
@@ -174,6 +181,7 @@ Then we can use
 or [`hoist()`](https://tidyr.tidyverse.org/dev/reference/hoist.md):
 
 ``` r
+
 repos |> hoist(repo,
   login = c("owner", "login"),
   name = "name",
@@ -201,6 +209,7 @@ levels deep inside of a list. An alternative approach would be to pull
 out just `owner` and then put each element of it in a column:
 
 ``` r
+
 repos |>
   hoist(repo, owner = "owner") |>
   unnest_wider(owner)
@@ -233,6 +242,7 @@ a GoT character. We start in the same way, first by creating a data
 frame and then by unnesting each component into a column:
 
 ``` r
+
 chars <- tibble(char = got_chars)
 chars
 #> # A tibble: 30 × 1
@@ -275,6 +285,7 @@ This is more complex than `gh_users` because some component of `char`
 are themselves a list, giving us a collection of list-columns:
 
 ``` r
+
 chars2 |> select_if(is.list)
 #> # A tibble: 30 × 7
 #>    titles    aliases    allegiances books  povBooks  tvSeries  playedBy
@@ -296,6 +307,7 @@ What you do next will depend on the purposes of the analysis. Maybe you
 want a row for every book and TV series that the character appears in:
 
 ``` r
+
 chars2 |>
   select(name, books, tvSeries) |>
   pivot_longer(c(books, tvSeries), names_to = "media", values_to = "value") |>
@@ -319,6 +331,7 @@ chars2 |>
 Or maybe you want to build a table that lets you match title to name:
 
 ``` r
+
 chars2 |>
   select(name, title = titles) |>
   unnest_longer(title)
@@ -348,6 +361,7 @@ Next we’ll tackle a more complex form of data that comes from Google’s
 geocoding service, stored in the repurrrsive package
 
 ``` r
+
 repurrrsive::gmaps_cities
 #> # A tibble: 5 × 2
 #>   city       json            
@@ -363,6 +377,7 @@ repurrrsive::gmaps_cities
 [`unnest_wider()`](https://tidyr.tidyverse.org/dev/reference/unnest_wider.md):
 
 ``` r
+
 repurrrsive::gmaps_cities |>
   unnest_wider(json)
 #> # A tibble: 5 × 3
@@ -382,6 +397,7 @@ rows with
 [`unnest_longer()`](https://tidyr.tidyverse.org/dev/reference/unnest_longer.md):
 
 ``` r
+
 repurrrsive::gmaps_cities |>
   unnest_wider(json) |>
   unnest_longer(results)
@@ -401,6 +417,7 @@ Now these all have the same components, as revealed by
 [`unnest_wider()`](https://tidyr.tidyverse.org/dev/reference/unnest_wider.md):
 
 ``` r
+
 repurrrsive::gmaps_cities |>
   unnest_wider(json) |>
   unnest_longer(results) |>
@@ -421,6 +438,7 @@ repurrrsive::gmaps_cities |>
 We can find the latitude and longitude by unnesting `geometry`:
 
 ``` r
+
 repurrrsive::gmaps_cities |>
   unnest_wider(json) |>
   unnest_longer(results) |>
@@ -443,6 +461,7 @@ repurrrsive::gmaps_cities |>
 And then location:
 
 ``` r
+
 repurrrsive::gmaps_cities |>
   unnest_wider(json) |>
   unnest_longer(results) |>
@@ -466,6 +485,7 @@ repurrrsive::gmaps_cities |>
 We could also just look at the first address for each city:
 
 ``` r
+
 repurrrsive::gmaps_cities |>
   unnest_wider(json) |>
   hoist(results, first_result = 1) |>
@@ -488,6 +508,7 @@ Or use [`hoist()`](https://tidyr.tidyverse.org/dev/reference/hoist.md)
 to dive deeply to get directly to `lat` and `lng`:
 
 ``` r
+
 repurrrsive::gmaps_cities |>
   hoist(json,
     lat = list("results", 1, "geometry", "location", "lat"),
@@ -509,9 +530,10 @@ We’ll finish off with the most complex list, from [Sharla
 Gelfand’s](https://github.com/sharlagelfand) discography. We’ll start
 the usual way: putting the list into a single column data frame, and
 then widening so each component is a column. I also parse the
-`date_added` column into a real date-time[¹](#fn1).
+`date_added` column into a real date-time[^1].
 
 ``` r
+
 discs <- tibble(disc = discog) |>
   unnest_wider(disc) |>
   mutate(date_added = as.POSIXct(strptime(date_added, "%Y-%m-%dT%H:%M:%S")))
@@ -537,6 +559,7 @@ Sharla’s discography, not any information about the disc itself. To do
 that we need to widen the `basic_information` column:
 
 ``` r
+
 discs |> unnest_wider(basic_information)
 #> Error in `unnest_wider()`:
 #> ! Can't duplicate names between the affected columns and the
@@ -552,6 +575,7 @@ Unfortunately that fails because there’s an `id` column inside
 `names_repair = "unique"`:
 
 ``` r
+
 discs |> unnest_wider(basic_information, names_repair = "unique")
 #> New names:
 #> • `id` -> `id...7`
@@ -579,6 +603,7 @@ The problem is that `basic_information` repeats the `id` column that’s
 also stored at the top-level, so we can just drop that:
 
 ``` r
+
 discs |>
   select(!id) |>
   unnest_wider(basic_information)
@@ -605,6 +630,7 @@ Alternatively, we could use
 [`hoist()`](https://tidyr.tidyverse.org/dev/reference/hoist.md):
 
 ``` r
+
 discs |>
   hoist(basic_information,
     title = "title",
@@ -636,6 +662,7 @@ A more systematic approach would be to create separate tables for artist
 and label:
 
 ``` r
+
 discs |>
   hoist(basic_information, artist = "artists") |>
   select(disc_id = id, artist) |>
@@ -680,9 +707,7 @@ discs |>
 
 Then you could join these back on to the original dataset as needed.
 
-------------------------------------------------------------------------
-
-1.  I’d normally use
+[^1]: I’d normally use
     [`readr::parse_datetime()`](https://readr.tidyverse.org/reference/parse_datetime.html)
     or `lubridate::ymd_hms()`, but I can’t here because it’s a vignette
     and I don’t want to add a dependency to tidyr just to simplify one

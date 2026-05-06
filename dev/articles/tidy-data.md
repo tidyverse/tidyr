@@ -46,6 +46,7 @@ imaginary classroom in a format commonly seen in the wild. The table has
 three columns and four rows, and both rows and columns are labeled.
 
 ``` r
+
 library(tibble)
 classroom <- tribble(
   ~name,    ~quiz1, ~quiz2, ~test1,
@@ -69,6 +70,7 @@ table shows the same data as above, but the rows and columns have been
 transposed.
 
 ``` r
+
 tribble(
   ~assessment, ~Billy, ~Suzy, ~Lionel, ~Jenny,
   "quiz1",     NA,     "F",   "B",     "A",
@@ -103,11 +105,13 @@ A tidy version of the classroom data looks like this: (you’ll learn how
 the functions work a little later)
 
 ``` r
+
 library(tidyr)
 library(dplyr)
 ```
 
 ``` r
+
 classroom2 <- classroom |>
   pivot_longer(quiz1:test1, names_to = "assessment", values_to = "grade") |>
   arrange(name, assessment)
@@ -270,6 +274,7 @@ from religion to the internet, and produces many reports that contain
 datasets in this format.
 
 ``` r
+
 relig_income
 #> # A tibble: 18 × 11
 #>    religion   `<$10k` `$10-20k` `$20-30k` `$30-40k` `$40-50k` `$50-75k`
@@ -302,6 +307,7 @@ headings. In this case, it’s `income`. The second argument is the name
 of the value column, `frequency`.
 
 ``` r
+
 relig_income |>
   pivot_longer(-religion, names_to = "income", values_to = "frequency")
 #> # A tibble: 180 × 3
@@ -336,6 +342,7 @@ This will be discussed in more depth in [multiple
 types](#multiple-types).
 
 ``` r
+
 billboard
 #> # A tibble: 317 × 79
 #>    artist  track date.entered   wk1   wk2   wk3   wk4   wk5   wk6   wk7
@@ -366,6 +373,7 @@ to make the dataset longer. We transform the columns from `wk1` to
 their values, `rank`:
 
 ``` r
+
 billboard2 <- billboard |>
   pivot_longer(
     wk1:wk76,
@@ -399,6 +407,7 @@ variable to a number, and figuring out the date corresponding to each
 week on the charts:
 
 ``` r
+
 billboard3 <- billboard2 |>
   mutate(
     week = as.integer(gsub("wk", "", week)),
@@ -426,6 +435,7 @@ Finally, it’s always a good idea to sort the data. We could do it by
 artist, track and week:
 
 ``` r
+
 billboard3 |> arrange(artist, track, week)
 #> # A tibble: 5,307 × 5
 #>    artist  track                    week  rank date      
@@ -446,6 +456,7 @@ billboard3 |> arrange(artist, track, week)
 Or by date and rank:
 
 ``` r
+
 billboard3 |> arrange(date, rank)
 #> # A tibble: 5,307 × 5
 #>    artist   track   week  rank date      
@@ -474,6 +485,7 @@ groups are broken down by `sex` (m, f) and `age` (0-14, 15-25, 25-34,
 35-44, 45-54, 55-64, unknown).
 
 ``` r
+
 # To run this on your own:
 # tb <- readr::read_csv("https://raw.githubusercontent.com/tidyverse/tidyr/main/vignettes/tb.csv")
 tb <- as_tibble(read.csv("tb.csv", stringsAsFactors = FALSE))
@@ -502,6 +514,7 @@ First we use
 to gather up the non-variable columns:
 
 ``` r
+
 tb2 <- tb |>
   pivot_longer(
     !c(iso2, year),
@@ -536,6 +549,7 @@ to split on non-alphanumeric columns), or a vector of character
 positions. In this case we want to split after the first character:
 
 ``` r
+
 tb3 <- tb2 |>
   separate(demo, c("sex", "age"), 1)
 tb3
@@ -568,6 +582,7 @@ supplying multiple column names to `names_to` and also supplying a
 grouped regular expression to `names_pattern`:
 
 ``` r
+
 tb |> pivot_longer(
   !c(iso2, year),
   names_to = c("sex", "age"),
@@ -599,6 +614,7 @@ the Global Historical Climatology Network for one weather station
 (MX17004) in Mexico for five months in 2010.
 
 ``` r
+
 # To run this on your own:
 # weather <- readr::read_csv("https://raw.githubusercontent.com/tidyverse/tidyr/main/vignettes/weather.csv")
 weather <- as_tibble(read.csv("weather.csv", stringsAsFactors = FALSE))
@@ -633,6 +649,7 @@ To tidy this dataset we first use pivot_longer to gather the day
 columns:
 
 ``` r
+
 weather2 <- weather |>
   pivot_longer(
     d1:d31,
@@ -664,6 +681,7 @@ each month and can easily reconstruct the explicit missing values.
 We’ll also do a little cleaning:
 
 ``` r
+
 weather3 <- weather2 |>
   mutate(day = as.integer(gsub("d", "", day))) |>
   select(id, year, month, day, element, value)
@@ -694,6 +712,7 @@ is inverse of
 pivoting `element` and `value` back out across multiple columns:
 
 ``` r
+
 weather3 |>
   pivot_wider(names_from = element, values_from = value)
 #> # A tibble: 33 × 6
@@ -734,6 +753,7 @@ the `rank` of the `song` in each `week`. We first extract a `song`
 dataset:
 
 ``` r
+
 song <- billboard3 |>
   distinct(artist, track) |>
   mutate(song_id = row_number())
@@ -758,6 +778,7 @@ Then use that to make a `rank` dataset by replacing repeated song facts
 with a pointer to song details (a unique song id):
 
 ``` r
+
 rank <- billboard3 |>
   left_join(song, c("artist", "track")) |>
   select(song_id, date, week, rank)
@@ -814,6 +835,7 @@ each path, reading in the csv file, and
 combines the results into a single data frame.
 
 ``` r
+
 library(purrr)
 library(readr)
 

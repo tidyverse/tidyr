@@ -19,6 +19,7 @@ in
 ## Installation
 
 ``` r
+
 # The easiest way to get tidyr is to install the whole tidyverse:
 install.packages("tidyverse")
 
@@ -37,6 +38,7 @@ pak::pak("tidyverse/tidyr")
 ## Getting started
 
 ``` r
+
 library(tidyr)
 ```
 

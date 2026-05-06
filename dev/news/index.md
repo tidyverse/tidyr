@@ -1004,6 +1004,7 @@ for a detailed transition guide.
   closer look and update your code:
 
   ``` r
+
   library(tidyr)
   nest <- nest_legacy
   unnest <- unnest_legacy
@@ -1631,6 +1632,7 @@ implies the following changes:
   from the environment with the tidy eval operator `!!`:
 
   ``` r
+
   x <- 2
   drop_na(df, 2)     # Works fine
   drop_na(df, x)     # Object 'x' not found
