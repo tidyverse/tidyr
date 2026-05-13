@@ -150,17 +150,28 @@ chop_info <- function(data, cols, by, error_call) {
 
   if (has_cols) {
     # Remove `by` names before evaluating `cols`. This:
-    # - Avoids double selection like `chop(cols = x, by = x)`
-    # - Enables a meaningful `chop(cols = everything(), by = x)`
+    # - Avoids double selection like `chop(cols = x, by = x)`, which would cause
+    #   name collisions otherwise.
+    # - Enables a meaningful `chop(cols = everything(), by = x)`.
     # Consistent with `pivot_wider(id_cols = )`.
-
-    # TODO!: Improve on error with rethrow after rebase on main
-    cols <- names(tidyselect::eval_select(
-      expr = cols,
-      data = data[setdiff(names, by)],
-      allow_rename = FALSE,
-      error_call = error_call
-    ))
+    try_fetch(
+      cols <- names(tidyselect::eval_select(
+        expr = cols,
+        data = data[setdiff(names, by)],
+        allow_rename = FALSE,
+        error_call = error_call
+      )),
+      vctrs_error_subscript_oob = function(cnd) {
+        maybe_throw_already_selected_error(
+          cnd[["i"]],
+          "cols",
+          by,
+          "by",
+          error_call
+        )
+        zap()
+      }
+    )
   } else {
     cols <- character()
   }

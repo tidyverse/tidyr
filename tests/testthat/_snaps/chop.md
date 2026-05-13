@@ -20,8 +20,8 @@
       chop(df, x, by = x)
     Condition
       Error in `chop()`:
-      ! Can't select columns that don't exist.
-      x Column `x` doesn't exist.
+      ! `cols` can't select a column already selected by `by`.
+      i Column `x` has already been selected.
 
 # must supply at least one of `by` or `cols`
 
