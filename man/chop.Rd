@@ -85,16 +85,16 @@ df |> chop(c(y, z))
 df |> nest(data = c(y, z))
 
 # Specify variables to chop by (rather than variables to chop) using `by`
-df \%>\% chop(by = x)
+df |> chop(by = x)
 # Compare to `nest()`
-df \%>\% nest(.by = x)
+df |> nest(.by = x)
 
 # `cols` and `by` can be used together to drop columns you no longer need.
 # This drops `z`:
-df \%>\% chop(cols = y, by = x)
+df |> chop(cols = y, by = x)
 
 # You cannot chop a column you are also trying to chop by
-try(df \%>\% chop(cols = x, by = x))
+try(df |> chop(cols = x, by = x))
 
 # Unchop --------------------------------------------------------------------
 df <- tibble(x = 1:4, y = list(integer(), 1L, 1:2, 1:3))
