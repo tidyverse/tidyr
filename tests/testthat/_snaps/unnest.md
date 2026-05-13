@@ -5,6 +5,7 @@
     Condition
       Error in `list_sizes()`:
       ! `x[[1]]` must be a vector, not a function.
+      i Read our FAQ about scalar types (`?vctrs::faq_error_scalar_type`) to learn more.
 
 # multiple columns must be same length
 

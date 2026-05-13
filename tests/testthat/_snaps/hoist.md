@@ -13,6 +13,7 @@
     Condition
       Error in `hoist()`:
       ! `..1` must be a vector, not a symbol.
+      i Read our FAQ about scalar types (`?vctrs::faq_error_scalar_type`) to learn more.
 
 # input validation catches problems
 
@@ -44,7 +45,7 @@
       hoist(df, a, xx = 1)
     Condition
       Error in `hoist()`:
-      ! `.data[[.col]]` must be a list, not a <tbl_df/tbl/data.frame> object.
+      ! `.data[[.col]]` must be a list, not a <tbl_df> object.
 
 # hoist() validates its inputs (#1224)
 

@@ -27,12 +27,12 @@ Imports:
     lifecycle (>= 1.0.3),
     magrittr,
     purrr (>= 1.0.1),
-    rlang (>= 1.1.1),
+    rlang (>= 1.2.0),
     stringr (>= 1.5.0),
     tibble (>= 2.1.1),
     tidyselect (>= 1.2.1),
     utils,
-    vctrs (>= 0.5.2)
+    vctrs (>= 0.7.3)
 Suggests:
     covr,
     data.table,
