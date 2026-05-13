@@ -184,7 +184,7 @@
       Error in `build_wider_spec()`:
       ! `names_expand` must be `TRUE` or `FALSE`, not the string "x".
 
-# `id_cols` can't select columns from `names_from` or `values_from` (#1318)
+# `id_cols` can't select columns from `names_from` or `values_from` (#1318, #1506)
 
     Code
       pivot_wider(df, id_cols = name, names_from = name, values_from = value)
@@ -197,6 +197,24 @@
 
     Code
       pivot_wider(df, id_cols = value, names_from = name, values_from = value)
+    Condition
+      Error in `pivot_wider()`:
+      ! `id_cols` can't select a column already selected by `values_from`.
+      i Column `value` has already been selected.
+
+---
+
+    Code
+      pivot_wider(df, id_cols = all_of(cols), names_from = name, values_from = value)
+    Condition
+      Error in `pivot_wider()`:
+      ! `id_cols` can't select a column already selected by `names_from`.
+      i Column `name` has already been selected.
+
+---
+
+    Code
+      pivot_wider(df, id_cols = all_of(cols), names_from = name, values_from = value)
     Condition
       Error in `pivot_wider()`:
       ! `id_cols` can't select a column already selected by `values_from`.
