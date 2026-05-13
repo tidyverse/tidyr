@@ -14,6 +14,23 @@
       Error in `chop()`:
       ! At least one of `cols` or `by` must be supplied.
 
+# can't select same column in `by` and `cols` (#1490)
+
+    Code
+      chop(df, x, by = x)
+    Condition
+      Error in `chop()`:
+      ! Can't select columns that don't exist.
+      x Column `x` doesn't exist.
+
+# must supply at least one of `by` or `cols`
+
+    Code
+      chop(df)
+    Condition
+      Error in `chop()`:
+      ! At least one of `cols` or `by` must be supplied.
+
 # incompatible ptype mentions the column (#1477)
 
     Code

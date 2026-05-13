@@ -14,6 +14,14 @@ test_that("chopping no columns returns input", {
   expect_equal(chop(df, c()), df)
 })
 
+test_that("chopping by no columns chops all columns", {
+  df <- tibble(a1 = 1, a2 = 2, b1 = 1, b2 = 2)
+  expect_identical(
+    chop(df, by = c()),
+    chop(df, c(a1, a2, b1, b2))
+  )
+})
+
 test_that("grouping is preserved", {
   df <- tibble(g = c(1, 1), x = 1:2)
   out <- df |> dplyr::group_by(g) |> chop(x)
@@ -59,26 +67,35 @@ test_that("can chop `by` columns (#1490)", {
 test_that("can combine `by` with `cols` (#1490)", {
   df <- tibble(x = c(1, 1, 1, 2, 2), y = c(2, 1, 2, 3, 4), z = 1:5)
 
+  # `by` cols come first, then `cols` cols. Unselected cols are dropped!
   expect_identical(
     chop(df, x, by = y),
-    chop(dplyr::select(df, -z), x)
+    chop(df[c("x", "y")], x)
   )
 })
 
-test_that("union of `by` and `cols` results in renaming (#1490)", {
-  df <- tibble(x = 1, y = 1)
-  one <- vctrs::list_of(1)
+test_that("`by` columns are removed before evaluating `cols` (#1490)", {
+  # Similar to `id_cols` in `pivot_wider()`
+  df <- tibble(x = 1, y = 2, by = 3)
 
-  with_options(rlib_name_repair_verbosity = "quiet", {
-    expect_identical(
-      invisible(chop(df, everything(), by = x)),
-      tibble(x = 1, x = one, y = one, .name_repair = "unique")
-    )
+  expect_identical(
+    chop(df, everything(), by = by),
+    chop(df, c(x, y))
+  )
+})
 
-    expect_identical(
-      invisible(chop(df, x, by = everything())),
-      tibble(x = 1, y = 1, x = one, .name_repair = "unique")
-    )
+test_that("can't select same column in `by` and `cols` (#1490)", {
+  df <- tibble(x = 1)
+
+  expect_snapshot(error = TRUE, {
+    chop(df, x, by = x)
+  })
+})
+
+test_that("must supply at least one of `by` or `cols`", {
+  df <- tibble(x = 1)
+  expect_snapshot(error = TRUE, {
+    chop(df)
   })
 })
 
