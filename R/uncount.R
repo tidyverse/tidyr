@@ -44,8 +44,21 @@ uncount.data.frame <- function(data, weights, ..., .remove = TRUE, .id = NULL) {
 
   # NOTE it was decided to also remove grouping variables as there is no clear
   # best answer. See https://github.com/tidyverse/tidyr/pull/1070
-  if (.remove && quo_is_symbol(weights_quo)) {
-    out[[as_string(get_expr(weights_quo))]] <- NULL
+  
+  # Handle removal of weight column for both direct symbols and .data pronoun
+  # Fixes #1583 - support for .data$column syntax
+  if (.remove) {
+    weights_expr <- get_expr(weights_quo)
+    
+    if (quo_is_symbol(weights_quo)) {
+      # Simple case: uncount(df, w)
+      out[[as_string(weights_expr)]] <- NULL
+    } else if (is_call(weights_expr, "$", n = 2) && 
+               identical(weights_expr[[2]], sym(".data"))) {
+      # .data pronoun case: uncount(df, .data$w)
+      col_name <- as_string(weights_expr[[3]])
+      out[[col_name]] <- NULL
+    }
   }
 
   if (!is.null(.id)) {
