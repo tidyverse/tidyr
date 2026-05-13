@@ -2,17 +2,16 @@
 #'
 #' @description
 #' Chopping and unchopping preserve the width of a data frame, changing its
-#' length. `chop()` makes `df` shorter by converting rows within each group
-#' into list-columns. `unchop()` makes `df` longer by expanding list-columns
+#' length. `chop()` makes `data` shorter by converting rows within each group
+#' into list-columns. `unchop()` makes `data` longer by expanding list-columns
 #' so that each element of the list-column gets its own row in the output.
+#'
 #' `chop()` and `unchop()` are building blocks for more complicated functions
-#' (like [unnest()], [unnest_longer()], and [unnest_wider()]) and are generally
-#' more suitable for programming than interactive data analysis.
+#' (like [unnest()], [unnest_longer()], and [unnest_wider()]).
 #'
 #' @details
-#' Generally, unchopping is more useful than chopping because it simplifies
-#' a complex data structure, and [nest()]ing is usually more appropriate
-#' than `chop()`ing since it better preserves the connections between
+#' When multiple columns are being chopped at once, [nest()] is usually more
+#' appropriate than `chop()` since it better preserves the connections between
 #' observations.
 #'
 #' `chop()` creates list-columns of class [vctrs::list_of()] to ensure
@@ -21,6 +20,25 @@
 #' the roundtrip chop and unchop. Because `<list_of>` keeps tracks of
 #' the type of its elements, `unchop()` is able to reconstitute the
 #' correct vector type even for empty list-columns.
+#'
+#' @section Connection to `split()`:
+#'
+#' `chop()` is the tidyverse version of [base::split()], with a few key changes:
+#'
+#' - The unique values of the columns used to chop by are preserved losslessly
+#'   as output columns, rather than being converted to character labels used as
+#'   names on the output list. This is particularly useful when chopping by
+#'   multiple columns.
+#'
+#' - Multiple columns can be chopped at once, producing one list-column per
+#'   chopped column. The closest `split()` equivalent is to split a data frame,
+#'   which produces a result more similar to [nest()] than `chop()`.
+#'
+#' - When chopping by multiple columns, the [interaction()]s of those columns
+#'   are not taken, and missing values are not dropped, which avoids a quadratic
+#'   runtime and tends to produce more expected results in practice.
+#'
+#' For an even lower-level version, see [vctrs::vec_split()].
 #'
 #' @inheritParams rlang::args_dots_empty
 #' @inheritParams rlang::args_error_context
@@ -52,36 +70,49 @@
 #' @export
 #' @examples
 #' # Chop ----------------------------------------------------------------------
-#' df <- tibble(x = c(1, 1, 1, 2, 2, 3), y = 1:6, z = 6:1)
-#' # Note that we get one row of output for each unique combination of
-#' # non-chopped variables
-#' df |> chop(c(y, z))
-#' # Compare to `nest()`
-#' df |> nest(data = c(y, z))
+#' df <- tibble(x = c(1, 1, 1, 2, 2, 3), y = c(1, 1, 2, 3, 3, 4), z = 1:6)
 #'
-#' # Specify variables to chop by (rather than variables to chop) using `by`
-#' df |> chop(by = x)
-#' # Compare to `nest()`
-#' df |> nest(.by = x)
+#' # `chop()` is most useful as a tidyverse alternative to `base::split()`
+#'
+#' # Chop `z` by `x` and `y`. Note that we get one row of output for each unique
+#' # combination of non-chopped variables.
+#' df |> chop(z)
+#'
+#' # Equivalently, specify variables to chop by (rather than variables to chop)
+#' # using `by`
+#' df |> chop(by = c(x, y))
+#'
+#' # Compare to `split()`, notice how `x` and `y` are converted to character
+#' # labels
+#' df |> split(df[c("x", "y")], drop = TRUE)
 #'
 #' # `cols` and `by` can be used together to drop columns you no longer need.
-#' # This drops `z`:
-#' df |> chop(cols = y, by = x)
+#' # This drops `y`:
+#' df |> chop(z, by = x)
 #'
 #' # You cannot chop a column you are also trying to chop by
 #' try(df |> chop(cols = x, by = x))
+#'
+#' # Multiple columns can be chopped at once, producing one list-column per
+#' # chopped column
+#' df |> chop(by = x)
+#' # Compare to `nest()`, which keeps the chopped `y` and `z` columns together
+#' # in nested data frames
+#' df |> nest(.by = x)
+#' # `split()` is more similar to `nest()` here
+#' split(df[c("y", "z")], df["x"])
 #'
 #' # Unchop --------------------------------------------------------------------
 #' df <- tibble(x = 1:4, y = list(integer(), 1L, 1:2, 1:3))
 #' df |> unchop(y)
 #' df |> unchop(y, keep_empty = TRUE)
 #'
-#' # unchop will error if the types are not compatible:
+#' # `unchop()` will error if the types are not compatible:
 #' df <- tibble(x = 1:2, y = list("1", 1:3))
 #' try(df |> unchop(y))
 #'
 #' # Unchopping a list-col of data frames must generate a df-col because
-#' # unchop leaves the column names unchanged
+#' # `unchop()` leaves the column names unchanged
 #' df <- tibble(x = 1:3, y = list(NULL, tibble(x = 1), tibble(y = 1:2)))
 #' df |> unchop(y)
 #' df |> unchop(y, keep_empty = TRUE)
