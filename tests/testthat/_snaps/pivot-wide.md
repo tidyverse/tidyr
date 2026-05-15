@@ -190,7 +190,7 @@
       pivot_wider(df, id_cols = name, names_from = name, values_from = value)
     Condition
       Error in `pivot_wider()`:
-      ! `id_cols` can't select a column already selected by `names_from`.
+      ! `id_cols` can't reference a column already selected by `names_from`.
       i Column `name` has already been selected.
 
 ---
@@ -199,7 +199,7 @@
       pivot_wider(df, id_cols = value, names_from = name, values_from = value)
     Condition
       Error in `pivot_wider()`:
-      ! `id_cols` can't select a column already selected by `values_from`.
+      ! `id_cols` can't reference a column already selected by `values_from`.
       i Column `value` has already been selected.
 
 ---
@@ -208,7 +208,7 @@
       pivot_wider(df, id_cols = all_of(cols), names_from = name, values_from = value)
     Condition
       Error in `pivot_wider()`:
-      ! `id_cols` can't select a column already selected by `names_from`.
+      ! `id_cols` can't reference a column already selected by `names_from`.
       i Column `name` has already been selected.
 
 ---
@@ -217,7 +217,7 @@
       pivot_wider(df, id_cols = all_of(cols), names_from = name, values_from = value)
     Condition
       Error in `pivot_wider()`:
-      ! `id_cols` can't select a column already selected by `values_from`.
+      ! `id_cols` can't reference a column already selected by `values_from`.
       i Column `value` has already been selected.
 
 # `id_cols` returns a tidyselect error if a column selection is OOB (#1318)

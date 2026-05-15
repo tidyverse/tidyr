@@ -689,7 +689,7 @@ maybe_throw_already_selected_error <- function(
 stop_already_selected <- function(col, new_arg, old_arg, call) {
   cli::cli_abort(
     c(
-      "{.code {new_arg}} can't select a column already selected by {.code {old_arg}}.",
+      "{.code {new_arg}} can't reference a column already selected by {.code {old_arg}}.",
       i = "Column {.code {col}} has already been selected."
     ),
     parent = NA,

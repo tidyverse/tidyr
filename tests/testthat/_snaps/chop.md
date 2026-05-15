@@ -20,7 +20,7 @@
       chop(df, x, by = x)
     Condition
       Error in `chop()`:
-      ! `cols` can't select a column already selected by `by`.
+      ! `cols` can't reference a column already selected by `by`.
       i Column `x` has already been selected.
 
 # must supply at least one of `by` or `cols`
