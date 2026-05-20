@@ -643,34 +643,54 @@ select_wider_id_cols <- function(
       error_call = error_call
     ),
     vctrs_error_subscript_oob = function(cnd) {
-      rethrow_id_cols_oob(cnd, names_from_cols, values_from_cols, error_call)
+      maybe_throw_already_selected_error(
+        cnd[["i"]],
+        "id_cols",
+        names_from_cols,
+        "names_from",
+        error_call
+      )
+      maybe_throw_already_selected_error(
+        cnd[["i"]],
+        "id_cols",
+        values_from_cols,
+        "values_from",
+        error_call
+      )
+      zap()
     }
   )
 
   names(id_cols)
 }
 
-rethrow_id_cols_oob <- function(cnd, names_from_cols, values_from_cols, call) {
-  i <- cnd[["i"]]
+maybe_throw_already_selected_error <- function(
+  new_cols,
+  new_arg,
+  old_cols,
+  old_arg,
+  call
+) {
+  if (!is_character(new_cols)) {
+    # Let someone else handle it
+    return()
+  }
 
-  if (is_string(i)) {
-    # Try to throw our custom error
-    if (i %in% names_from_cols) {
-      stop_id_cols_oob(i, "names_from", call = call)
-    } else if (i %in% values_from_cols) {
-      stop_id_cols_oob(i, "values_from", call = call)
+  # Try to throw our custom error
+  for (new_col in new_cols) {
+    if (new_col %in% old_cols) {
+      stop_already_selected(new_col, new_arg, old_arg, call)
     }
   }
 
-  # Otherwise fall through and throw standard tidyselect error
-  zap()
+  # Let someone else handle it
 }
 
-stop_id_cols_oob <- function(i, arg, call) {
+stop_already_selected <- function(col, new_arg, old_arg, call) {
   cli::cli_abort(
     c(
-      "`id_cols` can't select a column already selected by `{arg}`.",
-      i = "Column `{i}` has already been selected."
+      "{.code {new_arg}} can't reference a column already selected by {.code {old_arg}}.",
+      i = "Column {.code {col}} has already been selected."
     ),
     parent = NA,
     call = call

@@ -5,7 +5,7 @@
 \alias{unchop}
 \title{Chop and unchop}
 \usage{
-chop(data, cols, ..., error_call = current_env())
+chop(data, ..., cols = NULL, by = NULL, error_call = current_env())
 
 unchop(
   data,
@@ -19,13 +19,27 @@ unchop(
 \arguments{
 \item{data}{A data frame.}
 
-\item{cols}{<\code{\link[=tidyr_tidy_select]{tidy-select}}> Columns to chop or unchop.
-
-For \code{unchop()}, each column should be a list-column containing generalised
-vectors (e.g. any mix of \code{NULL}s, atomic vector, S3 vectors, a lists,
-or data frames).}
-
 \item{...}{These dots are for future extensions and must be empty.}
+
+\item{cols, by}{<\code{\link[=tidyr_tidy_select]{tidy-select}}> Column selectors.
+
+For \code{chop()}:
+\itemize{
+\item \code{by} selects columns to chop by. If not specified, will be derived as
+all columns not selected by \code{cols}.
+\item \code{cols} selects columns to chop. If not specified, will be derived as all
+columns not selected by \code{by}.
+}
+
+Specifying both \code{by} and \code{cols} drops all unselected columns in \code{data} from
+the output. Note that columns selected by \code{by} are removed from \code{data}
+before evaluating \code{cols}.
+
+At least one of \code{by} or \code{cols} must be specified.
+
+For \code{unchop()}, \code{cols} selects columns to unchop. Each column should be a
+list-column containing generalised vectors (e.g. any mix of \code{NULL}s, atomic
+vectors, S3 vectors, lists, or data frames).}
 
 \item{error_call}{The execution environment of a currently
 running function, e.g. \code{caller_env()}. The function will be
@@ -46,17 +60,16 @@ can be supplied, which will be applied to all \code{cols}.}
 }
 \description{
 Chopping and unchopping preserve the width of a data frame, changing its
-length. \code{chop()} makes \code{df} shorter by converting rows within each group
-into list-columns. \code{unchop()} makes \code{df} longer by expanding list-columns
+length. \code{chop()} makes \code{data} shorter by converting rows within each group
+into list-columns. \code{unchop()} makes \code{data} longer by expanding list-columns
 so that each element of the list-column gets its own row in the output.
+
 \code{chop()} and \code{unchop()} are building blocks for more complicated functions
-(like \code{\link[=unnest]{unnest()}}, \code{\link[=unnest_longer]{unnest_longer()}}, and \code{\link[=unnest_wider]{unnest_wider()}}) and are generally
-more suitable for programming than interactive data analysis.
+(like \code{\link[=unnest]{unnest()}}, \code{\link[=unnest_longer]{unnest_longer()}}, and \code{\link[=unnest_wider]{unnest_wider()}}).
 }
 \details{
-Generally, unchopping is more useful than chopping because it simplifies
-a complex data structure, and \code{\link[=nest]{nest()}}ing is usually more appropriate
-than \code{chop()}ing since it better preserves the connections between
+When multiple columns are being chopped at once, \code{\link[=nest]{nest()}} is usually more
+appropriate than \code{chop()} since it better preserves the connections between
 observations.
 
 \code{chop()} creates list-columns of class \code{\link[vctrs:list_of]{vctrs::list_of()}} to ensure
@@ -66,26 +79,71 @@ the roundtrip chop and unchop. Because \verb{<list_of>} keeps tracks of
 the type of its elements, \code{unchop()} is able to reconstitute the
 correct vector type even for empty list-columns.
 }
+\section{Connection to \code{split()}}{
+
+
+\code{chop()} is the tidyverse version of \code{\link[base:split]{base::split()}}, with a few key changes:
+\itemize{
+\item The unique values of the columns used to chop by are preserved losslessly
+as output columns, rather than being converted to character labels used as
+names on the output list. This is particularly useful when chopping by
+non-string columns or multiple columns.
+\item Multiple columns can be chopped at once, producing one list-column per
+chopped column. The closest \code{split()} equivalent is to split a data frame,
+which produces a result more similar to \code{\link[=nest]{nest()}} than \code{chop()}.
+\item When chopping by multiple columns, only the combinations present in the
+data are included in the output. This is different from \code{split()}, which
+takes the \code{\link[=interaction]{interaction()}} of the columns, leading to a potential
+combinatorial explosion of output elements.
+}
+
+For an even lower-level version, see \code{\link[vctrs:vec_split]{vctrs::vec_split()}}.
+}
+
 \examples{
 # Chop ----------------------------------------------------------------------
-df <- tibble(x = c(1, 1, 1, 2, 2, 3), y = 1:6, z = 6:1)
-# Note that we get one row of output for each unique combination of
-# non-chopped variables
-df |> chop(c(y, z))
-# cf nest
-df |> nest(data = c(y, z))
+df <- tibble(x = c(1, 1, 1, 2, 2, 3), y = c(1, 1, 2, 3, 3, 4), z = 1:6)
+
+# `chop()` is most useful as a tidyverse alternative to `base::split()`
+
+# Chop `z` by `x` and `y`. Note that we get one row of output for each unique
+# combination of variables that we chop by.
+df |> chop(by = c(x, y))
+
+# Compare to `split()`, notice how `x` and `y` are converted to character
+# labels
+df |> split(df[c("x", "y")], drop = TRUE)
+
+# Equivalently, specify variables to chop (rather than variables to chop by)
+df |> chop(cols = z)
+
+# `cols` and `by` can be used together to drop columns you no longer need.
+# This drops `y`:
+df |> chop(cols = z, by = x)
+
+# You cannot chop a column you are also trying to chop by
+try(df |> chop(cols = x, by = x))
+
+# Multiple columns can be chopped at once, producing one list-column per
+# chopped column
+df |> chop(by = x)
+# Compare to `nest()`, which keeps the chopped `y` and `z` columns together
+# in nested data frames
+df |> nest(.by = x)
+# `split()` is more similar to `nest()` here
+split(df[c("y", "z")], df["x"])
 
 # Unchop --------------------------------------------------------------------
 df <- tibble(x = 1:4, y = list(integer(), 1L, 1:2, 1:3))
 df |> unchop(y)
 df |> unchop(y, keep_empty = TRUE)
 
-# unchop will error if the types are not compatible:
+# `unchop()` will error if the types are not compatible:
 df <- tibble(x = 1:2, y = list("1", 1:3))
 try(df |> unchop(y))
 
 # Unchopping a list-col of data frames must generate a df-col because
-# unchop leaves the column names unchanged
+# `unchop()` leaves the column names unchanged
 df <- tibble(x = 1:3, y = list(NULL, tibble(x = 1), tibble(y = 1:2)))
 df |> unchop(y)
 df |> unchop(y, keep_empty = TRUE)

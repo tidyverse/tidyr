@@ -445,7 +445,7 @@ test_that("`id_cols = everything()` excludes `names_from` and `values_from`", {
   )
 })
 
-test_that("`id_cols` can't select columns from `names_from` or `values_from` (#1318)", {
+test_that("`id_cols` can't select columns from `names_from` or `values_from` (#1318, #1506)", {
   df <- tibble(name = c("x", "y"), value = c(1, 2))
 
   # And gives a nice error message!
@@ -454,6 +454,27 @@ test_that("`id_cols` can't select columns from `names_from` or `values_from` (#1
   })
   expect_snapshot(error = TRUE, {
     pivot_wider(df, id_cols = value, names_from = name, values_from = value)
+  })
+
+  # With `all_of()` selecting multiple columns, we report the first matched problem
+  cols <- c("name", "nonexistent")
+  expect_snapshot(error = TRUE, {
+    pivot_wider(
+      df,
+      id_cols = all_of(cols),
+      names_from = name,
+      values_from = value
+    )
+  })
+
+  cols <- c("value", "nonexistent")
+  expect_snapshot(error = TRUE, {
+    pivot_wider(
+      df,
+      id_cols = all_of(cols),
+      names_from = name,
+      values_from = value
+    )
   })
 })
 

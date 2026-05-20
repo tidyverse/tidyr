@@ -2,17 +2,16 @@
 #'
 #' @description
 #' Chopping and unchopping preserve the width of a data frame, changing its
-#' length. `chop()` makes `df` shorter by converting rows within each group
-#' into list-columns. `unchop()` makes `df` longer by expanding list-columns
+#' length. `chop()` makes `data` shorter by converting rows within each group
+#' into list-columns. `unchop()` makes `data` longer by expanding list-columns
 #' so that each element of the list-column gets its own row in the output.
+#'
 #' `chop()` and `unchop()` are building blocks for more complicated functions
-#' (like [unnest()], [unnest_longer()], and [unnest_wider()]) and are generally
-#' more suitable for programming than interactive data analysis.
+#' (like [unnest()], [unnest_longer()], and [unnest_wider()]).
 #'
 #' @details
-#' Generally, unchopping is more useful than chopping because it simplifies
-#' a complex data structure, and [nest()]ing is usually more appropriate
-#' than `chop()`ing since it better preserves the connections between
+#' When multiple columns are being chopped at once, [nest()] is usually more
+#' appropriate than `chop()` since it better preserves the connections between
 #' observations.
 #'
 #' `chop()` creates list-columns of class [vctrs::list_of()] to ensure
@@ -22,15 +21,49 @@
 #' the type of its elements, `unchop()` is able to reconstitute the
 #' correct vector type even for empty list-columns.
 #'
+#' @section Connection to `split()`:
+#'
+#' `chop()` is the tidyverse version of [base::split()], with a few key changes:
+#'
+#' - The unique values of the columns used to chop by are preserved losslessly
+#'   as output columns, rather than being converted to character labels used as
+#'   names on the output list. This is particularly useful when chopping by
+#'   non-string columns or multiple columns.
+#'
+#' - Multiple columns can be chopped at once, producing one list-column per
+#'   chopped column. The closest `split()` equivalent is to split a data frame,
+#'   which produces a result more similar to [nest()] than `chop()`.
+#'
+#' - When chopping by multiple columns, only the combinations present in the
+#'   data are included in the output. This is different from `split()`, which
+#'   takes the [interaction()] of the columns, leading to a potential
+#'   combinatorial explosion of output elements.
+#'
+#' For an even lower-level version, see [vctrs::vec_split()].
+#'
 #' @inheritParams rlang::args_dots_empty
 #' @inheritParams rlang::args_error_context
 #'
 #' @param data A data frame.
-#' @param cols <[`tidy-select`][tidyr_tidy_select]> Columns to chop or unchop.
+#' @param cols,by <[`tidy-select`][tidyr_tidy_select]> Column selectors.
 #'
-#'   For `unchop()`, each column should be a list-column containing generalised
-#'   vectors (e.g. any mix of `NULL`s, atomic vector, S3 vectors, a lists,
-#'   or data frames).
+#'   For `chop()`:
+#'
+#'   - `by` selects columns to chop by. If not specified, will be derived as
+#'     all columns not selected by `cols`.
+#'
+#'   - `cols` selects columns to chop. If not specified, will be derived as all
+#'     columns not selected by `by`.
+#'
+#'   Specifying both `by` and `cols` drops all unselected columns in `data` from
+#'   the output. Note that columns selected by `by` are removed from `data`
+#'   before evaluating `cols`.
+#'
+#'   At least one of `by` or `cols` must be specified.
+#'
+#'   For `unchop()`, `cols` selects columns to unchop. Each column should be a
+#'   list-column containing generalised vectors (e.g. any mix of `NULL`s, atomic
+#'   vectors, S3 vectors, lists, or data frames).
 #' @param keep_empty By default, you get one row of output for each element
 #'   of the list that you are unchopping/unnesting. This means that if there's a
 #'   size-0 element (like `NULL` or an empty data frame or vector), then that
@@ -44,41 +77,74 @@
 #' @export
 #' @examples
 #' # Chop ----------------------------------------------------------------------
-#' df <- tibble(x = c(1, 1, 1, 2, 2, 3), y = 1:6, z = 6:1)
-#' # Note that we get one row of output for each unique combination of
-#' # non-chopped variables
-#' df |> chop(c(y, z))
-#' # cf nest
-#' df |> nest(data = c(y, z))
+#' df <- tibble(x = c(1, 1, 1, 2, 2, 3), y = c(1, 1, 2, 3, 3, 4), z = 1:6)
+#'
+#' # `chop()` is most useful as a tidyverse alternative to `base::split()`
+#'
+#' # Chop `z` by `x` and `y`. Note that we get one row of output for each unique
+#' # combination of variables that we chop by.
+#' df |> chop(by = c(x, y))
+#'
+#' # Compare to `split()`, notice how `x` and `y` are converted to character
+#' # labels
+#' df |> split(df[c("x", "y")], drop = TRUE)
+#'
+#' # Equivalently, specify variables to chop (rather than variables to chop by)
+#' df |> chop(cols = z)
+#'
+#' # `cols` and `by` can be used together to drop columns you no longer need.
+#' # This drops `y`:
+#' df |> chop(cols = z, by = x)
+#'
+#' # You cannot chop a column you are also trying to chop by
+#' try(df |> chop(cols = x, by = x))
+#'
+#' # Multiple columns can be chopped at once, producing one list-column per
+#' # chopped column
+#' df |> chop(by = x)
+#' # Compare to `nest()`, which keeps the chopped `y` and `z` columns together
+#' # in nested data frames
+#' df |> nest(.by = x)
+#' # `split()` is more similar to `nest()` here
+#' split(df[c("y", "z")], df["x"])
 #'
 #' # Unchop --------------------------------------------------------------------
 #' df <- tibble(x = 1:4, y = list(integer(), 1L, 1:2, 1:3))
 #' df |> unchop(y)
 #' df |> unchop(y, keep_empty = TRUE)
 #'
-#' # unchop will error if the types are not compatible:
+#' # `unchop()` will error if the types are not compatible:
 #' df <- tibble(x = 1:2, y = list("1", 1:3))
 #' try(df |> unchop(y))
 #'
 #' # Unchopping a list-col of data frames must generate a df-col because
-#' # unchop leaves the column names unchanged
+#' # `unchop()` leaves the column names unchanged
 #' df <- tibble(x = 1:3, y = list(NULL, tibble(x = 1), tibble(y = 1:2)))
 #' df |> unchop(y)
 #' df |> unchop(y, keep_empty = TRUE)
-chop <- function(data, cols, ..., error_call = current_env()) {
-  check_dots_empty0(...)
+chop <- function(
+  data,
+  ...,
+  cols = NULL,
+  by = NULL,
+  error_call = current_env()
+) {
   check_data_frame(data, call = error_call)
-  check_required(cols, call = error_call)
 
-  cols <- tidyselect::eval_select(
-    expr = enquo(cols),
-    data = data,
-    allow_rename = FALSE,
+  cols <- compat_chop_cols(cols = enquo(cols), ...)
+  by <- enquo(by)
+
+  info <- chop_info(
+    data,
+    cols = !!cols,
+    by = !!by,
     error_call = error_call
   )
+  cols <- info$cols
+  by <- info$by
 
   cols <- tidyr_new_list(data[cols])
-  keys <- data[setdiff(names(data), names(cols))]
+  keys <- data[by]
 
   info <- vec_group_loc(keys)
   keys <- info$key
@@ -94,6 +160,77 @@ chop <- function(data, cols, ..., error_call = current_env()) {
   reconstruct_tibble(data, out)
 }
 
+chop_info <- function(data, cols, by, error_call) {
+  by <- enquo(by)
+  has_by <- !quo_is_null(by)
+
+  cols <- enquo(cols)
+  has_cols <- !quo_is_null(cols)
+
+  if (!has_cols && !has_by) {
+    cli::cli_abort(
+      "At least one of {.var cols} or {.var by} must be supplied.",
+      call = error_call
+    )
+  }
+
+  names <- names(data)
+
+  if (has_by) {
+    by <- names(tidyselect::eval_select(
+      expr = by,
+      data = data,
+      allow_rename = FALSE,
+      error_call = error_call
+    ))
+  } else {
+    by <- character()
+  }
+
+  if (has_cols) {
+    # Remove `by` names before evaluating `cols`. This:
+    # - Avoids double selection like `chop(cols = x, by = x)`, which would cause
+    #   name collisions otherwise.
+    # - Enables a meaningful `chop(cols = everything(), by = x)`.
+    # Consistent with `pivot_wider(id_cols = )`.
+    try_fetch(
+      cols <- names(tidyselect::eval_select(
+        expr = cols,
+        data = data[setdiff(names, by)],
+        allow_rename = FALSE,
+        error_call = error_call
+      )),
+      vctrs_error_subscript_oob = function(cnd) {
+        maybe_throw_already_selected_error(
+          cnd[["i"]],
+          "cols",
+          by,
+          "by",
+          error_call
+        )
+        zap()
+      }
+    )
+  } else {
+    cols <- character()
+  }
+
+  if (!has_cols) {
+    # Derive `cols` names from `by`
+    cols <- setdiff(names, by)
+  }
+
+  if (!has_by) {
+    # Derive `by` names from `cols`
+    by <- setdiff(names, cols)
+  }
+
+  list(
+    cols = cols,
+    by = by
+  )
+}
+
 col_chop <- function(x, indices) {
   ptype <- vec_ptype(x)
 
@@ -101,6 +238,49 @@ col_chop <- function(x, indices) {
   out <- new_list_of(out, ptype)
 
   out
+}
+
+compat_chop_cols <- function(cols, ...) {
+  n_dots <- dots_n(...)
+
+  if (n_dots == 0L) {
+    return(cols)
+  }
+
+  # `env` and `user_env` here are fixed to always report `chop()` as `env`
+  # and the caller of `chop()` as `user_env`, regardless of the `error_call`
+  # argument. We think that makes the most sense for these errors/warnings.
+  env <- caller_env()
+  user_env <- caller_env(2)
+
+  if (n_dots != 1L) {
+    check_dots_empty0(..., call = env)
+  }
+
+  if (!quo_is_null(cols)) {
+    cli::cli_abort(
+      "Can't specify `cols` by both name and position.",
+      call = env
+    )
+  }
+
+  # Safe, we checked `n_dots == 1L` above
+  cols <- enquos(...)[[1L]]
+
+  lifecycle::deprecate_soft(
+    when = "1.4.0",
+    what = I(cli::format_inline(
+      "Specifying the {.arg cols} argument by position"
+    )),
+    details = cli::format_inline(
+      "Please explicitly name {.arg cols}, like {.code chop(data, cols = {as_label(cols)})}."
+    ),
+    env = env,
+    user_env = user_env,
+    id = "tidyr-chop-positional-cols"
+  )
+
+  cols
 }
 
 #' @export

@@ -2,7 +2,7 @@
 
 test_that("can chop multiple columns", {
   df <- tibble(x = c(1, 1, 2), a = 1:3, b = 1:3)
-  out <- df |> chop(c(a, b))
+  out <- df |> chop(cols = c(a, b))
 
   expect_named(out, c("x", "a", "b"))
   expect_equal(out$a, list_of(1:2, 3L))
@@ -11,12 +11,20 @@ test_that("can chop multiple columns", {
 
 test_that("chopping no columns returns input", {
   df <- tibble(a1 = 1, a2 = 2, b1 = 1, b2 = 2)
-  expect_equal(chop(df, c()), df)
+  expect_equal(chop(df, cols = c()), df)
+})
+
+test_that("chopping by no columns chops all columns", {
+  df <- tibble(a1 = 1, a2 = 2, b1 = 1, b2 = 2)
+  expect_identical(
+    chop(df, by = c()),
+    chop(df, cols = c(a1, a2, b1, b2))
+  )
 })
 
 test_that("grouping is preserved", {
   df <- tibble(g = c(1, 1), x = 1:2)
-  out <- df |> dplyr::group_by(g) |> chop(x)
+  out <- df |> dplyr::group_by(g) |> chop(cols = x)
   expect_equal(dplyr::group_vars(out), "g")
 })
 
@@ -34,17 +42,95 @@ test_that("can chop empty data frame (#1206)", {
   df <- tibble(x = integer(), y = integer())
 
   expect_identical(
-    chop(df, y),
+    chop(df, cols = y),
     tibble(x = integer(), y = list_of(.ptype = integer()))
   )
   expect_identical(
-    chop(df, x),
+    chop(df, cols = x),
     tibble(y = integer(), x = list_of(.ptype = integer()))
   )
   expect_identical(
-    chop(df, c(x, y)),
+    chop(df, cols = c(x, y)),
     tibble(x = list_of(.ptype = integer()), y = list_of(.ptype = integer()))
   )
+})
+
+test_that("can chop `by` columns (#1490)", {
+  df <- tibble(x = c(1, 1, 1, 2, 2), y = c(2, 1, 2, 3, 4), z = 1:5)
+
+  expect_identical(
+    chop(df, by = c(x, y)),
+    chop(df, cols = z)
+  )
+})
+
+test_that("can combine `by` with `cols` (#1490)", {
+  df <- tibble(x = c(1, 1, 1, 2, 2), y = c(2, 1, 2, 3, 4), z = 1:5)
+
+  # `by` cols come first, then `cols` cols. Unselected cols are dropped!
+  expect_identical(
+    chop(df, cols = x, by = y),
+    chop(df[c("x", "y")], cols = x)
+  )
+})
+
+test_that("`by` columns are removed before evaluating `cols` (#1490)", {
+  # Similar to `id_cols` in `pivot_wider()`
+  df <- tibble(x = 1, y = 2, by = 3)
+
+  expect_identical(
+    chop(df, cols = everything(), by = by),
+    chop(df, cols = c(x, y))
+  )
+})
+
+test_that("can't select same column in `by` and `cols` (#1490)", {
+  df <- tibble(x = 1)
+
+  expect_snapshot(error = TRUE, {
+    chop(df, cols = x, by = x)
+  })
+})
+
+test_that("must supply at least one of `by` or `cols`", {
+  df <- tibble(x = 1)
+  expect_snapshot(error = TRUE, {
+    chop(df)
+  })
+})
+
+test_that("specifying `cols` by position is deprecated", {
+  df <- tibble(x = 1, y = 2, z = 3)
+
+  # Deprecation warning, but works
+  expect_snapshot({
+    out <- chop(df, x)
+  })
+  expect_identical(out, chop(df, cols = x))
+
+  # Deprecation warning, but works (with `by`)
+  expect_snapshot({
+    out <- chop(df, x, by = y)
+  })
+  expect_identical(out, chop(df, cols = x, by = y))
+
+  # Two positional `...`, empty dots error
+  expect_snapshot(error = TRUE, {
+    chop(df, x, y)
+  })
+
+  # Both positional and named, error
+  expect_snapshot(error = TRUE, {
+    chop(df, x, cols = y)
+  })
+
+  # Reports `chop()` as the call regardless of `error_call`
+  my_chop <- function() {
+    chop(df, x, y)
+  }
+  expect_snapshot(error = TRUE, {
+    my_chop()
+  })
 })
 
 # unchop ------------------------------------------------------------------
@@ -283,7 +369,7 @@ test_that("unchopping list of empty types retains type", {
 })
 
 test_that("unchop retrieves correct types with emptied chopped df", {
-  chopped <- chop(tibble(x = 1:3, y = 4:6), y)
+  chopped <- chop(tibble(x = 1:3, y = 4:6), cols = y)
   empty <- vec_slice(chopped, 0L)
   expect_identical(unchop(empty, y), tibble(x = integer(), y = integer()))
 })
