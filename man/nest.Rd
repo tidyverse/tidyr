@@ -9,33 +9,26 @@ nest(.data, ..., .by = NULL, .key = NULL, .names_sep = NULL)
 \arguments{
 \item{.data}{A data frame.}
 
-\item{...}{<\code{\link[=tidyr_tidy_select]{tidy-select}}> Columns to nest; these will
-appear in the inner data frames.
+\item{..., .by, .key}{<\code{\link[=tidyr_tidy_select]{tidy-select}}> Column selections.
+\itemize{
+\item \code{...} selects columns to nest using name-variable pairs of the form
+\code{key_col = c(col1, col2, col3)}. The right hand side can be any valid
+tidyselect expression, and the selected columns will appear in the inner
+data frames. If not specified, will be derived as all columns not
+selected by \code{.by}, and will use the column name from \code{.key}, which is
+\code{"data"} if \code{.key} is not specified.
+\item \code{.by} selects columns to nest by. These will remain in the outer data
+frame. If not specified, will be derived as all columns not selected by
+\code{...}.
+}
 
-Specified using name-variable pairs of the form
-\code{new_col = c(col1, col2, col3)}. The right hand side can be any valid
-tidyselect expression.
+Specifying both \code{...} and \code{.by} drops unselected columns from \code{.data}.
 
-If not supplied, then \code{...} is derived as all columns \emph{not} selected by
-\code{.by}, and will use the column name from \code{.key}.
+Specifying neither \code{...} nor \code{.by} nests all variables, and will use the
+column name supplied through \code{.key}.
 
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}:
-previously you could write \code{df |> nest(x, y, z)}.
-Convert to \code{df |> nest(data = c(x, y, z))}.}
-
-\item{.by}{<\code{\link[=tidyr_tidy_select]{tidy-select}}> Columns to nest \emph{by}; these
-will remain in the outer data frame.
-
-\code{.by} can be used in place of or in conjunction with columns supplied
-through \code{...}.
-
-If not supplied, then \code{.by} is derived as all columns \emph{not} selected by
-\code{...}.}
-
-\item{.key}{The name of the resulting nested column. Only applicable when
-\code{...} isn't specified, i.e. in the case of \code{df |> nest(.by = x)}.
-
-If \code{NULL}, then \code{"data"} will be used by default.}
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}: previously you could write
+\code{df |> nest(x, y, z)}. Convert to \code{df |> nest(data = c(x, y, z))}.}
 
 \item{.names_sep}{If \code{NULL}, the default, the inner names will come from
 the former outer names. If a string, the  new inner names will use the
@@ -50,10 +43,6 @@ in conjunction with other summaries that work with whole datasets, most
 notably models.
 
 Learn more in \code{vignette("nest")}.
-}
-\details{
-If neither \code{...} nor \code{.by} are supplied, \code{nest()} will nest all variables,
-and will use the column name supplied through \code{.key}.
 }
 \section{New syntax}{
 

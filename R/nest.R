@@ -9,10 +9,6 @@
 #'
 #' Learn more in `vignette("nest")`.
 #'
-#' @details
-#' If neither `...` nor `.by` are supplied, `nest()` will nest all variables,
-#' and will use the column name supplied through `.key`.
-#'
 #' @section New syntax:
 #' tidyr 1.0.0 introduced a new syntax for `nest()` and `unnest()` that's
 #' designed to be more similar to other functions. Converting to the new syntax
@@ -43,31 +39,26 @@
 #' represent what you are nesting by.
 #'
 #' @param .data A data frame.
-#' @param ... <[`tidy-select`][tidyr_tidy_select]> Columns to nest; these will
-#'   appear in the inner data frames.
+#' @param ...,.by,.key <[`tidy-select`][tidyr_tidy_select]> Column selections.
 #'
-#'   Specified using name-variable pairs of the form
-#'   `new_col = c(col1, col2, col3)`. The right hand side can be any valid
-#'   tidyselect expression.
+#'   - `...` selects columns to nest using name-variable pairs of the form
+#'     `key_col = c(col1, col2, col3)`. The right hand side can be any valid
+#'     tidyselect expression, and the selected columns will appear in the inner
+#'     data frames. If not specified, will be derived as all columns not
+#'     selected by `.by`, and will use the column name from `.key`, which is
+#'     `"data"` if `.key` is not specified.
 #'
-#'   If not supplied, then `...` is derived as all columns _not_ selected by
-#'   `.by`, and will use the column name from `.key`.
+#'   - `.by` selects columns to nest by. These will remain in the outer data
+#'     frame. If not specified, will be derived as all columns not selected by
+#'     `...`.
 #'
-#'   `r lifecycle::badge("deprecated")`:
-#'   previously you could write `df |> nest(x, y, z)`.
-#'   Convert to `df |> nest(data = c(x, y, z))`.
-#' @param .by <[`tidy-select`][tidyr_tidy_select]> Columns to nest _by_; these
-#'   will remain in the outer data frame.
+#'   Specifying both `...` and `.by` drops unselected columns from `.data`.
 #'
-#'   `.by` can be used in place of or in conjunction with columns supplied
-#'   through `...`.
+#'   Specifying neither `...` nor `.by` nests all variables, and will use the
+#'   column name supplied through `.key`.
 #'
-#'   If not supplied, then `.by` is derived as all columns _not_ selected by
-#'   `...`.
-#' @param .key The name of the resulting nested column. Only applicable when
-#'   `...` isn't specified, i.e. in the case of `df |> nest(.by = x)`.
-#'
-#'   If `NULL`, then `"data"` will be used by default.
+#'   `r lifecycle::badge("deprecated")`: previously you could write
+#'   `df |> nest(x, y, z)`. Convert to `df |> nest(data = c(x, y, z))`.
 #' @param .names_sep If `NULL`, the default, the inner names will come from
 #'   the former outer names. If a string, the  new inner names will use the
 #'   outer names with `names_sep` automatically stripped. This makes
