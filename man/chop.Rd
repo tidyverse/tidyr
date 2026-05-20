@@ -82,13 +82,14 @@ correct vector type even for empty list-columns.
 \item The unique values of the columns used to chop by are preserved losslessly
 as output columns, rather than being converted to character labels used as
 names on the output list. This is particularly useful when chopping by
-multiple columns.
+non-string columns or multiple columns.
 \item Multiple columns can be chopped at once, producing one list-column per
 chopped column. The closest \code{split()} equivalent is to split a data frame,
 which produces a result more similar to \code{\link[=nest]{nest()}} than \code{chop()}.
-\item When chopping by multiple columns, the \code{\link[=interaction]{interaction()}}s of those columns
-are not taken, and missing values are not dropped, which avoids a quadratic
-runtime and tends to produce more expected results in practice.
+\item When chopping by multiple columns, only the combinations present in the
+data are included in the output. This is different from \code{split()}, which
+takes the \code{\link[=interaction]{interaction()}} of the columns, leading to a potential
+combinatorial explosion of output elements.
 }
 
 For an even lower-level version, see \code{\link[vctrs:vec_split]{vctrs::vec_split()}}.
@@ -101,20 +102,19 @@ df <- tibble(x = c(1, 1, 1, 2, 2, 3), y = c(1, 1, 2, 3, 3, 4), z = 1:6)
 # `chop()` is most useful as a tidyverse alternative to `base::split()`
 
 # Chop `z` by `x` and `y`. Note that we get one row of output for each unique
-# combination of non-chopped variables.
-df |> chop(z)
-
-# Equivalently, specify variables to chop by (rather than variables to chop)
-# using `by`
+# combination of variables that we chop by.
 df |> chop(by = c(x, y))
 
 # Compare to `split()`, notice how `x` and `y` are converted to character
 # labels
 df |> split(df[c("x", "y")], drop = TRUE)
 
+# Equivalently, specify variables to chop (rather than variables to chop by)
+df |> chop(cols = z)
+
 # `cols` and `by` can be used together to drop columns you no longer need.
 # This drops `y`:
-df |> chop(z, by = x)
+df |> chop(cols = z, by = x)
 
 # You cannot chop a column you are also trying to chop by
 try(df |> chop(cols = x, by = x))
