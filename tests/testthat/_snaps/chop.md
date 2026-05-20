@@ -17,7 +17,7 @@
 # can't select same column in `by` and `cols` (#1490)
 
     Code
-      chop(df, x, by = x)
+      chop(df, cols = x, by = x)
     Condition
       Error in `chop()`:
       ! `cols` can't reference a column already selected by `by`.
@@ -30,6 +30,56 @@
     Condition
       Error in `chop()`:
       ! At least one of `cols` or `by` must be supplied.
+
+# specifying `cols` by position is deprecated
+
+    Code
+      out <- chop(df, x)
+    Condition
+      Warning:
+      Specifying the `cols` argument by position was deprecated in tidyr 1.4.0.
+      i Please explicitly name `cols`, like `chop(data, cols = x)`.
+
+---
+
+    Code
+      out <- chop(df, x, by = y)
+    Condition
+      Warning:
+      Specifying the `cols` argument by position was deprecated in tidyr 1.4.0.
+      i Please explicitly name `cols`, like `chop(data, cols = x)`.
+
+---
+
+    Code
+      chop(df, x, y)
+    Condition
+      Error in `chop()`:
+      ! `...` must be empty.
+      x Problematic arguments:
+      * ..1 = x
+      * ..2 = y
+      i Did you forget to name an argument?
+
+---
+
+    Code
+      chop(df, x, cols = y)
+    Condition
+      Error in `chop()`:
+      ! Can't specify `cols` by both name and position.
+
+---
+
+    Code
+      my_chop()
+    Condition
+      Error in `chop()`:
+      ! `...` must be empty.
+      x Problematic arguments:
+      * ..1 = x
+      * ..2 = y
+      i Did you forget to name an argument?
 
 # incompatible ptype mentions the column (#1477)
 

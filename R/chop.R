@@ -124,18 +124,20 @@
 #' df |> unchop(y, keep_empty = TRUE)
 chop <- function(
   data,
-  cols = NULL,
   ...,
+  cols = NULL,
   by = NULL,
   error_call = current_env()
 ) {
-  check_dots_empty0(...)
   check_data_frame(data, call = error_call)
+
+  cols <- compat_chop_cols(cols = enquo(cols), ...)
+  by <- enquo(by)
 
   info <- chop_info(
     data,
-    cols = {{ cols }},
-    by = {{ by }},
+    cols = !!cols,
+    by = !!by,
     error_call = error_call
   )
   cols <- info$cols
@@ -236,6 +238,49 @@ col_chop <- function(x, indices) {
   out <- new_list_of(out, ptype)
 
   out
+}
+
+compat_chop_cols <- function(cols, ...) {
+  n_dots <- dots_n(...)
+
+  if (n_dots == 0L) {
+    return(cols)
+  }
+
+  # `env` and `user_env` here are fixed to always report `chop()` as `env`
+  # and the caller of `chop()` as `user_env`, regardless of the `error_call`
+  # argument. We think that makes the most sense for these errors/warnings.
+  env <- caller_env()
+  user_env <- caller_env(2)
+
+  if (n_dots != 1L) {
+    check_dots_empty0(..., call = env)
+  }
+
+  if (!quo_is_null(cols)) {
+    cli::cli_abort(
+      "Can't specify `cols` by both name and position.",
+      call = env
+    )
+  }
+
+  # Safe, we checked `n_dots == 1L` above
+  cols <- enquos(...)[[1L]]
+
+  lifecycle::deprecate_soft(
+    when = "1.4.0",
+    what = I(cli::format_inline(
+      "Specifying the {.arg cols} argument by position"
+    )),
+    details = cli::format_inline(
+      "Please explicitly name {.arg cols}, like {.code chop(data, cols = {as_label(cols)})}."
+    ),
+    env = env,
+    user_env = user_env,
+    id = "tidyr-chop-positional-cols"
+  )
+
+  cols
 }
 
 #' @export

@@ -2,6 +2,8 @@
 
 * `chop()` gains a `by` argument for specifying grouping columns, similar to `nest(.by =)` (@hrryt, #1490).
 
+* Specifying `chop()`'s `cols` argument by position is soft-deprecated. It must instead be specified by name, which better communicates intent now that `chop()` also has a `by` argument (#1490).
+
 # tidyr 1.3.2
 
 * `fill()` gains a `.by` argument as an alternative to `dplyr::group_by()` for

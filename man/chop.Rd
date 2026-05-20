@@ -5,7 +5,7 @@
 \alias{unchop}
 \title{Chop and unchop}
 \usage{
-chop(data, cols = NULL, ..., by = NULL, error_call = current_env())
+chop(data, ..., cols = NULL, by = NULL, error_call = current_env())
 
 unchop(
   data,
@@ -18,6 +18,8 @@ unchop(
 }
 \arguments{
 \item{data}{A data frame.}
+
+\item{...}{These dots are for future extensions and must be empty.}
 
 \item{cols, by}{<\code{\link[=tidyr_tidy_select]{tidy-select}}> Column selectors.
 
@@ -38,8 +40,6 @@ At least one of \code{by} or \code{cols} must be specified.
 For \code{unchop()}, \code{cols} selects columns to unchop. Each column should be a
 list-column containing generalised vectors (e.g. any mix of \code{NULL}s, atomic
 vectors, S3 vectors, lists, or data frames).}
-
-\item{...}{These dots are for future extensions and must be empty.}
 
 \item{error_call}{The execution environment of a currently
 running function, e.g. \code{caller_env()}. The function will be
