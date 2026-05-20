@@ -2,6 +2,19 @@
 
 ## tidyr (development version)
 
+- [`chop()`](https://tidyr.tidyverse.org/dev/reference/chop.md) gains a
+  `by` argument for specifying grouping columns, similar to
+  `nest(.by =)` ([@hrryt](https://github.com/hrryt),
+  [\#1490](https://github.com/tidyverse/tidyr/issues/1490)).
+
+- Specifying
+  [`chop()`](https://tidyr.tidyverse.org/dev/reference/chop.md)’s `cols`
+  argument by position is soft-deprecated. It must instead be specified
+  by name, which better communicates intent now that
+  [`chop()`](https://tidyr.tidyverse.org/dev/reference/chop.md) also has
+  a `by` argument
+  ([\#1490](https://github.com/tidyverse/tidyr/issues/1490)).
+
 ## tidyr 1.3.2
 
 CRAN release: 2025-12-19
