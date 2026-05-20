@@ -94,32 +94,21 @@ notably models.</p>
 <dd><p>A data frame.</p></dd>
 
 
-<dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
-<dd><p>&lt;<code><a href="tidyr_tidy_select.html">tidy-select</a></code>&gt; Columns to nest; these will
-appear in the inner data frames.</p>
-<p>Specified using name-variable pairs of the form
-<code>new_col = c(col1, col2, col3)</code>. The right hand side can be any valid
-tidyselect expression.</p>
-<p>If not supplied, then <code>...</code> is derived as all columns <em>not</em> selected by
-<code>.by</code>, and will use the column name from <code>.key</code>.</p>
-<p><a href="https://lifecycle.r-lib.org/articles/stages.html#deprecated" class="external-link"><img src="figures/lifecycle-deprecated.svg" alt="[Deprecated]"></a>:
-previously you could write <code>df |&gt; nest(x, y, z)</code>.
-Convert to <code>df |&gt; nest(data = c(x, y, z))</code>.</p></dd>
-
-
-<dt id="arg--by">.by<a class="anchor" aria-label="anchor" href="#arg--by"></a></dt>
-<dd><p>&lt;<code><a href="tidyr_tidy_select.html">tidy-select</a></code>&gt; Columns to nest <em>by</em>; these
-will remain in the outer data frame.</p>
-<p><code>.by</code> can be used in place of or in conjunction with columns supplied
-through <code>...</code>.</p>
-<p>If not supplied, then <code>.by</code> is derived as all columns <em>not</em> selected by
-<code>...</code>.</p></dd>
-
-
-<dt id="arg--key">.key<a class="anchor" aria-label="anchor" href="#arg--key"></a></dt>
-<dd><p>The name of the resulting nested column. Only applicable when
-<code>...</code> isn't specified, i.e. in the case of <code>df |&gt; nest(.by = x)</code>.</p>
-<p>If <code>NULL</code>, then <code>"data"</code> will be used by default.</p></dd>
+<dt id="arg--by-key">..., .by, .key<a class="anchor" aria-label="anchor" href="#arg--by-key"></a></dt>
+<dd><p>&lt;<code><a href="tidyr_tidy_select.html">tidy-select</a></code>&gt; Column selections.</p><ul><li><p><code>...</code> selects columns to nest using name-variable pairs of the form
+<code>key_col = c(col1, col2, col3)</code>. The right hand side can be any valid
+tidyselect expression, and the selected columns will appear in the inner
+data frames. If not specified, will be derived as all columns not
+selected by <code>.by</code>, and will use the column name from <code>.key</code>, which is
+<code>"data"</code> if <code>.key</code> is not specified.</p></li>
+<li><p><code>.by</code> selects columns to nest by. These will remain in the outer data
+frame. If not specified, will be derived as all columns not selected by
+<code>...</code>.</p></li>
+</ul><p>Specifying both <code>...</code> and <code>.by</code> drops unselected columns from <code>.data</code>.</p>
+<p>Specifying neither <code>...</code> nor <code>.by</code> nests all variables, and will use the
+column name supplied through <code>.key</code>.</p>
+<p><a href="https://lifecycle.r-lib.org/articles/stages.html#deprecated" class="external-link"><img src="figures/lifecycle-deprecated.svg" alt="[Deprecated]"></a>: previously you could write
+<code>df |&gt; nest(x, y, z)</code>. Convert to <code>df |&gt; nest(data = c(x, y, z))</code>.</p></dd>
 
 
 <dt id="arg--names-sep">.names_sep<a class="anchor" aria-label="anchor" href="#arg--names-sep"></a></dt>
@@ -129,11 +118,6 @@ outer names with <code>names_sep</code> automatically stripped. This makes
 <code>names_sep</code> roughly symmetric between nesting and unnesting.</p></dd>
 
 </dl></div>
-    <div class="section level2">
-    <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>If neither <code>...</code> nor <code>.by</code> are supplied, <code>nest()</code> will nest all variables,
-and will use the column name supplied through <code>.key</code>.</p>
-    </div>
     <div class="section level2">
     <h2 id="new-syntax">New syntax<a class="anchor" aria-label="anchor" href="#new-syntax"></a></h2>
 

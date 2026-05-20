@@ -21,38 +21,29 @@ nest(.data, ..., .by = NULL, .key = NULL, .names_sep = NULL)
 
   A data frame.
 
-- ...:
+- ..., .by, .key:
 
   \<[`tidy-select`](https://tidyr.tidyverse.org/dev/reference/tidyr_tidy_select.md)\>
-  Columns to nest; these will appear in the inner data frames.
+  Column selections.
 
-  Specified using name-variable pairs of the form
-  `new_col = c(col1, col2, col3)`. The right hand side can be any valid
-  tidyselect expression.
+  - `...` selects columns to nest using name-variable pairs of the form
+    `key_col = c(col1, col2, col3)`. The right hand side can be any
+    valid tidyselect expression, and the selected columns will appear in
+    the inner data frames. If not specified, will be derived as all
+    columns not selected by `.by`, and will use the column name from
+    `.key`, which is `"data"` if `.key` is not specified.
 
-  If not supplied, then `...` is derived as all columns *not* selected
-  by `.by`, and will use the column name from `.key`.
+  - `.by` selects columns to nest by. These will remain in the outer
+    data frame. If not specified, will be derived as all columns not
+    selected by `...`.
+
+  Specifying both `...` and `.by` drops unselected columns from `.data`.
+
+  Specifying neither `...` nor `.by` nests all variables, and will use
+  the column name supplied through `.key`.
 
   **\[deprecated\]**: previously you could write `df |> nest(x, y, z)`.
   Convert to `df |> nest(data = c(x, y, z))`.
-
-- .by:
-
-  \<[`tidy-select`](https://tidyr.tidyverse.org/dev/reference/tidyr_tidy_select.md)\>
-  Columns to nest *by*; these will remain in the outer data frame.
-
-  `.by` can be used in place of or in conjunction with columns supplied
-  through `...`.
-
-  If not supplied, then `.by` is derived as all columns *not* selected
-  by `...`.
-
-- .key:
-
-  The name of the resulting nested column. Only applicable when `...`
-  isn't specified, i.e. in the case of `df |> nest(.by = x)`.
-
-  If `NULL`, then `"data"` will be used by default.
 
 - .names_sep:
 
@@ -60,11 +51,6 @@ nest(.data, ..., .by = NULL, .key = NULL, .names_sep = NULL)
   outer names. If a string, the new inner names will use the outer names
   with `names_sep` automatically stripped. This makes `names_sep`
   roughly symmetric between nesting and unnesting.
-
-## Details
-
-If neither `...` nor `.by` are supplied, `nest()` will nest all
-variables, and will use the column name supplied through `.key`.
 
 ## New syntax
 
