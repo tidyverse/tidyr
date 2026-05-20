@@ -19,22 +19,27 @@ unchop(
 \arguments{
 \item{data}{A data frame.}
 
-\item{cols}{<\code{\link[=tidyr_tidy_select]{tidy-select}}> Columns to chop or unchop.
+\item{cols, by}{<\code{\link[=tidyr_tidy_select]{tidy-select}}> Column selectors.
 
-For \code{chop()}, columns specified by \code{by} are removed from \code{data} before
-evaluating \code{cols}. If not supplied, \code{cols} is derived as all columns \emph{not}
-selected by \code{by}. At least one of \code{cols} and \code{by} must be specified.
+For \code{chop()}:
+\itemize{
+\item \code{by} selects columns to chop by. If not specified, will be derived as
+all columns not selected by \code{cols}.
+\item \code{cols} selects columns to chop. If not specified, will be derived as all
+columns not selected by \code{by}.
+}
 
-For \code{unchop()}, each column should be a list-column containing generalised
-vectors (e.g. any mix of \code{NULL}s, atomic vector, S3 vectors, a lists,
-or data frames).}
+Specifying both \code{by} and \code{cols} drops all unselected columns in \code{data} from
+the output. Note that columns selected by \code{by} are removed from \code{data}
+before evaluating \code{cols}.
+
+At least one of \code{by} or \code{cols} must be specified.
+
+For \code{unchop()}, \code{cols} selects columns to unchop. Each column should be a
+list-column containing generalised vectors (e.g. any mix of \code{NULL}s, atomic
+vectors, S3 vectors, lists, or data frames).}
 
 \item{...}{These dots are for future extensions and must be empty.}
-
-\item{by}{<\code{\link[=tidyr_tidy_select]{tidy-select}}> Columns to chop \emph{by}.
-
-If not supplied, then \code{by} is derived as all columns \emph{not} selected by
-\code{cols}. At least one of \code{cols} and \code{by} must be specified.}
 
 \item{error_call}{The execution environment of a currently
 running function, e.g. \code{caller_env()}. The function will be

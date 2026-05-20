@@ -45,19 +45,25 @@
 #' @inheritParams rlang::args_error_context
 #'
 #' @param data A data frame.
-#' @param cols <[`tidy-select`][tidyr_tidy_select]> Columns to chop or unchop.
+#' @param cols,by <[`tidy-select`][tidyr_tidy_select]> Column selectors.
 #'
-#'   For `chop()`, columns specified by `by` are removed from `data` before
-#'   evaluating `cols`. If not supplied, `cols` is derived as all columns _not_
-#'   selected by `by`. At least one of `cols` and `by` must be specified.
+#'   For `chop()`:
 #'
-#'   For `unchop()`, each column should be a list-column containing generalised
-#'   vectors (e.g. any mix of `NULL`s, atomic vector, S3 vectors, a lists,
-#'   or data frames).
-#' @param by <[`tidy-select`][tidyr_tidy_select]> Columns to chop _by_.
+#'   - `by` selects columns to chop by. If not specified, will be derived as
+#'     all columns not selected by `cols`.
 #'
-#'   If not supplied, then `by` is derived as all columns _not_ selected by
-#'   `cols`. At least one of `cols` and `by` must be specified.
+#'   - `cols` selects columns to chop. If not specified, will be derived as all
+#'     columns not selected by `by`.
+#'
+#'   Specifying both `by` and `cols` drops all unselected columns in `data` from
+#'   the output. Note that columns selected by `by` are removed from `data`
+#'   before evaluating `cols`.
+#'
+#'   At least one of `by` or `cols` must be specified.
+#'
+#'   For `unchop()`, `cols` selects columns to unchop. Each column should be a
+#'   list-column containing generalised vectors (e.g. any mix of `NULL`s, atomic
+#'   vectors, S3 vectors, lists, or data frames).
 #' @param keep_empty By default, you get one row of output for each element
 #'   of the list that you are unchopping/unnesting. This means that if there's a
 #'   size-0 element (like `NULL` or an empty data frame or vector), then that
