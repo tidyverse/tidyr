@@ -199,19 +199,6 @@ pivot_wider.data.frame <- function(
   names_from <- enquo(names_from)
   values_from <- enquo(values_from)
 
-  spec <- build_wider_spec(
-    data = data,
-    names_from = !!names_from,
-    values_from = !!values_from,
-    names_prefix = names_prefix,
-    names_sep = names_sep,
-    names_glue = names_glue,
-    names_sort = names_sort,
-    names_vary = names_vary,
-    names_expand = names_expand,
-    error_call = current_env()
-  )
-
   id_cols <- compat_id_cols(
     id_cols = {{ id_cols }},
     ...,
@@ -223,6 +210,19 @@ pivot_wider.data.frame <- function(
     id_cols = !!id_cols,
     names_from = !!names_from,
     values_from = !!values_from
+  )
+
+  spec <- build_wider_spec(
+    data = data,
+    names_from = !!names_from,
+    values_from = !!values_from,
+    names_prefix = names_prefix,
+    names_sep = names_sep,
+    names_glue = names_glue,
+    names_sort = names_sort,
+    names_vary = names_vary,
+    names_expand = names_expand,
+    error_call = current_env()
   )
 
   pivot_wider_spec(

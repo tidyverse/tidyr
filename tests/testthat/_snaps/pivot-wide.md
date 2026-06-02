@@ -152,6 +152,16 @@
       i Locations 1 and 2 don't exist.
       i There are only 0 columns.
 
+# `names_from` typo results in `...` error (#1593)
+
+    Code
+      pivot_wider(df, name_from = foo, values_from = bar)
+    Condition
+      Error in `pivot_wider()`:
+      ! `...` must be empty.
+      x Problematic argument:
+      * name_from = foo
+
 # `names_vary` is validated
 
     Code
