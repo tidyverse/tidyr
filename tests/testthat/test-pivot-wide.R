@@ -300,6 +300,13 @@ test_that("doesn't crash when `id_cols` selects non-existent column (#1482)", {
   })
 })
 
+test_that("`names_from` typo results in `...` error (#1593)", {
+  df <- tibble(foo = 1:5, bar = 1:5)
+  expect_snapshot(error = TRUE, {
+    pivot_wider(df, name_from = foo, values_from = bar)
+  })
+})
+
 # column names -------------------------------------------------------------
 
 test_that("names_glue affects output names", {
