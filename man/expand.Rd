@@ -29,9 +29,9 @@ a row for each present school-student combination for all possible
 dates.
 }
 
-When used with factors, \code{\link[=expand]{expand()}} and \code{\link[=complete]{complete()}} use the full set of
-levels, not just those that appear in the data. If you want to use only the
-values seen in the data, use \code{forcats::fct_drop()}.
+When used with factors, \code{\link[=expand]{expand()}}, \code{\link[=complete]{complete()}}, and \code{\link[=crossing]{crossing()}} use the
+full set of levels, not just those that appear in the data. If you want to
+use only the values seen in the data, use \code{forcats::fct_drop()}.
 
 When used with continuous variables, you may need to fill in values
 that do not appear in the data: to do so use expressions like

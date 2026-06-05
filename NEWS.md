@@ -1,5 +1,8 @@
 # tidyr (development version)
 
+* The `crossing()` documentation now clarifies that factor inputs use the full
+  set of levels, not just the values present in the data (#1526).
+
 * `chop()` gains a `by` argument for specifying grouping columns, similar to `nest(.by =)` (@hrryt, #1490).
 
 * Specifying `chop()`'s `cols` argument by position is soft-deprecated. It must instead be specified by name, which better communicates intent now that `chop()` also has a `by` argument (#1490).

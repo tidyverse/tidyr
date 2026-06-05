@@ -33,9 +33,9 @@
 #'     a row for each present school-student combination for all possible
 #'     dates.
 #'
-#'   When used with factors, [expand()] and [complete()] use the full set of
-#'   levels, not just those that appear in the data. If you want to use only the
-#'   values seen in the data, use `forcats::fct_drop()`.
+#'   When used with factors, [expand()], [complete()], and [crossing()] use the
+#'   full set of levels, not just those that appear in the data. If you want to
+#'   use only the values seen in the data, use `forcats::fct_drop()`.
 #'
 #'   When used with continuous variables, you may need to fill in values
 #'   that do not appear in the data: to do so use expressions like
