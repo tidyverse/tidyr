@@ -20,11 +20,15 @@ full_seq.numeric <- function(x, period, tol = 1e-6) {
   check_number_decimal(period)
   check_number_decimal(tol, min = 0)
 
-  rng <- range(x, na.rm = TRUE)
+  # Filter out infinite values before computing range
+  finite <- is.finite(x)
+  x_finite <- x[finite]
+
+  rng <- range(x_finite, na.rm = TRUE)
   if (
     any(
-      ((x - rng[1]) %% period > tol) &
-        (period - (x - rng[1]) %% period > tol)
+      ((x_finite - rng[1]) %% period > tol) &
+        (period - (x_finite - rng[1]) %% period > tol)
     )
   ) {
     cli::cli_abort("{.arg x} is not a regular sequence.")
