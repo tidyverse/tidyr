@@ -305,3 +305,61 @@ test_that("separate_wider_regex() validates its inputs", {
     df |> separate_wider_regex(x, patterns = ".")
   })
 })
+
+# cols_remove = FALSE with names_sep (#1499, #1588) ---------------------------
+
+test_that("separate_wider_delim() preserves original column name with names_sep and cols_remove = FALSE", {
+  test <- tibble(v = c("a;b", "c", NA, "d;e;f", "g;h"))
+
+  out <- separate_wider_delim(
+    data = test,
+    cols = v,
+    delim = ";",
+    names_sep = "_",
+    too_few = "align_start",
+    cols_remove = FALSE
+  )
+
+  expect_named(out, c("v_1", "v_2", "v_3", "v"))
+  expect_equal(out$v, test$v)
+  expect_equal(out$v_1, c("a", "c", NA, "d", "g"))
+  expect_equal(out$v_2, c("b", NA, NA, "e", "h"))
+  expect_equal(out$v_3, c(NA, NA, NA, "f", NA))
+})
+
+test_that("separate_wider_position() preserves original column name with names_sep and cols_remove = FALSE", {
+  df <- tibble(x = c("202215TX", "202122LACC", "202325"))
+
+  out <- separate_wider_position(
+    df,
+    x,
+    widths = c(year = 4, age = 2, state = 2),
+    names_sep = "_",
+    too_few = "align_start",
+    too_many = "drop",
+    cols_remove = FALSE
+  )
+
+  expect_named(out, c("x_year", "x_age", "x_state", "x"))
+  expect_equal(out$x, df$x)
+  expect_equal(out$x_year, c("2022", "2021", "2023"))
+  expect_equal(out$x_age, c("15", "22", "25"))
+  expect_equal(out$x_state, c("TX", "LA", NA))
+})
+
+test_that("separate_wider_regex() preserves original column name with names_sep and cols_remove = FALSE", {
+  df <- tibble(x = c("m-123", "f-455", "f-123"))
+
+  out <- separate_wider_regex(
+    df,
+    x,
+    c(gender = ".", "-", unit = "\\d+"),
+    names_sep = "_",
+    cols_remove = FALSE
+  )
+
+  expect_named(out, c("x_gender", "x_unit", "x"))
+  expect_equal(out$x, df$x)
+  expect_equal(out$x_gender, c("m", "f", "f"))
+  expect_equal(out$x_unit, c("123", "455", "123"))
+})

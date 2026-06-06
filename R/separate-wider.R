@@ -548,13 +548,47 @@ map_unpack <- function(
     data[[col]] <- fun(data[[col]], col)
   }
 
-  unpack(
+  # When cols_remove = FALSE and names_sep is provided, the original column
+  # will be renamed by unpack() (e.g., x -> x_x). We need to preserve it.
+  # Detect by checking if the original column name appears in the inner names
+  # of the packed columns.
+  preserve_original <- !is.null(names_sep) && any(map_lgl(col_names, function(col) {
+    col %in% names(data[[col]])
+  }))
+
+  if (preserve_original) {
+    original_cols <- map(col_names, function(col) {
+      if (col %in% names(data[[col]])) {
+        data[[col]][[col]]
+      } else {
+        NULL
+      }
+    })
+    names(original_cols) <- col_names
+  }
+
+  out <- unpack(
     data = data,
     cols = all_of(col_names),
     names_sep = names_sep,
     names_repair = names_repair,
     error_call = error_call
   )
+
+  if (preserve_original) {
+    for (col in col_names) {
+      if (!is.null(original_cols[[col]])) {
+        # Remove the renamed column (e.g., v_v) and restore the original
+        renamed_col <- paste0(col, names_sep, col)
+        if (renamed_col %in% names(out)) {
+          out[[renamed_col]] <- NULL
+        }
+        out[[col]] <- original_cols[[col]]
+      }
+    }
+  }
+
+  out
 }
 
 # cf. df_simplify
