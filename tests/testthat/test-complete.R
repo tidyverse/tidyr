@@ -201,3 +201,29 @@ test_that("validates its inputs", {
     complete(mtcars, explicit = 1)
   })
 })
+
+test_that("works when `fill` is a column name in a grouped df (#1575)", {
+  df <- tibble(
+    g = c(1, NA),
+    fill = factor(1:2, levels = 1:3)
+  )
+  gdf <- dplyr::group_by(df, g)
+
+  expect_identical(
+    complete(gdf, fill)$g,
+    c(1, 1, 1, NA, NA, NA)
+  )
+})
+
+test_that("works when `explicit` is a column name in a grouped df (#1575)", {
+  df <- tibble(
+    g = c(1, NA),
+    explicit = factor(1:2, levels = 1:3)
+  )
+  gdf <- dplyr::group_by(df, g)
+
+  expect_identical(
+    complete(gdf, explicit)$g,
+    c(1, 1, 1, NA, NA, NA)
+  )
+})

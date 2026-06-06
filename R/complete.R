@@ -99,8 +99,8 @@ complete.grouped_df <- function(data, ..., fill = list(), explicit = TRUE) {
     complete(
       data = dplyr::pick(everything()),
       ...,
-      fill = fill,
-      explicit = explicit
+      fill = .env$fill,
+      explicit = .env$explicit
     )
   )
 
