@@ -55,6 +55,9 @@
 #'     additional pieces.
 #' @param cols_remove Should the input `cols` be removed from the output?
 #'   Always `FALSE` if `too_few` or `too_many` are set to `"debug"`.
+#'   When `FALSE`, the input column is retained after the new columns,
+#'   which differs from [separate()] where `remove = FALSE` preserves the
+#'   original column position.
 #' @returns A data frame based on `data`. It has the same rows, but different
 #'   columns:
 #'
