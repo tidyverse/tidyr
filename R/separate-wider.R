@@ -552,9 +552,10 @@ map_unpack <- function(
   # will be renamed by unpack() (e.g., x -> x_x). We need to preserve it.
   # Detect by checking if the original column name appears in the inner names
   # of the packed columns.
-  preserve_original <- !is.null(names_sep) && any(map_lgl(col_names, function(col) {
-    col %in% names(data[[col]])
-  }))
+  preserve_original <- !is.null(names_sep) &&
+    any(map_lgl(col_names, function(col) {
+      col %in% names(data[[col]])
+    }))
 
   if (preserve_original) {
     original_cols <- map(col_names, function(col) {
