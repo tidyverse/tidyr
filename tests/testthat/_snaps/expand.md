@@ -1,3 +1,13 @@
+# expand does not allow expansion on grouping variable (#1299)
+
+    Code
+      expand(gdf, g)
+    Condition
+      Error:
+      ! Can't expand on a grouping column.
+      i Column "g" is a grouping variable.
+      i Use `dplyr::ungroup()` first, or expand on non-grouping columns.
+
 # crossing checks for bad inputs
 
     Code

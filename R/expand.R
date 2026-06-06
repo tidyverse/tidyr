@@ -101,6 +101,24 @@ expand.data.frame <- function(data, ..., .name_repair = "check_unique") {
 
 #' @export
 expand.grouped_df <- function(data, ..., .name_repair = "check_unique") {
+  group_cols <- dplyr::group_vars(data)
+
+  # Check if any expansion columns are grouping columns
+  dots <- enquos(...)
+  for (i in seq_along(dots)) {
+    dot_expr <- get_expr(dots[[i]])
+    if (is_symbol(dot_expr) && as_string(dot_expr) %in% group_cols) {
+      cli::cli_abort(
+        c(
+          "Can't expand on a grouping column.",
+          i = "Column {.val {as_string(dot_expr)}} is a grouping variable.",
+          i = "Use {.code dplyr::ungroup()} first, or expand on non-grouping columns."
+        ),
+        call = caller_env()
+      )
+    }
+  }
+
   out <- dplyr::reframe(
     data,
     expand(

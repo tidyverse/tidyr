@@ -76,8 +76,7 @@ test_that("expand does not allow expansion on grouping variable (#1299)", {
   )
   gdf <- dplyr::group_by(df, g)
 
-  # This is a dplyr error that we don't own
-  expect_error(expand(gdf, g))
+  expect_snapshot(error = TRUE, expand(gdf, g))
 })
 
 test_that("can use `.drop = FALSE` with expand (#1299)", {

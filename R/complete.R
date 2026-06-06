@@ -94,6 +94,24 @@ complete.data.frame <- function(data, ..., fill = list(), explicit = TRUE) {
 
 #' @export
 complete.grouped_df <- function(data, ..., fill = list(), explicit = TRUE) {
+  group_cols <- dplyr::group_vars(data)
+
+  # Check if any completion columns are grouping columns
+  dots <- enquos(...)
+  for (i in seq_along(dots)) {
+    dot_expr <- get_expr(dots[[i]])
+    if (is_symbol(dot_expr) && as_string(dot_expr) %in% group_cols) {
+      cli::cli_abort(
+        c(
+          "Can't complete on a grouping column.",
+          i = "Column {.val {as_string(dot_expr)}} is a grouping variable.",
+          i = "Use {.code dplyr::ungroup()} first, or complete on non-grouping columns."
+        ),
+        call = caller_env()
+      )
+    }
+  }
+
   out <- dplyr::reframe(
     data,
     complete(
