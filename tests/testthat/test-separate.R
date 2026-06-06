@@ -132,6 +132,32 @@ test_that("informative error if using stringr modifier functions (#693)", {
   expect_snapshot(separate(df, x, "x", sep = sep), error = TRUE)
 })
 
+test_that("separate converts factor columns to character", {
+  df <- tibble(x = factor(c("a_b", "c_d"), levels = c("a_b", "c_d", "e_f")))
+  out <- separate(df, x, c("a", "b"), sep = "_")
+
+  expect_identical(class(out$a), "character")
+  expect_identical(class(out$b), "character")
+  expect_identical(out$a, c("a", "c"))
+  expect_identical(out$b, c("b", "d"))
+})
+
+test_that("separate preserves NA values in factor columns", {
+  df <- tibble(x = factor(c("a_b", NA), levels = c("a_b", "c_d")))
+  out <- separate(df, x, c("a", "b"), sep = "_")
+
+  expect_identical(out$a, c("a", NA))
+  expect_identical(out$b, c("b", NA))
+})
+
+test_that("separate with convert = TRUE works on factor input", {
+  df <- tibble(x = factor(c("1-2", "3-4")))
+  out <- separate(df, x, c("a", "b"), sep = "-", convert = TRUE)
+
+  expect_identical(out$a, c(1L, 3L))
+  expect_identical(out$b, c(2L, 4L))
+})
+
 # helpers -----------------------------------------------------------------
 
 test_that("str_split_n can cap number of splits", {

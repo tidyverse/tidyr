@@ -99,3 +99,36 @@ test_that("works with 0 column data frames and empty selections (#1570)", {
   expect_identical(names(out), "new")
   expect_identical(out$new, c("", ""))
 })
+
+test_that("unite converts factor columns to character", {
+  df <- tibble(
+    x = factor(c("a", "b", NA), levels = c("a", "b", "c")),
+    y = factor(c("d", NA, "e"), levels = c("d", "e", "f"))
+  )
+  out <- unite(df, "z", x, y, sep = "_")
+
+  expect_identical(class(out$z), "character")
+  expect_identical(out$z, c("a_d", "b_NA", "NA_e"))
+})
+
+test_that("unite with na.rm = TRUE works on factor columns", {
+  df <- tibble(
+    x = factor(c("a", "b", NA), levels = c("a", "b", "c")),
+    y = factor(c("d", NA, "e"), levels = c("d", "e", "f"))
+  )
+  out <- unite(df, "z", x, y, sep = "_", na.rm = TRUE)
+
+  expect_identical(class(out$z), "character")
+  expect_identical(out$z, c("a_d", "b", "e"))
+})
+
+test_that("unite with factors having unused levels produces character", {
+  df <- tibble(
+    x = factor(c("a", "b"), levels = c("a", "b", "c", "d")),
+    y = factor(c("e", "f"), levels = c("e", "f", "g", "h"))
+  )
+  out <- unite(df, "z", x, y)
+
+  expect_identical(class(out$z), "character")
+  expect_identical(out$z, c("a_e", "b_f"))
+})
