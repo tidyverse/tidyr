@@ -201,3 +201,21 @@ test_that("validates its inputs", {
     complete(mtcars, explicit = 1)
   })
 })
+
+test_that("complete works when `fill` is a column name in grouped df (#1575)", {
+  df <- tibble(
+    x = factor(rep(c("A", "B"), 2), levels = c("A", "B", "C")),
+    y = c(1, 3, 6, 4),
+    fill = rep(c("F1", "F2"), each = 2)
+  )
+
+  # Ungrouped case should work
+  out <- complete(df, x)
+  expect_equal(nrow(out), 5)
+
+  # Grouped case should also work
+  gdf <- dplyr::group_by(df, y)
+  out <- complete(gdf, x)
+  expect_equal(nrow(out), 12)
+  expect_equal(dplyr::group_vars(out), "y")
+})

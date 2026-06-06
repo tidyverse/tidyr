@@ -94,13 +94,17 @@ complete.data.frame <- function(data, ..., fill = list(), explicit = TRUE) {
 
 #' @export
 complete.grouped_df <- function(data, ..., fill = list(), explicit = TRUE) {
+  # Capture values before entering data mask to avoid conflicts with column names
+  fill_val <- fill
+  explicit_val <- explicit
+
   out <- dplyr::reframe(
     data,
     complete(
       data = dplyr::pick(everything()),
       ...,
-      fill = fill,
-      explicit = explicit
+      fill = fill_val,
+      explicit = explicit_val
     )
   )
 
