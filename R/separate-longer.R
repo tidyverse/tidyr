@@ -77,11 +77,31 @@ str_split_length <- function(x, width = 1) {
     return(list())
   }
 
-  max_length <- max(stringr::str_length(x))
-  idx <- seq(1, max_length, by = width)
+  na <- is.na(x)
+  if (all(na)) {
+    return(rep(list(NA_character_), length(x)))
+  }
+  if (any(na)) {
+    x <- x[!na]
+  }
 
-  pieces <- stringr::str_sub_all(x, cbind(idx, length = width))
-  pieces <- map(pieces, function(x) x[x != ""])
+  max_length <- max(stringr::str_length(x))
+
+  if (max_length == 0L) {
+    pieces <- map(x, function(x) character())
+  } else {
+    idx <- seq(1, max_length, by = width)
+    pieces <- stringr::str_sub_all(x, cbind(idx, length = width))
+    pieces <- map(pieces, function(x) x[x != ""])
+  }
+
+  if (any(na)) {
+    pieces_na <- vector("list", length(na))
+    pieces_na[!na] <- pieces
+    pieces_na[na] <- rep(list(NA_character_), sum(na))
+    pieces <- pieces_na
+  }
+
   pieces
 }
 

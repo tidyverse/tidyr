@@ -39,6 +39,20 @@ test_that("works with zero-row data frame", {
   expect_equal(separate_longer_delim(df, x, ","), df)
 })
 
+test_that("separate_longer_position() handles NA values (#1625)", {
+  df <- tibble(id = 1:3, x = c("abcd", NA, "ef"))
+  out <- separate_longer_position(df, x, width = 2)
+  expect_equal(out$id, c(1, 1, 2, 3))
+  expect_equal(out$x, c("ab", "cd", NA, "ef"))
+})
+
+test_that("separate_longer_position() handles all-NA input", {
+  df <- tibble(id = 1:2, x = c(NA, NA))
+  out <- separate_longer_position(df, x, width = 1)
+  expect_equal(out$id, c(1, 2))
+  expect_equal(out$x, c(NA_character_, NA_character_))
+})
+
 test_that("separate_longer_position() validates its inputs", {
   df <- tibble(x = "x")
   expect_snapshot(error = TRUE, {
