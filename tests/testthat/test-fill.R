@@ -162,3 +162,57 @@ test_that("`.by` can't be used on a grouped data frame", {
     fill(df, y, .by = x)
   })
 })
+
+test_that("can fill Date columns", {
+  df <- tibble(x = as.Date(c("2020-01-01", NA, "2020-01-03", NA)))
+
+  out <- fill(df, x)
+  expect_equal(out$x, as.Date(c("2020-01-01", "2020-01-01", "2020-01-03", "2020-01-03")))
+
+  out <- fill(df, x, .direction = "up")
+  expect_equal(out$x, as.Date(c("2020-01-01", "2020-01-03", "2020-01-03", NA)))
+})
+
+test_that("can fill POSIXct columns", {
+  df <- tibble(
+    x = as.POSIXct(c("2020-01-01 10:00", NA, "2020-01-03 12:00", NA))
+  )
+
+  out <- fill(df, x)
+  expect_equal(
+    out$x,
+    as.POSIXct(c("2020-01-01 10:00", "2020-01-01 10:00", "2020-01-03 12:00", "2020-01-03 12:00"))
+  )
+})
+
+test_that("fill preserves factor levels", {
+  df <- tibble(x = factor(c("a", NA, "c", NA), levels = c("a", "b", "c")))
+
+  out <- fill(df, x)
+  expect_equal(levels(out$x), c("a", "b", "c"))
+  expect_equal(as.character(out$x), c("a", "a", "c", "c"))
+
+  out <- fill(df, x, .direction = "up")
+  expect_equal(levels(out$x), c("a", "b", "c"))
+  expect_equal(as.character(out$x), c("a", "c", "c", NA))
+})
+
+test_that("fill with .by respects group boundaries on Date columns", {
+  df <- tibble(
+    g = c(1, 1, 2, 2),
+    x = as.Date(c("2020-01-01", NA, NA, "2020-01-04"))
+  )
+
+  out <- fill(df, x, .by = g)
+  expect_equal(
+    out$x,
+    as.Date(c("2020-01-01", "2020-01-01", NA, "2020-01-04"))
+  )
+})
+
+test_that("works with 0-row data frame", {
+  df <- tibble(x = as.Date(character()), y = integer())
+  out <- fill(df, x)
+  expect_identical(nrow(out), 0L)
+  expect_named(out, c("x", "y"))
+})

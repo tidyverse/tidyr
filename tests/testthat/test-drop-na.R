@@ -87,3 +87,49 @@ test_that("works with rcrd cols", {
     tibble(col = new_rcrd(list(x = 1, y = 1)))
   )
 })
+
+test_that("can drop NAs in factor columns", {
+  df <- tibble(x = factor(c("a", NA, "c")))
+  out <- drop_na(df, x)
+  expect_equal(levels(out$x), c("a", "c"))
+  expect_equal(as.character(out$x), c("a", "c"))
+})
+
+test_that("can drop NAs in Date columns", {
+  df <- tibble(x = as.Date(c("2020-01-01", NA, "2020-01-03")))
+  out <- drop_na(df, x)
+  expect_equal(out$x, as.Date(c("2020-01-01", "2020-01-03")))
+})
+
+test_that("can drop NAs in POSIXct columns", {
+  df <- tibble(
+    x = as.POSIXct(c("2020-01-01 10:00", NA, "2020-01-03 12:00"))
+  )
+  out <- drop_na(df, x)
+  expect_equal(
+    out$x,
+    as.POSIXct(c("2020-01-01 10:00", "2020-01-03 12:00"))
+  )
+})
+
+test_that("works with 0-row data frame", {
+  df <- tibble(x = integer(), y = character())
+  out <- drop_na(df)
+  expect_identical(nrow(out), 0L)
+  expect_named(out, c("x", "y"))
+})
+
+test_that("works with 0-row grouped data frame", {
+  df <- tibble(g = integer(), x = integer())
+  gdf <- dplyr::group_by(df, g)
+  out <- drop_na(gdf)
+  expect_identical(nrow(out), 0L)
+  expect_identical(dplyr::group_vars(out), "g")
+})
+
+test_that("all-NA data frame returns 0 rows", {
+  df <- tibble(x = c(NA, NA), y = c(NA, NA))
+  out <- drop_na(df)
+  expect_identical(nrow(out), 0L)
+  expect_named(out, c("x", "y"))
+})
