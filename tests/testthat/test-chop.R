@@ -470,3 +470,122 @@ test_that("unchop validates its inputs", {
     unchop(df, col, ptype = 1)
   })
 })
+
+# factor edge cases -------------------------------------------------------
+
+test_that("chop() preserves factor class and levels", {
+  df <- tibble(x = c(1, 1, 2), y = factor(c("a", "b", "a"), levels = c("b", "a")))
+  out <- chop(df, cols = y)
+
+  expect_s3_class(out$y[[1]], "factor")
+  expect_equal(levels(out$y[[1]]), c("b", "a"))
+})
+
+test_that("unchop() merges factor levels from list elements", {
+  df <- tibble(
+    x = 1:2,
+    y = list(
+      factor(c("a", "b"), levels = c("a", "b")),
+      factor("c", levels = c("c", "d"))
+    )
+  )
+  out <- unchop(df, y)
+
+  expect_s3_class(out$y, "factor")
+  expect_equal(levels(out$y), c("a", "b", "c", "d"))
+  expect_equal(as.character(out$y), c("a", "b", "c"))
+})
+
+test_that("unchop() preserves ordered factor class", {
+  lvls <- c("low", "med", "high")
+  df <- tibble(
+    x = 1:2,
+    y = list(
+      ordered(c("low", "med"), levels = lvls),
+      ordered("high", levels = lvls)
+    )
+  )
+  out <- unchop(df, y)
+
+  expect_s3_class(out$y, "ordered")
+  expect_equal(levels(out$y), lvls)
+  expect_equal(as.character(out$y), c("low", "med", "high"))
+})
+
+test_that("chop/unchop round-trip preserves factor properties", {
+  df <- tibble(x = c(1, 1, 2), y = factor(c("a", "b", "c"), levels = c("c", "b", "a")))
+  chopped <- chop(df, cols = y)
+  roundtrip <- unchop(chopped, y)
+
+  expect_s3_class(roundtrip$y, "factor")
+  expect_equal(levels(roundtrip$y), c("c", "b", "a"))
+  expect_equal(as.character(roundtrip$y), c("a", "b", "c"))
+})
+
+test_that("unchop() handles empty factor in list column", {
+  df <- tibble(
+    x = 1:2,
+    y = list(factor(character()), factor("a"))
+  )
+  out <- unchop(df, y)
+
+  expect_s3_class(out$y, "factor")
+  expect_equal(as.character(out$y), "a")
+  expect_equal(levels(out$y), "a")
+})
+
+test_that("unchop() handles empty factor with keep_empty", {
+  df <- tibble(
+    x = 1:2,
+    y = list(factor(character()), factor("a"))
+  )
+  out <- unchop(df, y, keep_empty = TRUE)
+
+  expect_s3_class(out$y, "factor")
+  expect_equal(length(out$y), 2)
+  expect_equal(as.character(out$y), c(NA, "a"))
+})
+
+# date/posixct edge cases -------------------------------------------------
+
+test_that("chop() preserves Date class", {
+  dates <- as.Date(c("2020-01-01", "2020-01-02", "2020-01-03"))
+  df <- tibble(x = c(1, 1, 2), y = dates)
+  out <- chop(df, cols = y)
+
+  expect_s3_class(out$y[[1]], "Date")
+  expect_equal(out$y[[1]], dates[1:2])
+})
+
+test_that("unchop() preserves Date class from list column", {
+  dates <- as.Date(c("2020-01-01", "2020-01-02", "2020-01-03"))
+  df <- tibble(
+    x = 1:2,
+    y = list(dates[1:2], dates[3])
+  )
+  out <- unchop(df, y)
+
+  expect_s3_class(out$y, "Date")
+  expect_equal(out$y, dates)
+})
+
+test_that("chop() preserves POSIXct class", {
+  times <- as.POSIXct(c("2020-01-01 10:00", "2020-01-01 11:00", "2020-01-02 12:00"), tz = "UTC")
+  df <- tibble(x = c(1, 1, 2), y = times)
+  out <- chop(df, cols = y)
+
+  expect_s3_class(out$y[[1]], "POSIXct")
+  expect_equal(out$y[[1]], times[1:2])
+})
+
+test_that("unchop() preserves POSIXct class from list column", {
+  times <- as.POSIXct(c("2020-01-01 10:00", "2020-01-01 11:00", "2020-01-02 12:00"), tz = "UTC")
+  df <- tibble(
+    x = 1:2,
+    y = list(times[1:2], times[3])
+  )
+  out <- unchop(df, y)
+
+  expect_s3_class(out$y, "POSIXct")
+  expect_equal(out$y, times)
+})
