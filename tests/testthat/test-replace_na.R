@@ -104,3 +104,49 @@ test_that("validates its inputs", {
     replace_na(df, replace = 1)
   })
 })
+
+test_that("can replace NAs in factor columns", {
+  fct <- factor(c("a", NA, "b"), levels = c("a", "b", "c"))
+  df <- tibble(x = fct)
+  out <- replace_na(df, list(x = "c"))
+
+  expect_equal(out$x, factor(c("a", "c", "b"), levels = c("a", "b", "c")))
+})
+
+test_that("can replace NAs in factor vector", {
+  fct <- factor(c("a", NA, "b"), levels = c("a", "b", "c"))
+  out <- replace_na(fct, "c")
+
+  expect_equal(out, factor(c("a", "c", "b"), levels = c("a", "b", "c")))
+})
+
+test_that("empty data frame returns empty data frame", {
+  df <- tibble(x = integer(), y = character())
+  out <- replace_na(df, list(x = 0L, y = "unknown"))
+
+  expect_identical(out, df)
+})
+
+test_that("all-NA data frame is fully replaced", {
+  df <- tibble(x = c(NA_real_, NA_real_), y = c(NA_character_, NA_character_))
+  out <- replace_na(df, list(x = 0, y = "missing"))
+
+  expect_equal(out$x, c(0, 0))
+  expect_equal(out$y, c("missing", "missing"))
+})
+
+test_that("can replace NAs in Date columns", {
+  df <- tibble(x = as.Date(c("2024-01-01", NA, "2024-01-03")))
+  out <- replace_na(df, list(x = as.Date("2024-01-02")))
+
+  expect_equal(out$x, as.Date(c("2024-01-01", "2024-01-02", "2024-01-03")))
+})
+
+test_that("can replace NAs in POSIXct columns", {
+  dt <- as.POSIXct(c("2024-01-01 10:00:00", NA), tz = "UTC")
+  replacement <- as.POSIXct("2024-01-02 12:00:00", tz = "UTC")
+  df <- tibble(x = dt)
+  out <- replace_na(df, list(x = replacement))
+
+  expect_equal(out$x, c(dt[1], replacement))
+})
