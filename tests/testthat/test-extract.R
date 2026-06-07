@@ -102,3 +102,38 @@ test_that("validates its inputs", {
     df |> extract(x, into = "x", convert = 1)
   })
 })
+
+test_that("extract converts factor columns to character", {
+  df <- tibble(x = factor(c("a-b", "c-d"), levels = c("a-b", "c-d", "e-f")))
+  out <- extract(df, x, c("a", "b"), "([[:alnum:]]+)-([[:alnum:]]+)")
+
+  expect_identical(class(out$a), "character")
+  expect_identical(class(out$b), "character")
+  expect_identical(out$a, c("a", "c"))
+  expect_identical(out$b, c("b", "d"))
+})
+
+test_that("extract preserves NA values in factor columns", {
+  df <- tibble(x = factor(c("a-b", NA), levels = c("a-b", "c-d")))
+  out <- extract(df, x, c("a", "b"), "([[:alnum:]]+)-([[:alnum:]]+)")
+
+  expect_identical(out$a, c("a", NA))
+  expect_identical(out$b, c("b", NA))
+})
+
+test_that("extract with convert = TRUE works on factor input", {
+  df <- tibble(x = factor(c("1-2", "3-4")))
+  out <- extract(df, x, c("a", "b"), "(\\d+)-(\\d+)", convert = TRUE)
+
+  expect_identical(out$a, c(1L, 3L))
+  expect_identical(out$b, c(2L, 4L))
+})
+
+test_that("extract handles factor columns with unused levels", {
+  df <- tibble(x = factor(c("a1", "b2"), levels = c("a1", "b2", "c3", "d4")))
+  out <- extract(df, x, c("letter", "number"), "([a-z])(\\d)")
+
+  expect_identical(class(out$letter), "character")
+  expect_identical(out$letter, c("a", "b"))
+  expect_identical(out$number, c("1", "2"))
+})
