@@ -51,3 +51,29 @@ test_that("separate_longer_position() validates its inputs", {
     df |> separate_longer_position(x, width = 1.5)
   })
 })
+
+test_that("separate_longer_position() handles NA values (#1625)", {
+  df <- tibble(id = 1:2, x = c("abcd", NA))
+  out <- separate_longer_position(df, x, width = 2)
+  expect_equal(out$id, c(1, 1, 2))
+  expect_equal(out$x, c("ab", "cd", NA))
+
+  # consistent with separate_longer_delim()
+  df2 <- tibble(id = 1:2, x = c("a,b", NA))
+  out2 <- separate_longer_delim(df2, x, delim = ",")
+  expect_equal(out2$x, c("a", "b", NA))
+})
+
+test_that("separate_longer_position() handles all-NA input", {
+  df <- tibble(id = 1:2, x = c(NA_character_, NA))
+  out <- separate_longer_position(df, x, width = 2)
+  expect_equal(out$id, c(1, 2))
+  expect_equal(out$x, c(NA_character_, NA_character_))
+})
+
+test_that("separate_longer_position() handles NA with keep_empty", {
+  df <- tibble(id = 1:3, x = c("ab", NA, "cdef"))
+  out <- separate_longer_position(df, x, width = 2, keep_empty = TRUE)
+  expect_equal(out$id, c(1, 2, 3, 3))
+  expect_equal(out$x, c("ab", NA_character_, "cd", "ef"))
+})
