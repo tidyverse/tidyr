@@ -273,6 +273,89 @@ test_that("known bug - hoist() doesn't strike after each pluck (related to #1259
   )
 })
 
+# .remove = FALSE ---------------------------------------------------------
+
+test_that("hoist() with .remove = FALSE preserves original list-column", {
+  df <- tibble(
+    x = 1:2,
+    data = list(
+      list(a = "a1", b = "b1"),
+      list(a = "a2", b = "b2")
+    )
+  )
+
+  out <- hoist(df, data, "a", .remove = FALSE)
+
+  expect_named(out, c("x", "a", "data"))
+  expect_equal(out$a, c("a1", "a2"))
+  # Original list-column is preserved unchanged
+  expect_identical(out$data, df$data)
+})
+
+test_that("hoist() with .remove = FALSE preserves list-column even when all elements extracted", {
+  df <- tibble(
+    data = list(
+      list(a = 1),
+      list(a = 2)
+    )
+  )
+
+  out <- hoist(df, data, "a", .remove = FALSE)
+
+  expect_named(out, c("a", "data"))
+  expect_equal(out$a, c(1, 2))
+  # data column still present with all original elements
+  expect_identical(out$data, df$data)
+})
+
+test_that("hoist() with .remove = FALSE works with empty data frame", {
+  df <- tibble(
+    x = integer(),
+    data = list()
+  )
+
+  out <- hoist(df, data, "a", .remove = FALSE)
+
+  # Empty input: no rows to pluck from, so no new column is created
+  expect_equal(nrow(out), 0L)
+  expect_true("data" %in% names(out))
+  expect_true("x" %in% names(out))
+})
+
+test_that("hoist() with .remove = FALSE preserves grouped data frame class", {
+  df <- tibble(
+    g = c("x", "y"),
+    data = list(
+      list(a = 1),
+      list(a = 2)
+    )
+  )
+  gdf <- dplyr::group_by(df, g)
+
+  out <- hoist(gdf, data, "a", .remove = FALSE)
+
+  expect_s3_class(out, "grouped_df")
+  expect_equal(dplyr::group_vars(out), "g")
+  expect_equal(out$a, c(1, 2))
+  expect_identical(out$data, df$data)
+})
+
+test_that("hoist() with .remove = FALSE handles multiple pluckers", {
+  df <- tibble(
+    data = list(
+      list(a = 1, b = 10),
+      list(a = 2, b = 20)
+    )
+  )
+
+  out <- hoist(df, data, a = "a", b = "b", .remove = FALSE)
+
+  expect_named(out, c("a", "b", "data"))
+  expect_equal(out$a, c(1, 2))
+  expect_equal(out$b, c(10, 20))
+  expect_identical(out$data, df$data)
+})
+
 # strike ------------------------------------------------------------------
 
 test_that("strike can remove using a list", {
