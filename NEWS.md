@@ -1,5 +1,8 @@
 # tidyr (development version)
 
+* `full_seq()` now errors cleanly when `x` contains missing values, instead of
+  crashing with "missing value where TRUE/FALSE needed".
+
 * `chop()` gains a `by` argument for specifying grouping columns, similar to `nest(.by =)` (@hrryt, #1490).
 
 * Specifying `chop()`'s `cols` argument by position is soft-deprecated. It must instead be specified by name, which better communicates intent now that `chop()` also has a `by` argument (#1490).

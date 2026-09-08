@@ -34,5 +34,6 @@ test_that("validates inputs", {
   expect_snapshot(error = TRUE, {
     full_seq(x, period = "a")
     full_seq(x, 1, tol = "a")
+    full_seq(c(1, NA, 3), 1)
   })
 })
