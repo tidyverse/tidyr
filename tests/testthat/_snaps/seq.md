@@ -23,4 +23,9 @@
     Condition
       Error in `full_seq()`:
       ! `tol` must be a number, not the string "a".
+    Code
+      full_seq(c(1, NA, 3), 1)
+    Condition
+      Error in `full_seq()`:
+      ! `x` must not contain missing values.
 

@@ -20,6 +20,10 @@ full_seq.numeric <- function(x, period, tol = 1e-6) {
   check_number_decimal(period)
   check_number_decimal(tol, min = 0)
 
+  if (anyNA(x)) {
+    cli::cli_abort("{.arg x} must not contain missing values.")
+  }
+
   rng <- range(x, na.rm = TRUE)
   if (
     any(
