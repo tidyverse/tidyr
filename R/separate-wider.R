@@ -176,7 +176,8 @@ separate_wider_delim <- function(
       )
     },
     names_sep = names_sep,
-    names_repair = names_repair
+    names_repair = names_repair,
+    keep = !cols_remove || too_few == "debug" || too_many == "debug"
   )
 }
 
@@ -311,7 +312,8 @@ separate_wider_position <- function(
       )
     },
     names_sep = names_sep,
-    names_repair = names_repair
+    names_repair = names_repair,
+    keep = !cols_remove || too_few == "debug" || too_many == "debug"
   )
 }
 
@@ -426,7 +428,8 @@ separate_wider_regex <- function(
       )
     },
     names_sep = names_sep,
-    names_repair = names_repair
+    names_repair = names_repair,
+    keep = !cols_remove || too_few == "debug"
   )
 }
 
@@ -533,6 +536,7 @@ map_unpack <- function(
   fun,
   names_sep,
   names_repair,
+  keep = FALSE,
   error_call = caller_env()
 ) {
   cols <- tidyselect::eval_select(
@@ -544,17 +548,49 @@ map_unpack <- function(
   )
   col_names <- names(cols)
 
-  for (col in col_names) {
+  # Original positions in `data`, and index of the retained input within its
+  # new columns, so it can be located again after unpacking
+  data_names <- names(data)
+  inner_sizes <- integer(length(col_names))
+  inner_index <- integer(length(col_names))
+
+  for (i in seq_along(col_names)) {
+    col <- col_names[[i]]
     data[[col]] <- fun(data[[col]], col)
+    inner_sizes[[i]] <- ncol(data[[col]])
+    inner_index[[i]] <- match(col, names(data[[col]]))
   }
 
-  unpack(
+  rename_input <- keep && !is.null(names_sep)
+
+  out <- unpack(
     data = data,
     cols = all_of(col_names),
     names_sep = names_sep,
-    names_repair = names_repair,
+    names_repair = if (rename_input) "minimal" else names_repair,
     error_call = error_call
   )
+
+  if (rename_input) {
+    # The retained input is not a new column, so it shouldn't get `names_sep`.
+    # Rename before repairing so that it is repaired like any other column.
+    outer_index <- match(col_names, data_names)
+    start <- outer_index +
+      map_int(outer_index, function(i) {
+        before <- outer_index < i
+        sum(inner_sizes[before] - 1L)
+      })
+    names <- names(out)
+    names[start + inner_index - 1L] <- col_names
+    names(out) <- vec_as_names(
+      names,
+      repair = names_repair,
+      repair_arg = "names_repair",
+      call = error_call
+    )
+  }
+
+  out
 }
 
 # cf. df_simplify
