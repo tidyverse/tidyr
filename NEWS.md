@@ -1,5 +1,7 @@
 # tidyr (development version)
 
+* `separate_wider_delim()`, `separate_wider_position()`, and `separate_wider_regex()` no longer rename the input column when `names_sep` is supplied and `cols_remove = FALSE` (or when debugging), so `x` is no longer returned as `x_x` (@taekop, #1499).
+
 * `chop()` gains a `by` argument for specifying grouping columns, similar to `nest(.by =)` (@hrryt, #1490).
 
 * Specifying `chop()`'s `cols` argument by position is soft-deprecated. It must instead be specified by name, which better communicates intent now that `chop()` also has a `by` argument (#1490).

@@ -88,6 +88,85 @@ test_that("separate_wider_delim() works with empty data frames", {
   expect_equal(out, tibble())
 })
 
+test_that("separate_wider_delim() keeps the input name when `cols_remove = FALSE` with `names_sep` (#1499)", {
+  df <- tibble(id = 1:2, x = c("a-b", "c-d"), y = c("1-2", "3-4"))
+  out <- separate_wider_delim(
+    df,
+    x,
+    "-",
+    names_sep = "_",
+    cols_remove = FALSE
+  )
+  expect_named(out, c("id", "x_1", "x_2", "x", "y"))
+  expect_equal(out$x, df$x)
+
+  out <- separate_wider_delim(
+    df,
+    x,
+    "-",
+    names = c("a", "b"),
+    names_sep = "_",
+    cols_remove = FALSE
+  )
+  expect_named(out, c("id", "x_a", "x_b", "x", "y"))
+
+  out <- separate_wider_delim(
+    df,
+    c(x, y),
+    "-",
+    names_sep = "_",
+    cols_remove = FALSE
+  )
+  expect_named(out, c("id", "x_1", "x_2", "x", "y_1", "y_2", "y"))
+  expect_equal(out$y, df$y)
+})
+
+test_that("separate_wider_delim() repairs the retained input name with `names_sep` (#1499)", {
+  df <- tibble(`my col` = "a-b", z = 1)
+  out <- separate_wider_delim(
+    df,
+    `my col`,
+    "-",
+    names = c("a", "b"),
+    names_sep = "_",
+    cols_remove = FALSE,
+    names_repair = "universal_quiet"
+  )
+  expect_named(out, c("my.col_a", "my.col_b", "my.col", "z"))
+
+  out <- separate_wider_delim(
+    df,
+    `my col`,
+    "-",
+    names = c("a", "b"),
+    names_sep = "_",
+    cols_remove = FALSE,
+    names_repair = toupper
+  )
+  expect_named(out, c("MY COL_A", "MY COL_B", "MY COL", "Z"))
+
+  df <- tibble(x = "a-b", x_x = 1)
+  out <- separate_wider_delim(
+    df,
+    x,
+    "-",
+    names = c("a", "b"),
+    names_sep = "_",
+    cols_remove = FALSE,
+    names_repair = "unique_quiet"
+  )
+  expect_named(out, c("x_a", "x_b", "x", "x_x"))
+})
+
+test_that("separate_wider_delim() can diagnose problems with `names_sep` and keeps the input name (#1499)", {
+  df <- tibble(x = c("a-b", "c"))
+  out <- suppressWarnings(
+    separate_wider_delim(df, x, "-", names_sep = "_", too_few = "debug")
+  )
+  expect_true("x" %in% names(out))
+  expect_false("x_x" %in% names(out))
+})
+
 test_that("separate_wider_delim() validates its inputs", {
   df <- tibble(x = "x")
   expect_snapshot(error = TRUE, {
@@ -177,6 +256,19 @@ test_that("separate_wider_position() works with empty data frames", {
   df <- tibble(x = character())
   out <- separate_wider_position(df, x, widths = c(y = 1, z = 2))
   expect_equal(out, tibble(y = character(), z = character()))
+})
+
+test_that("separate_wider_position() keeps the input name when `cols_remove = FALSE` with `names_sep` (#1588)", {
+  df <- tibble(x = c("2022TX", "2021LA"))
+  out <- separate_wider_position(
+    df,
+    x,
+    widths = c(year = 4, state = 2),
+    names_sep = "_",
+    cols_remove = FALSE
+  )
+  expect_named(out, c("x_year", "x_state", "x"))
+  expect_equal(out$x, df$x)
 })
 
 test_that("separate_wider_position() validates its inputs", {
@@ -288,6 +380,19 @@ test_that("separate_wider_regex() advises on inner / inner name duplication (#14
   expect_snapshot(error = TRUE, {
     separate_wider_regex(df, c(x, y), patterns = c(gender = ".", value = "."))
   })
+})
+
+test_that("separate_wider_regex() keeps the input name when `cols_remove = FALSE` with `names_sep`", {
+  df <- tibble(x = c("a-b", "c-d"))
+  out <- separate_wider_regex(
+    df,
+    x,
+    c(a = ".", "-", b = "."),
+    names_sep = "_",
+    cols_remove = FALSE
+  )
+  expect_named(out, c("x_a", "x_b", "x"))
+  expect_equal(out$x, df$x)
 })
 
 test_that("separate_wider_regex() validates its inputs", {
