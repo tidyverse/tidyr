@@ -33,7 +33,10 @@ uncount.data.frame <- function(data, weights, ..., .remove = TRUE, .id = NULL) {
   check_name(.id, allow_null = TRUE)
 
   weights_quo <- enquo(weights)
-  w <- dplyr::pull(dplyr::mutate(data, `_weight` = !!weights_quo))
+  w <- dplyr::mutate(data, `_weight` = !!weights_quo)[["_weight"]]
+  if (is.null(w)) {
+    cli::cli_abort("`weights` must not be `NULL`.")
+  }
 
   out <- vec_rep_each(
     data,

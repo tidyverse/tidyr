@@ -25,6 +25,16 @@ test_that("works with groups", {
   expect_equal(uncount(df, w), df |> dplyr::select(-w))
 })
 
+test_that("existing _weight columns do not affect weight selection", {
+  df <- tibble(`_weight` = 3, x = 1)
+  expect_equal(uncount(df, 2), df[c(1, 1), ])
+})
+
+test_that("NULL weights are rejected", {
+  df <- tibble(x = c("a", "b"), n = 1:2)
+  expect_error(uncount(df, NULL), "`weights` must not be `NULL`.", fixed = TRUE)
+})
+
 test_that("must evaluate to integer", {
   df <- tibble(x = 1, w = 1 / 2)
   expect_error(uncount(df, w), class = "vctrs_error_cast_lossy")

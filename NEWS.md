@@ -4,6 +4,8 @@
 
 * Specifying `chop()`'s `cols` argument by position is soft-deprecated. It must instead be specified by name, which better communicates intent now that `chop()` also has a `by` argument (#1490).
 
+* `uncount()` now rejects `NULL` weights instead of using the last column, and correctly selects weights when the data contains a `_weight` column (#1649, @Yousa-Mirage).
+
 # tidyr 1.3.2
 
 * `fill()` gains a `.by` argument as an alternative to `dplyr::group_by()` for
