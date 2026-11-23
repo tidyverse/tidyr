@@ -29,15 +29,17 @@ df_simplify <- function(
     col_transform <- transform[[col_name]]
     col_simplify <- simplify[[col_name]] %||% TRUE
 
-    out[[i]] <- col_simplify(
+    col <- col_simplify(
       x = col,
       ptype = col_ptype,
       transform = col_transform,
       simplify = col_simplify,
       error_call = error_call
     )
+    out[i] <- list(col)
   }
 
+  out <- out[!map_lgl(out, is.null)]
   new_data_frame(out, n = x_size)
 }
 
