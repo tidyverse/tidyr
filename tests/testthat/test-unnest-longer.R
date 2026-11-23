@@ -149,6 +149,38 @@ test_that("unnesting empty list retains logical column (#1199)", {
   expect_identical(unnest_longer(df, x), tibble(x = logical()))
 })
 
+test_that("empty list columns can use an explicit list prototype (#1584)", {
+  df <- tibble(x = 1:2, y = list(list(list(a = 1L)), list(list(a = 2L))))
+  empty <- df[0, ]
+
+  expected <- unnest_longer(df, y, ptype = list())[0, ]
+  expect_identical(unnest_longer(empty, y, ptype = list()), expected)
+
+  expected <- unnest_longer(
+    df,
+    y,
+    values_to = "value",
+    indices_to = "index",
+    ptype = list(value = list())
+  )[0, ]
+  expect_identical(
+    unnest_longer(
+      empty,
+      y,
+      values_to = "value",
+      indices_to = "index",
+      ptype = list(value = list())
+    ),
+    expected
+  )
+
+  typed <- tibble(y = list_of(.ptype = logical()))
+  expect_error(
+    unnest_longer(typed, y, ptype = list()),
+    class = "vctrs_error_cast"
+  )
+})
+
 test_that("unnesting empty list with indices uses integer indices", {
   df <- tibble(x = list())
 

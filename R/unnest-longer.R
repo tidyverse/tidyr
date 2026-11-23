@@ -114,6 +114,11 @@ unnest_longer <- function(
   indices_to <- glue_col_names(indices_to, col_names)
   indices_to <- vec_recycle(indices_to, size = n_col_names)
 
+  empty_ptypes <- list()
+  if (!is.null(ptype) && vec_size(data) == 0L && n_col_names > 0L) {
+    empty_ptypes <- check_list_of_ptypes(ptype, values_to, call = error_call)
+  }
+
   for (i in seq_along(cols)) {
     col <- cols[[i]]
     col_name <- col_names[[i]]
@@ -126,7 +131,8 @@ unnest_longer <- function(
       values_to = col_values_to,
       indices_to = col_indices_to,
       indices_include = indices_include,
-      keep_empty = keep_empty
+      keep_empty = keep_empty,
+      empty_value_ptype = empty_ptypes[[col_values_to]]
     )
   }
 
@@ -159,6 +165,7 @@ col_to_long <- function(
   indices_to,
   indices_include,
   keep_empty,
+  empty_value_ptype,
   error_call = caller_env()
 ) {
   if (vec_is_list(col)) {
@@ -200,9 +207,9 @@ col_to_long <- function(
   }
 
   if (is.null(ptype)) {
-    # Initialize `ptype` to generate a `ptype` version of the output data frame.
-    # Important in the size 0 input case.
-    ptype <- unspecified()
+    # Keep empty values as a list when the user supplies a list prototype.
+    # Otherwise, the common type can finalize an empty unspecified to logical.
+    ptype <- if (vec_is_list(empty_value_ptype)) list() else unspecified()
   }
 
   if (indices_include) {
