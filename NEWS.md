@@ -1,5 +1,7 @@
 # tidyr (development version)
 
+* `separate_longer_position()` preserves missing strings and handles columns containing only missing or empty strings (@M-Colley, #1625).
+
 * `chop()` gains a `by` argument for specifying grouping columns, similar to `nest(.by =)` (@hrryt, #1490).
 
 * Specifying `chop()`'s `cols` argument by position is soft-deprecated. It must instead be specified by name, which better communicates intent now that `chop()` also has a `by` argument (#1490).
