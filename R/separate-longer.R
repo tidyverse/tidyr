@@ -77,10 +77,13 @@ str_split_length <- function(x, width = 1) {
     return(list())
   }
 
-  max_length <- max(stringr::str_length(x))
+  max_length <- max(1L, stringr::str_length(x), na.rm = TRUE)
   idx <- seq(1, max_length, by = width)
+  end <- pmin(idx + width - 1, max_length)
 
-  pieces <- stringr::str_sub_all(x, cbind(idx, length = width))
+  pieces <- stringr::str_sub_all(x, cbind(idx, end))
+  # A missing string contributes one value even when several slices are used.
+  pieces[is.na(x)] <- list(NA_character_)
   pieces <- map(pieces, function(x) x[x != ""])
   pieces
 }
