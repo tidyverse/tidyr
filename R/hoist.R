@@ -102,7 +102,15 @@ hoist <- function(
   # the lookup has a large performance impact:
   # https://github.com/tidyverse/tidyr/issues/1001
   pluck <- purrr::pluck
+  element_ptype <- if (vec_is_empty(x)) list_of_ptype(x)
   cols <- map(pluckers, function(idx) {
+    # Static indices can identify a field in the prototype without data.
+    if (!is.null(element_ptype) && !any(map_lgl(idx, is_function))) {
+      ptype <- pluck(element_ptype, !!!idx)
+      if (!is.null(ptype)) {
+        return(new_list_of(list(), ptype = vec_ptype(ptype)))
+      }
+    }
     map(x, ~ pluck(.x, !!!idx))
   })
   cols <- new_data_frame(cols, n = vec_size(.data))

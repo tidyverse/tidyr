@@ -163,6 +163,31 @@ test_that("can maintain type stability with empty elements (#1203)", {
   expect_identical(out$a, c(NA_integer_, NA_integer_))
 })
 
+test_that("hoisting a zero-length list-of uses its prototype (#1248)", {
+  ptype <- tibble(
+    source = integer(),
+    meta = tibble(date = as.Date(character()))
+  )
+  df <- tibble(id = integer(), rows = list_of(.ptype = ptype))
+
+  expect_identical(
+    hoist(df, rows, n = "source", date = c("meta", "date")),
+    tibble(id = integer(), n = integer(), date = as.Date(character()))
+  )
+  expect_identical(
+    hoist(df, rows, "source", .remove = FALSE, .ptype = double()),
+    tibble(id = integer(), source = double(), rows = df$rows)
+  )
+  expect_identical(hoist(df, rows, "unknown"), df["id"])
+  expect_identical(
+    hoist(df, rows, "unknown", n = "source"),
+    tibble(id = integer(), n = integer())
+  )
+
+  accessor <- function(x) stop("accessor called without data")
+  expect_identical(hoist(df, rows, unknown = list(accessor)), df["id"])
+})
+
 test_that("can hoist out a rcrd style column (#999)", {
   x <- new_rcrd(list(x = 1, y = 2))
   df <- tibble(a = list(list(x = x), list(x = x)))
