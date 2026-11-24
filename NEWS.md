@@ -90,6 +90,10 @@
   To read more about this pattern, see
   <https://design.tidyverse.org/dots-after-required.html> (#1350).
 
+* For `data.table` inputs, `spread()` returns a base data frame. Convert the
+  result with `data.table::as.data.table()` before using `data.table` indexing
+  (#1473).
+
 ## Lifecycle changes
 
 * All functions deprecated in tidyr 1.0 and 1.2 (the old lazyeval functions
